@@ -1,4 +1,4 @@
-package com.softsquared.bansikee
+package com.thomasandfriends.bansikee
 
 import org.junit.Test
 
