@@ -1,9 +1,9 @@
-package com.thomasandfriends.bansikee
+package com.tomasandfriends.bansikee
 
 import android.app.Application
 import android.content.SharedPreferences
 import com.google.gson.GsonBuilder
-import com.thomasandfriends.bansikee.config.XAccessTokenInterceptor
+import com.tomasandfriends.bansikee.config.XAccessTokenInterceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -17,7 +17,7 @@ class ApplicationClass : Application() {
         const val SP_TAG = "SP_BANSIKEE"
 
         //Base URL
-        const val baseUrl = "http://www.abc.com"
+        const val BASE_URL = "http://www.abc.com"
 
         // JWT Token 값
         const val X_ACCESS_TOKEN : String = "x-access-token"
@@ -39,7 +39,7 @@ class ApplicationClass : Application() {
                 val gson = GsonBuilder().setLenient().create()
 
                 retrofit = Retrofit.Builder()
-                    .baseUrl(baseUrl)
+                    .baseUrl(BASE_URL)
                     .client(client)
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .build()

@@ -1,4 +1,4 @@
-package com.thomasandfriends.bansikee.src
+package com.tomasandfriends.bansikee.src
 
 import android.util.Log
 import androidx.annotation.MainThread

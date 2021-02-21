@@ -1,4 +1,4 @@
-package com.thomasandfriends.bansikee
+package com.tomasandfriends.bansikee
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

@@ -1,7 +1,7 @@
-package com.thomasandfriends.bansikee.config
+package com.tomasandfriends.bansikee.config
 
-import com.thomasandfriends.bansikee.ApplicationClass.Companion.X_ACCESS_TOKEN
-import com.thomasandfriends.bansikee.ApplicationClass.Companion.mSharedPreferences
+import com.tomasandfriends.bansikee.ApplicationClass.Companion.X_ACCESS_TOKEN
+import com.tomasandfriends.bansikee.ApplicationClass.Companion.mSharedPreferences
 import okhttp3.Interceptor
 import okhttp3.Response
 

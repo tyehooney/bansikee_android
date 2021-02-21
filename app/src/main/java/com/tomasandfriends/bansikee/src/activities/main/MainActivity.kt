@@ -1,10 +1,10 @@
-package com.thomasandfriends.bansikee.src.activities.main
+package com.tomasandfriends.bansikee.src.activities.main
 
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
-import com.thomasandfriends.bansikee.R
-import com.thomasandfriends.bansikee.databinding.ActivityMainBinding
-import com.thomasandfriends.bansikee.src.activities.base.BaseActivity
+import com.tomasandfriends.bansikee.R
+import com.tomasandfriends.bansikee.databinding.ActivityMainBinding
+import com.tomasandfriends.bansikee.src.activities.base.BaseActivity
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 

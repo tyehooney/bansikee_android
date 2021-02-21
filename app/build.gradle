@@ -9,7 +9,7 @@ android {
     buildToolsVersion "30.0.1"
 
     defaultConfig {
-        applicationId "com.thomasandfriends.bansikee"
+        applicationId "com.tomasandfriends.bansikee"
         minSdkVersion 23
         targetSdkVersion 30
         versionCode 1

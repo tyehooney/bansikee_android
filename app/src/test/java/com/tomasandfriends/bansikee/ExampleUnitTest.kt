@@ -1,4 +1,4 @@
-package com.thomasandfriends.bansikee
+package com.tomasandfriends.bansikee
 
 import org.junit.Test
 

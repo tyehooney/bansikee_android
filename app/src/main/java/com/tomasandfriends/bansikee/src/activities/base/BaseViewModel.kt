@@ -1,8 +1,8 @@
-package com.thomasandfriends.bansikee.src.activities.base
+package com.tomasandfriends.bansikee.src.activities.base
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.thomasandfriends.bansikee.src.SingleLiveEvent
+import com.tomasandfriends.bansikee.src.SingleLiveEvent
 
 open class BaseViewModel : ViewModel() {
     val loading = MutableLiveData<Boolean>()

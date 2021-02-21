@@ -8,7 +8,7 @@
         <import type="android.view.View"/>
         <variable
             name="viewModel"
-            type="com.thomasandfriends.bansikee.src.activities.main.MainViewModel" />
+            type="com.tomasandfriends.bansikee.src.activities.main.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

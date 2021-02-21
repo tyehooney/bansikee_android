@@ -1,4 +1,4 @@
-package com.thomasandfriends.bansikee.src.activities.base
+package com.tomasandfriends.bansikee.src.activities.base
 
 import android.os.Bundle
 import android.os.PersistableBundle
