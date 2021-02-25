@@ -16,7 +16,7 @@ abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel> : AppCompat
     abstract fun getLayoutId(): Int
     abstract fun setViewModel()
 
-    protected fun showToast(msg : String){
+    private fun showToast(msg : String){
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
 
@@ -31,10 +31,6 @@ abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel> : AppCompat
     }
 
     private fun setBaseEvents(){
-        viewModel.loading.observe(this, Observer<Boolean> {
-
-        })
-
         viewModel.snackbarMessage.observe(this, Observer<String> {
             Snackbar.make(binding.root, it, Snackbar.LENGTH_SHORT).show()
         })

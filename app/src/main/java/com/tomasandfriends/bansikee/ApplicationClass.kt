@@ -17,12 +17,12 @@ class ApplicationClass : Application() {
         const val SP_TAG = "SP_BANSIKEE"
 
         //Base URL
-        const val BASE_URL = "http://www.abc.com"
+        const val BASE_URL = "https://bansikee.site"
 
-        // JWT Token 값
+        // JWT Token Key
         const val X_ACCESS_TOKEN : String = "x-access-token"
 
-        // 카카오 Token 값
+        // 카카오 Token Key
         const val KAKAO_ACCESS_TOKEN = "KAKAO_ACCESS_TOKEN"
 
         // Retrofit 인스턴스
