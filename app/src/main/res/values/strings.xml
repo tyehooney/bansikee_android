@@ -1,3 +1,17 @@
 <resources>
-    <string name="app_name">Bansikee</string>
+    <string name="app_name">반식이</string>
+    <string name="app_name_eng">Bansikee</string>
+    <string name="title_sub">내 옆의 반려식물, 반식이</string>
+    <string name="forgot_password">비밀번호를 잊으셨나요?</string>
+    <string name="sign_up">회원가입</string>
+    <string name="login">로그인</string>
+    <string name="kakao_login">카카오톡으로 로그인</string>
+    <string name="login_kakao">카카오톡으로 로그인</string>
+    <string name="login_google">구글로 로그인</string>
+    <string name="email">이메일</string>
+    <string name="password">비밀번호</string>
+    <string name="error_email">이메일 오류</string>
+    <string name="error_password">비밀번호 오류</string>
+    <string name="nickname">닉네임</string>
+    <string name="password_check">비밀번호 확인</string>
 </resources>
