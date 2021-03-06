@@ -2,12 +2,14 @@ package com.tomasandfriends.bansikee.src.activities.login
 
 import com.tomasandfriends.bansikee.ApplicationClass.Companion.CODE_SUCCESS
 import com.tomasandfriends.bansikee.ApplicationClass.Companion.X_ACCESS_TOKEN
+import com.tomasandfriends.bansikee.ApplicationClass.Companion.getErrorResponse
 import com.tomasandfriends.bansikee.ApplicationClass.Companion.initRetrofit
 import com.tomasandfriends.bansikee.ApplicationClass.Companion.mSharedPreferences
 import com.tomasandfriends.bansikee.src.DefaultResponse
 import com.tomasandfriends.bansikee.src.activities.login.interfaces.LoginRetrofitInterface
 import com.tomasandfriends.bansikee.src.activities.login.interfaces.LoginView
 import com.tomasandfriends.bansikee.src.activities.login.models.AccessObject
+import com.tomasandfriends.bansikee.src.activities.login.models.LoginBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -15,43 +17,73 @@ import retrofit2.Response
 class LoginService(loginView: LoginView) {
     private val mLoginView = loginView
 
-    fun googleLogin(idToken : String){
+    fun googleLogin(idToken: String){
         val retroInterface = initRetrofit().create(LoginRetrofitInterface::class.java)
 
-        retroInterface.googleLogin(AccessObject(idToken)).enqueue(object : Callback<DefaultResponse> {
+        retroInterface.googleLogin(AccessObject(idToken)).enqueue(object: Callback<DefaultResponse> {
             override fun onResponse(call: Call<DefaultResponse>, response: Response<DefaultResponse>) {
                 if(response.code() == CODE_SUCCESS){
                     val apiResponse = response.body()
                     mSharedPreferences!!.edit().putString(X_ACCESS_TOKEN, apiResponse!!.data).apply()
-                    mLoginView.socialLoginSuccess()
+                    mLoginView.loginSuccess()
                 } else {
-                    mLoginView.socialLoginFailed(if(response.body() == null) null else response.body()!!.detail)
-                }
+                    mLoginView.loginFailed(
+                            if(response.body() == null)
+                                getErrorResponse(response.errorBody()!!)!!.detail
+                            else
+                                response.body()!!.detail)                }
             }
 
             override fun onFailure(call: Call<DefaultResponse>, t: Throwable) {
-                mLoginView.socialLoginFailed(null)
+                mLoginView.loginFailed(null)
             }
         })
     }
 
-    fun kakaoLogin(accessToken : String){
+    fun kakaoLogin(accessToken: String){
         val retroInterface = initRetrofit().create(LoginRetrofitInterface::class.java)
 
-        retroInterface.kakaoLogin(AccessObject(accessToken)).enqueue(object :Callback<DefaultResponse> {
+        retroInterface.kakaoLogin(AccessObject(accessToken)).enqueue(object: Callback<DefaultResponse> {
             override fun onResponse(
                 call: Call<DefaultResponse>, response: Response<DefaultResponse>) {
                 if(response.code() == CODE_SUCCESS){
                     val apiResponse = response.body()
                     mSharedPreferences!!.edit().putString(X_ACCESS_TOKEN, apiResponse!!.data).apply()
-                    mLoginView.socialLoginSuccess()
+                    mLoginView.loginSuccess()
                 } else {
-                    mLoginView.socialLoginFailed(if(response.body() == null) null else response.body()!!.detail)
+                    mLoginView.loginFailed(
+                            if(response.body() == null)
+                                getErrorResponse(response.errorBody()!!)!!.detail
+                            else
+                                response.body()!!.detail)                }
+            }
+
+            override fun onFailure(call: Call<DefaultResponse>, t: Throwable) {
+                mLoginView.loginFailed(null)
+            }
+        })
+    }
+
+    fun basicLogin(loginBody: LoginBody){
+        val retroInterface = initRetrofit().create(LoginRetrofitInterface::class.java)
+
+        retroInterface.basicLogin(loginBody).enqueue(object: Callback<DefaultResponse> {
+            override fun onResponse(call: Call<DefaultResponse>, response: Response<DefaultResponse>) {
+                if(response.code() == CODE_SUCCESS){
+                    val apiResponse = response.body()
+                    mSharedPreferences!!.edit().putString(X_ACCESS_TOKEN, apiResponse!!.data).apply()
+                    mLoginView.loginSuccess()
+                } else {
+                    mLoginView.loginFailed(
+                            if(response.body() == null)
+                                getErrorResponse(response.errorBody()!!)!!.detail
+                            else
+                                response.body()!!.detail)
                 }
             }
 
             override fun onFailure(call: Call<DefaultResponse>, t: Throwable) {
-                mLoginView.socialLoginFailed(null)
+                mLoginView.loginFailed(null)
             }
         })
     }

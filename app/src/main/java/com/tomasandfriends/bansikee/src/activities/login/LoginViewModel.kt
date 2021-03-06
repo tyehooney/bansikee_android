@@ -4,11 +4,12 @@ import android.os.Handler
 import android.os.Looper
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.kakao.sdk.auth.model.OAuthToken
+import com.tomasandfriends.bansikee.ApplicationClass.Companion.NETWORK_ERROR
 import com.tomasandfriends.bansikee.R
 import com.tomasandfriends.bansikee.src.SingleLiveEvent
 import com.tomasandfriends.bansikee.src.activities.base.BaseViewModel
 import com.tomasandfriends.bansikee.src.activities.login.interfaces.LoginView
+import com.tomasandfriends.bansikee.src.activities.login.models.LoginBody
 
 class LoginViewModel : BaseViewModel(), LoginView {
 
@@ -69,18 +70,28 @@ class LoginViewModel : BaseViewModel(), LoginView {
         loginService.googleLogin(idToken)
     }
 
+    fun inAppLogin() {
+        val strEmail = email.value
+        val strPw = password.value
+        if(strEmail.isNullOrEmpty())
+            _checkEmail.value = R.string.pls_write_email
+        if(strPw.isNullOrEmpty())
+            _checkPassword.value = R.string.pls_write_password
+
+        if (!strEmail.isNullOrEmpty() && !strPw.isNullOrEmpty())
+            loginService.basicLogin(LoginBody(strEmail, strPw))
+    }
+
     //go sign up
     fun goSignUp() {
         _goSignUpEvent.value = null
     }
 
-    fun inAppLogin() {}
-
-    override fun socialLoginSuccess() {
+    override fun loginSuccess() {
         _goMainActivityEvent.value = null;
     }
 
-    override fun socialLoginFailed(msg: String?) {
-        snackbarMessage.value = msg ?: "네트워크 에러"
+    override fun loginFailed(msg: String?) {
+        snackbarMessage.value = msg ?: NETWORK_ERROR
     }
 }

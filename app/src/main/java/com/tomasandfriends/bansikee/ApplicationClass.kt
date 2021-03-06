@@ -6,12 +6,13 @@ import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Build
 import android.util.Base64
-import android.util.Log
 import androidx.annotation.RequiresApi
 import com.google.gson.GsonBuilder
 import com.kakao.sdk.common.KakaoSdk
 import com.tomasandfriends.bansikee.config.XAccessTokenInterceptor
+import com.tomasandfriends.bansikee.src.DefaultResponse
 import okhttp3.OkHttpClient
+import okhttp3.ResponseBody
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.security.MessageDigest
@@ -53,6 +54,15 @@ class ApplicationClass : Application() {
         }
 
         const val CODE_SUCCESS = 200
+
+        const val NETWORK_ERROR = "네트워크 에러"
+
+        fun getErrorResponse(errorBody: ResponseBody): DefaultResponse? {
+            return retrofit!!.responseBodyConverter<DefaultResponse>(
+                    DefaultResponse::class.java,
+                    DefaultResponse::class.java.annotations)
+                    .convert(errorBody)
+        }
     }
 
     private val TAG = javaClass.name
