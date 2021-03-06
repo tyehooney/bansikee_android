@@ -16,4 +16,6 @@
     <string name="password_check">비밀번호 확인</string>
     <string name="pls_write_email">이메일을 입력하세요!</string>
     <string name="pls_write_password">비밀번호를 입력해주세요!</string>
+    <string name="pls_write_nickname">닉네임을 입력해주세요!</string>
+    <string name="password_not_same">비밀번호가 일치하지 않습니다!</string>
 </resources>

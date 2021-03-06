@@ -20,6 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingHorizontal="20dp"
+            android:paddingBottom="50dp"
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
@@ -45,7 +46,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="80dp"
                 backgroundReactive="@{viewModel.checkNickname}"
                 android:hint="@string/nickname"
                 app:boxStrokeWidth="0dp"
@@ -63,13 +64,13 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="80dp"
                 backgroundReactive="@{viewModel.checkEmail}"
                 android:hint="@string/email"
                 app:boxStrokeWidth="0dp"
                 app:boxStrokeWidthFocused="0dp"
                 android:textColorHint="@color/text_gray"
-                android:layout_marginTop="40dp">
+                android:layout_marginTop="20dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -82,14 +83,14 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="80dp"
                 backgroundReactive="@{viewModel.checkPassword}"
                 android:hint="@string/password"
                 app:boxStrokeWidth="0dp"
                 app:boxStrokeWidthFocused="0dp"
                 android:textColorHint="@color/text_gray"
                 app:passwordToggleEnabled="true"
-                android:layout_marginTop="40dp">
+                android:layout_marginTop="20dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -102,14 +103,14 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="80dp"
                 backgroundReactive="@{viewModel.checkPassword}"
                 android:hint="@string/password_check"
                 app:boxStrokeWidth="0dp"
                 app:boxStrokeWidthFocused="0dp"
                 android:textColorHint="@color/text_gray"
                 app:passwordToggleEnabled="true"
-                android:layout_marginTop="40dp">
+                android:layout_marginTop="20dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"

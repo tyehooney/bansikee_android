@@ -31,7 +31,8 @@ class LoginService(loginView: LoginView) {
                             if(response.body() == null)
                                 getErrorResponse(response.errorBody()!!)!!.detail
                             else
-                                response.body()!!.detail)                }
+                                response.body()!!.detail)
+                }
             }
 
             override fun onFailure(call: Call<DefaultResponse>, t: Throwable) {
@@ -55,7 +56,8 @@ class LoginService(loginView: LoginView) {
                             if(response.body() == null)
                                 getErrorResponse(response.errorBody()!!)!!.detail
                             else
-                                response.body()!!.detail)                }
+                                response.body()!!.detail)
+                }
             }
 
             override fun onFailure(call: Call<DefaultResponse>, t: Throwable) {

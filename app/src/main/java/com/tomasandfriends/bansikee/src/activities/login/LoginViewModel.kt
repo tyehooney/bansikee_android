@@ -76,16 +76,12 @@ class LoginViewModel : BaseViewModel(), LoginView {
 
         val strEmail = email.value
         val strPw = password.value
-        if(strEmail.isNullOrEmpty())
-            _checkEmail.value = R.string.pls_write_email
-        if(strPw.isNullOrEmpty())
-            _checkPassword.value = R.string.pls_write_password
 
-        if (!strEmail.isNullOrEmpty() && !strPw.isNullOrEmpty()){
-            _checkEmail.value = null
-            _checkPassword.value = null
+        _checkEmail.value = if(strEmail.isNullOrEmpty()) R.string.pls_write_email else null
+        _checkPassword.value = if(strPw.isNullOrEmpty()) R.string.pls_write_password else null
+
+        if (!strEmail.isNullOrEmpty() && !strPw.isNullOrEmpty())
             loginService.basicLogin(LoginBody(strEmail, strPw))
-        }
     }
 
     //go sign up
