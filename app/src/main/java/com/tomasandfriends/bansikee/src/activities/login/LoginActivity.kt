@@ -18,10 +18,10 @@ import com.tomasandfriends.bansikee.src.activities.sign_up.SignUpActivity
 class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
 
     companion object {
-        const val TAG = "LoginActivity"
-
         const val REQUEST_GOOGLE_SIGN_IN = 100
     }
+
+    private val TAG = javaClass.name
 
     override fun getLayoutId(): Int {
         return R.layout.activity_login
@@ -58,6 +58,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
         else if (token != null) {
             Log.i(TAG, "로그인 성공 ${token.accessToken}")
             //토큰 검사(있으면 로그인, 없으면 회원가입)
+            viewModel.kakaoLogin(token.accessToken)
         }
     }
 
@@ -77,6 +78,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
         }
 
         //토큰 검사(있으면 로그인, 없으면 회원가입)
+        viewModel.googleLogin(account.idToken!!)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -93,6 +95,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
             }
 
             //토큰 검사(있으면 로그인, 없으면 회원가입)
+            viewModel.googleLogin(account!!.idToken!!)
         }
     }
 }

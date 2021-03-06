@@ -25,7 +25,7 @@ class ApplicationClass : Application() {
         const val SP_TAG = "SP_BANSIKEE"
 
         //Base URL
-        const val BASE_URL = "https://52.79.164.222/"
+        const val BASE_URL = "http://3.34.126.187/"
 
         // JWT Token Key
         const val X_ACCESS_TOKEN : String = "x-access-token"
@@ -51,6 +51,8 @@ class ApplicationClass : Application() {
             }
             return retrofit!!
         }
+
+        const val CODE_SUCCESS = 200
     }
 
     private val TAG = javaClass.name

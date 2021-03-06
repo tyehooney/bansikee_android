@@ -4,11 +4,13 @@ import android.os.Handler
 import android.os.Looper
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.kakao.sdk.auth.model.OAuthToken
 import com.tomasandfriends.bansikee.R
 import com.tomasandfriends.bansikee.src.SingleLiveEvent
 import com.tomasandfriends.bansikee.src.activities.base.BaseViewModel
+import com.tomasandfriends.bansikee.src.activities.login.interfaces.LoginView
 
-class LoginViewModel : BaseViewModel() {
+class LoginViewModel : BaseViewModel(), LoginView {
 
     private val _splash = MutableLiveData<Boolean>()
     val splash : LiveData<Boolean> get() = _splash
@@ -32,6 +34,8 @@ class LoginViewModel : BaseViewModel() {
     private val _googleLoginEvent = SingleLiveEvent<Void>()
     val googleLoginEvent : LiveData<Void> get() = _googleLoginEvent
 
+    private val loginService = LoginService(this)
+
     init {
         _splash.value = true
 
@@ -49,9 +53,17 @@ class LoginViewModel : BaseViewModel() {
         _kakaoLoginEvent.value = null
     }
 
+    fun kakaoLogin(accessToken : String){
+        loginService.kakaoLogin(accessToken)
+    }
+
     //google login
     fun googleLoginClick() {
         _googleLoginEvent.value = null
+    }
+
+    fun googleLogin(idToken : String){
+        loginService.googleLogin(idToken)
     }
 
     //go sign up
@@ -60,4 +72,12 @@ class LoginViewModel : BaseViewModel() {
     }
 
     fun inAppLogin() {}
+
+    override fun socialLoginSuccess() {
+        snackbarMessage.value = "google login : Success!"
+    }
+
+    override fun socialLoginFailed(msg: String?) {
+        snackbarMessage.value = msg ?: "네트워크 에러"
+    }
 }
