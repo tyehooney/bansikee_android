@@ -71,6 +71,8 @@ class LoginViewModel : BaseViewModel(), LoginView {
     }
 
     fun inAppLogin() {
+        _clearInput.value = null
+
         val strEmail = email.value
         val strPw = password.value
         if(strEmail.isNullOrEmpty())
@@ -78,8 +80,11 @@ class LoginViewModel : BaseViewModel(), LoginView {
         if(strPw.isNullOrEmpty())
             _checkPassword.value = R.string.pls_write_password
 
-        if (!strEmail.isNullOrEmpty() && !strPw.isNullOrEmpty())
+        if (!strEmail.isNullOrEmpty() && !strPw.isNullOrEmpty()){
+            _checkEmail.value = null
+            _checkPassword.value = null
             loginService.basicLogin(LoginBody(strEmail, strPw))
+        }
     }
 
     //go sign up
@@ -92,6 +97,6 @@ class LoginViewModel : BaseViewModel(), LoginView {
     }
 
     override fun loginFailed(msg: String?) {
-        snackbarMessage.value = msg ?: NETWORK_ERROR
+        _snackbarMessage.value = msg ?: NETWORK_ERROR
     }
 }

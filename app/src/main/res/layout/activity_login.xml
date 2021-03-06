@@ -80,7 +80,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tf_email"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="80dp"
                     backgroundReactive="@{viewModel.checkEmail}"
                     android:hint="@string/email"
                     app:boxStrokeWidth="0dp"
@@ -100,7 +100,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tf_pw"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="80dp"
                     backgroundReactive="@{viewModel.checkPassword}"
                     android:hint="@string/password"
                     app:boxStrokeWidth="0dp"
@@ -124,7 +124,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:onClick="@{() -> viewModel.inAppLogin()}"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="10dp"
                     android:gravity="center"
                     android:paddingVertical="15dp"
                     android:background="@drawable/btn_green"

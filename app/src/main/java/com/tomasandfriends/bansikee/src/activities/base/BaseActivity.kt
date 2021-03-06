@@ -1,7 +1,9 @@
 package com.tomasandfriends.bansikee.src.activities.base
 
 import android.os.Bundle
-import android.os.PersistableBundle
+import android.os.IBinder
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -45,6 +47,13 @@ abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel> : AppCompat
 
         viewModel.finishEvent.observe(this, Observer {
             finish()
+        })
+
+        viewModel.clearInput.observe(this, {
+            val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+            if (imm.isAcceptingText && currentFocus != null){
+                imm.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
+            }
         })
     }
 }
