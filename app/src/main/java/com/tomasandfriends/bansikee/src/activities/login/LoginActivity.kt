@@ -13,6 +13,7 @@ import com.kakao.sdk.auth.model.OAuthToken
 import com.tomasandfriends.bansikee.R
 import com.tomasandfriends.bansikee.databinding.ActivityLoginBinding
 import com.tomasandfriends.bansikee.src.activities.base.BaseActivity
+import com.tomasandfriends.bansikee.src.activities.main.MainActivity
 import com.tomasandfriends.bansikee.src.activities.sign_up.SignUpActivity
 
 class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
@@ -31,11 +32,16 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
         viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
         binding.viewModel = viewModel
 
-        viewModel.goSignUpEvent.observe(this, { startActivity(Intent(baseContext, SignUpActivity::class.java)) })
+        viewModel.goSignUpEvent.observe(this, { startActivity(Intent(this, SignUpActivity::class.java)) })
 
         viewModel.kakaoLoginEvent.observe(this, { kakaoLogin() })
 
         viewModel.googleLoginEvent.observe(this, { googleLogin() })
+
+        viewModel.goMainActivityEvent.observe(this, {
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+        })
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,21 +70,14 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
 
     // google login
     private fun googleLogin(){
-        val account = GoogleSignIn.getLastSignedInAccount(this)
-        if (account == null){
-            val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.google_client_id))
                 .requestEmail()
                 .build()
 
-            val mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
-            val signInIntent = mGoogleSignInClient.signInIntent
-            startActivityForResult(signInIntent, REQUEST_GOOGLE_SIGN_IN)
-            return
-        }
-
-        //토큰 검사(있으면 로그인, 없으면 회원가입)
-        viewModel.googleLogin(account.idToken!!)
+        val mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
+        val signInIntent = mGoogleSignInClient.signInIntent
+        startActivityForResult(signInIntent, REQUEST_GOOGLE_SIGN_IN)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

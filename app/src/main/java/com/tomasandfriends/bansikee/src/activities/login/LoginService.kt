@@ -20,18 +20,13 @@ class LoginService(loginView: LoginView) {
 
         retroInterface.googleLogin(AccessObject(idToken)).enqueue(object : Callback<DefaultResponse> {
             override fun onResponse(call: Call<DefaultResponse>, response: Response<DefaultResponse>) {
-                if (response.isSuccessful && response.body() != null){
+                if(response.code() == CODE_SUCCESS){
                     val apiResponse = response.body()
-                    if (apiResponse!!.success){
-                        if (response.code() == CODE_SUCCESS || response.code() == 201){
-                            mSharedPreferences!!.edit().putString(X_ACCESS_TOKEN, apiResponse.data).apply();
-                            mLoginView.socialLoginSuccess()
-                        } else
-                            mLoginView.socialLoginFailed(apiResponse.msg)
-                    } else
-                        mLoginView.socialLoginFailed(apiResponse.msg)
-                } else
-                    mLoginView.socialLoginFailed(null)
+                    mSharedPreferences!!.edit().putString(X_ACCESS_TOKEN, apiResponse!!.data).apply()
+                    mLoginView.socialLoginSuccess()
+                } else {
+                    mLoginView.socialLoginFailed(if(response.body() == null) null else response.body()!!.detail)
+                }
             }
 
             override fun onFailure(call: Call<DefaultResponse>, t: Throwable) {
@@ -46,18 +41,13 @@ class LoginService(loginView: LoginView) {
         retroInterface.kakaoLogin(AccessObject(accessToken)).enqueue(object :Callback<DefaultResponse> {
             override fun onResponse(
                 call: Call<DefaultResponse>, response: Response<DefaultResponse>) {
-                if (response.isSuccessful && response.body() != null){
+                if(response.code() == CODE_SUCCESS){
                     val apiResponse = response.body()
-                    if (apiResponse!!.success){
-                        if (response.code() == CODE_SUCCESS || response.code() == 201){
-                            mSharedPreferences!!.edit().putString(X_ACCESS_TOKEN, apiResponse.data).apply();
-                            mLoginView.socialLoginSuccess()
-                        } else
-                            mLoginView.socialLoginFailed(apiResponse.msg)
-                    } else
-                        mLoginView.socialLoginFailed(apiResponse.msg)
-                } else
-                    mLoginView.socialLoginFailed(null)
+                    mSharedPreferences!!.edit().putString(X_ACCESS_TOKEN, apiResponse!!.data).apply()
+                    mLoginView.socialLoginSuccess()
+                } else {
+                    mLoginView.socialLoginFailed(if(response.body() == null) null else response.body()!!.detail)
+                }
             }
 
             override fun onFailure(call: Call<DefaultResponse>, t: Throwable) {
