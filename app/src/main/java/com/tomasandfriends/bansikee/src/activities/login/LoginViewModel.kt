@@ -70,6 +70,7 @@ class LoginViewModel : BaseViewModel(), LoginView {
         loginService.googleLogin(idToken)
     }
 
+    //base login
     fun inAppLogin() {
         _clearInput.value = null
 
@@ -92,10 +93,12 @@ class LoginViewModel : BaseViewModel(), LoginView {
         _goSignUpEvent.value = null
     }
 
+    //when login api success
     override fun loginSuccess() {
         _goMainActivityEvent.value = null;
     }
 
+    //when login api failed
     override fun loginFailed(msg: String?) {
         _snackbarMessage.value = msg ?: NETWORK_ERROR
     }
