@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <import type="android.view.View"/>
+
+        <variable
+            name="viewModel"
+            type="com.tomasandfriends.bansikee.src.activities.onboarding.OnboardingViewModel" />
+
+        <variable
+            name="pageIndex"
+            type="Integer" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="30dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="20dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:src="@drawable/ic_back"
+                android:onClick="@{()->viewModel.onBackClick()}"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="5dp"
+                android:fontFamily="@font/poppins_bold"
+                android:textStyle="bold"
+                android:includeFontPadding="false"
+                android:text="@string/app_name_eng"
+                android:textColor="@color/title_text"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{@string/divider_format(pageIndex+1, viewModel.surveyList.size())}"
+                android:textColor="@color/text_gray"
+                android:textSize="12sp"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="20dp"
+            android:layout_marginTop="40dp"
+            android:textColor="@color/text_black"
+            android:textSize="24sp"
+            android:fontFamily="@font/noto_sans_bold"
+            android:text="@{viewModel.surveyList.get(pageIndex).title}"/>
+
+        <View
+            android:layout_width="30dp"
+            android:layout_height="3dp"
+            android:layout_marginVertical="20dp"
+            android:layout_marginStart="23dp"
+            android:background="@color/main_green"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="20dp"
+            android:textColor="@color/text_gray"
+            android:textSize="16sp"
+            android:fontFamily="@font/noto_sans"
+            android:text="@{viewModel.surveyList.get(pageIndex).subTitle}"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="30dp"
+            android:paddingHorizontal="20dp"
+            android:layout_weight="1"
+            android:background="@color/background_splash_light"
+            android:orientation="vertical"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+                android:id="@+id/ll_answers"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                answers="@{viewModel.surveyList.get(pageIndex)}"
+                viewModel="@{viewModel}"/>
+
+            <TextView
+                android:id="@+id/tv_btn_next"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="40dp"
+                android:gravity="center"
+                android:paddingVertical="20dp"
+                enableNext="@{viewModel.surveyList.get(pageIndex).selectedIdx}"
+                android:onClick="@{()->viewModel.onNextClick()}"
+                android:fontFamily="@font/noto_sans_bold"
+                android:textStyle="bold"
+                android:text="@string/next"
+                android:textSize="14sp"
+                android:textColor="@color/white" />
+        </LinearLayout>
+    </LinearLayout>
+</layout>

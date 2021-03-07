@@ -1,12 +1,22 @@
 package com.tomasandfriends.bansikee.src.utils
 
+import android.graphics.Typeface
+import android.view.Gravity.CENTER
 import android.view.View
+import android.view.ViewGroup.LayoutParams.MATCH_PARENT
+import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.view.animation.AnimationUtils
-import android.widget.EditText
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
 import com.google.android.material.textfield.TextInputLayout
 import com.tomasandfriends.bansikee.R
+import com.tomasandfriends.bansikee.src.activities.onboarding.OnboardingViewModel
+import com.tomasandfriends.bansikee.src.activities.onboarding.models.SurveyData
+import kotlin.math.roundToInt
 
 object DataBindingUtils {
 
@@ -53,6 +63,76 @@ object DataBindingUtils {
                         ContextCompat.getDrawable(context, R.drawable.edittext_background_focus)
                     else
                         ContextCompat.getDrawable(context, R.drawable.edittext_background)
+        }
+    }
+
+    //set next button on SurveyFragment
+    @BindingAdapter("enableNext")
+    @JvmStatic
+    fun setEnableAndBgColor(view: TextView, activeIndex: LiveData<Int>){
+
+        activeIndex.observe(view.context as LifecycleOwner, {
+            view.isEnabled = it >= 0
+            view.background =
+                if(it >= 0)
+                    ContextCompat.getDrawable(view.context, R.drawable.btn_round_green_dark)
+                else
+                    ContextCompat.getDrawable(view.context, R.drawable.btn_round_green_dark_transparent)
+        })
+    }
+
+    //set answer buttons on SurveyFragment
+    @BindingAdapter("answers", "viewModel")
+    @JvmStatic
+    fun setAnswers(parent: LinearLayout, surveyData: SurveyData, viewModel: OnboardingViewModel){
+        val answers = surveyData.answers
+        val context = parent.context
+        val dm = context.resources.displayMetrics
+
+        parent.removeAllViews()
+        for (i in answers.indices){
+
+            val tvAnswer = TextView(parent.context)
+            tvAnswer.text = answers[i]
+            tvAnswer.gravity = CENTER
+
+            if(i == surveyData.selectedIdx.value){
+                tvAnswer.setTextColor(context.getColor(R.color.white))
+                tvAnswer.background = ContextCompat.getDrawable(context, R.drawable.btn_round_green)
+            } else {
+                tvAnswer.setTextColor(context.getColor(R.color.text_gray))
+                tvAnswer.background = ContextCompat.getDrawable(context, R.drawable.btn_round_transparent)
+            }
+
+            val typeface = Typeface.DEFAULT_BOLD
+            tvAnswer.typeface = typeface
+
+            val paddingSize = (25 * dm.density).roundToInt()
+            tvAnswer.setPadding(0, paddingSize, 0, paddingSize)
+
+            val params = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
+            val marginSize = (5 * dm.density).roundToInt()
+            params.topMargin = marginSize
+            params.bottomMargin = marginSize
+            tvAnswer.layoutParams = params
+
+            tvAnswer.setOnClickListener {
+                viewModel.onAnswerClick(i)
+
+                for(j in answers.indices){
+                    val tv = parent.getChildAt(j) as TextView
+
+                    if(j == surveyData.selectedIdx.value){
+                        tv.setTextColor(context.getColor(R.color.white))
+                        tv.background = ContextCompat.getDrawable(context, R.drawable.btn_round_green)
+                    } else {
+                        tv.setTextColor(context.getColor(R.color.text_gray))
+                        tv.background = ContextCompat.getDrawable(context, R.drawable.btn_round_transparent)
+                    }
+                }
+            }
+
+            parent.addView(tvAnswer)
         }
     }
 }

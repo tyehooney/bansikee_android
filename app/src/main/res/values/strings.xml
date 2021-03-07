@@ -18,4 +18,7 @@
     <string name="pls_write_password">비밀번호를 입력해주세요!</string>
     <string name="pls_write_nickname">닉네임을 입력해주세요!</string>
     <string name="password_not_same">비밀번호가 일치하지 않습니다!</string>
+
+    <string formatted="false" name="divider_format">%d/%d</string>
+    <string name="next">다음</string>
 </resources>

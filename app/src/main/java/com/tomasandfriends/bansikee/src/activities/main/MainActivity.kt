@@ -1,10 +1,12 @@
 package com.tomasandfriends.bansikee.src.activities.main
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import com.tomasandfriends.bansikee.R
 import com.tomasandfriends.bansikee.databinding.ActivityMainBinding
 import com.tomasandfriends.bansikee.src.activities.base.BaseActivity
+import com.tomasandfriends.bansikee.src.activities.onboarding.OnboardingActivity
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 
@@ -20,5 +22,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //temp
+        startActivity(Intent(this, OnboardingActivity::class.java))
     }
 }
