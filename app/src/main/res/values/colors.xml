@@ -16,7 +16,7 @@
     <color name="background_splash">#f0f7ff</color>
     <color name="background_splash_light">#f7fafd</color>
     <color name="main_green_dark">#009159</color>
-    <color name="main_green_dark_transparent">#AA009159</color>
+    <color name="main_green_dark_transparent">#55009159</color>
     <color name="main_green">#15c682</color>
     <color name="main_green_light_3">#f0f7ff</color>
     <color name="main_green_light_2">#cae0fa</color>

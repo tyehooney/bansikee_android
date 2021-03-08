@@ -29,7 +29,7 @@ class ApplicationClass : Application() {
         const val BASE_URL = "http://3.34.126.187/"
 
         // JWT Token Key
-        const val X_ACCESS_TOKEN : String = "x-access-token"
+        const val X_ACCESS_TOKEN : String = "X-AUTH-TOKEN"
 
         // Retrofit 인스턴스
         var retrofit : Retrofit? = null

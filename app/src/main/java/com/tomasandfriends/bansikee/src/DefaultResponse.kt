@@ -3,9 +3,6 @@ package com.tomasandfriends.bansikee.src
 import com.google.gson.annotations.SerializedName
 
 open class DefaultResponse {
-    @SerializedName("data")
-    var data = ""
-        protected set
     @SerializedName("detail")
     var detail = ""
         protected set

@@ -10,6 +10,7 @@ import com.tomasandfriends.bansikee.src.activities.login.interfaces.LoginRetrofi
 import com.tomasandfriends.bansikee.src.activities.login.interfaces.LoginView
 import com.tomasandfriends.bansikee.src.activities.login.models.AccessObject
 import com.tomasandfriends.bansikee.src.activities.login.models.LoginBody
+import com.tomasandfriends.bansikee.src.activities.login.models.LoginResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -20,8 +21,8 @@ class LoginService(loginView: LoginView) {
     fun googleLogin(idToken: String){
         val retroInterface = initRetrofit().create(LoginRetrofitInterface::class.java)
 
-        retroInterface.googleLogin(AccessObject(idToken)).enqueue(object: Callback<DefaultResponse> {
-            override fun onResponse(call: Call<DefaultResponse>, response: Response<DefaultResponse>) {
+        retroInterface.googleLogin(AccessObject(idToken)).enqueue(object: Callback<LoginResponse> {
+            override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                 if(response.code() == CODE_SUCCESS){
                     val apiResponse = response.body()
                     mSharedPreferences!!.edit().putString(X_ACCESS_TOKEN, apiResponse!!.data).apply()
@@ -35,7 +36,7 @@ class LoginService(loginView: LoginView) {
                 }
             }
 
-            override fun onFailure(call: Call<DefaultResponse>, t: Throwable) {
+            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
                 mLoginView.loginFailed(null)
             }
         })
@@ -44,9 +45,9 @@ class LoginService(loginView: LoginView) {
     fun kakaoLogin(accessToken: String){
         val retroInterface = initRetrofit().create(LoginRetrofitInterface::class.java)
 
-        retroInterface.kakaoLogin(AccessObject(accessToken)).enqueue(object: Callback<DefaultResponse> {
+        retroInterface.kakaoLogin(AccessObject(accessToken)).enqueue(object: Callback<LoginResponse> {
             override fun onResponse(
-                call: Call<DefaultResponse>, response: Response<DefaultResponse>) {
+                call: Call<LoginResponse>, response: Response<LoginResponse>) {
                 if(response.code() == CODE_SUCCESS){
                     val apiResponse = response.body()
                     mSharedPreferences!!.edit().putString(X_ACCESS_TOKEN, apiResponse!!.data).apply()
@@ -60,7 +61,7 @@ class LoginService(loginView: LoginView) {
                 }
             }
 
-            override fun onFailure(call: Call<DefaultResponse>, t: Throwable) {
+            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
                 mLoginView.loginFailed(null)
             }
         })
@@ -69,8 +70,8 @@ class LoginService(loginView: LoginView) {
     fun basicLogin(loginBody: LoginBody){
         val retroInterface = initRetrofit().create(LoginRetrofitInterface::class.java)
 
-        retroInterface.basicLogin(loginBody).enqueue(object: Callback<DefaultResponse> {
-            override fun onResponse(call: Call<DefaultResponse>, response: Response<DefaultResponse>) {
+        retroInterface.basicLogin(loginBody).enqueue(object: Callback<LoginResponse> {
+            override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                 if(response.code() == CODE_SUCCESS){
                     val apiResponse = response.body()
                     mSharedPreferences!!.edit().putString(X_ACCESS_TOKEN, apiResponse!!.data).apply()
@@ -84,7 +85,7 @@ class LoginService(loginView: LoginView) {
                 }
             }
 
-            override fun onFailure(call: Call<DefaultResponse>, t: Throwable) {
+            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
                 mLoginView.loginFailed(null)
             }
         })

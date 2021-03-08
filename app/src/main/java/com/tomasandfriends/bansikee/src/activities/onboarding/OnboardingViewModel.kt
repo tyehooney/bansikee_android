@@ -28,7 +28,8 @@ class OnboardingViewModel: BaseViewModel() {
     }
 
     fun onAnswerClick(answerIdx: Int){
-        surveyList.value!![currentPage.value!!].selectedIdx.value = answerIdx
+        val currentSelectedIdx = surveyList.value!![currentPage.value!!].selectedIdx
+        currentSelectedIdx.value = if(currentSelectedIdx.value == answerIdx) -1 else answerIdx
     }
 
     fun onBackClick(){
