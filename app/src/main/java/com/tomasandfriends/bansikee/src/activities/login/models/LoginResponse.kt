@@ -4,6 +4,8 @@ import com.google.gson.annotations.SerializedName
 import com.tomasandfriends.bansikee.src.DefaultResponse
 
 class LoginResponse : DefaultResponse() {
+
     @SerializedName("data")
     var data = ""
+
 }

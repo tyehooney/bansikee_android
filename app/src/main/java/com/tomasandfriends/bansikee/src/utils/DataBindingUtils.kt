@@ -85,18 +85,18 @@ object DataBindingUtils {
     @BindingAdapter("answers", "viewModel")
     @JvmStatic
     fun setAnswers(parent: LinearLayout, surveyData: SurveyData, viewModel: OnboardingViewModel){
-        val answers = surveyData.answers
+        val options = surveyData.options
         val context = parent.context
         val dm = context.resources.displayMetrics
 
         parent.removeAllViews()
-        for (i in answers.indices){
+        for (i in options.indices){
 
             val tvAnswer = TextView(parent.context)
-            tvAnswer.text = answers[i]
+            tvAnswer.text = options[i].content
             tvAnswer.gravity = CENTER
 
-            if(i == surveyData.selectedIdx.value){
+            if(options[i].optionIdx == surveyData.selectedIdx.value){
                 tvAnswer.setTextColor(context.getColor(R.color.white))
                 tvAnswer.background = ContextCompat.getDrawable(context, R.drawable.btn_round_green)
             } else {
@@ -117,12 +117,12 @@ object DataBindingUtils {
             tvAnswer.layoutParams = params
 
             tvAnswer.setOnClickListener {
-                viewModel.onAnswerClick(i)
+                viewModel.onOptionClick(options[i].optionIdx)
 
-                for(j in answers.indices){
+                for(j in options.indices){
                     val tv = parent.getChildAt(j) as TextView
 
-                    if(j == surveyData.selectedIdx.value){
+                    if(options[j].optionIdx == surveyData.selectedIdx.value){
                         tv.setTextColor(context.getColor(R.color.white))
                         tv.background = ContextCompat.getDrawable(context, R.drawable.btn_round_green)
                     } else {
