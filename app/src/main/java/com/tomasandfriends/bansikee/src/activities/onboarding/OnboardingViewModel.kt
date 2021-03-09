@@ -5,11 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import com.tomasandfriends.bansikee.ApplicationClass
 import com.tomasandfriends.bansikee.src.activities.base.BaseViewModel
 import com.tomasandfriends.bansikee.src.activities.onboarding.interfaces.OnboardingView
+import com.tomasandfriends.bansikee.src.activities.onboarding.models.AnswerBody
 import com.tomasandfriends.bansikee.src.activities.onboarding.models.SurveyData
 
 class OnboardingViewModel: BaseViewModel(), OnboardingView {
 
-    private val _currentPage = MutableLiveData(0)
+    private val _currentPage = MutableLiveData<Int>()
     val currentPage: LiveData<Int> = _currentPage
 
     private val _surveyList = MutableLiveData<List<SurveyData>>()
@@ -38,15 +39,33 @@ class OnboardingViewModel: BaseViewModel(), OnboardingView {
         if (currentPage.value!! < surveyList.value!!.size-1){
             _currentPage.value = currentPage.value!! + 1
         } else {
-            finish()
+            answerSurvey()
         }
+    }
+
+    private fun answerSurvey(){
+        var answerList: MutableList<AnswerBody> = ArrayList()
+        for(surveyData in surveyList.value!!){
+            answerList.add(AnswerBody(surveyData.selectedIdx.value!!, surveyData.questionIndex))
+        }
+
+        onBoardingService.answerSurvey(answerList)
     }
 
     override fun getSurveySuccess(surveyList: List<SurveyData>) {
         _surveyList.value = surveyList
+        _currentPage.value = 0
     }
 
     override fun getSurveyFailed(msg: String?) {
+        _snackbarMessage.value = msg ?: ApplicationClass.NETWORK_ERROR
+    }
+
+    override fun answerSurveySuccess(msg: String) {
+        _snackbarMessage.value = msg
+    }
+
+    override fun answerSurveyFailed(msg: String?) {
         _snackbarMessage.value = msg ?: ApplicationClass.NETWORK_ERROR
     }
 }

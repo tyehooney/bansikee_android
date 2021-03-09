@@ -23,17 +23,13 @@ class OnboardingActivity : BaseActivity<ActivityOnboardingBinding, OnboardingVie
             surveyFragments.clear()
             for(i in it.indices)
                 surveyFragments.add(SurveyFragment.newInstance(i))
-
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.onboarding_container, surveyFragments[0])
-                .commit()
         })
 
         viewModel.currentPage.observe(this, {
             if(!surveyFragments.isNullOrEmpty())
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.onboarding_container, surveyFragments[it])
-                    .commit()
+                        .replace(R.id.onboarding_container, surveyFragments[it])
+                        .commit()
         })
     }
 
