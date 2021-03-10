@@ -12,12 +12,12 @@ open class BaseViewModel : ViewModel() {
     val snackbarMessage: LiveData<String> get() = _snackbarMessage
     protected val _toastMessage = SingleLiveEvent<String>()
     val toastMessage: LiveData<String> get() = _toastMessage
-    protected val _back = SingleLiveEvent<Void>()
-    val back: LiveData<Void> get() = _back
-    protected val _finishEvent = SingleLiveEvent<Void>()
-    val finishEvent: LiveData<Void> get() = _finishEvent
-    protected val _clearInput = SingleLiveEvent<Void>()
-    val clearInput: LiveData<Void> get() = _clearInput
+    protected val _back = SingleLiveEvent<Void?>()
+    val back: LiveData<Void?> get() = _back
+    protected val _finishEvent = SingleLiveEvent<Void?>()
+    val finishEvent: LiveData<Void?> get() = _finishEvent
+    protected val _clearInput = SingleLiveEvent<Void?>()
+    val clearInput: LiveData<Void?> get() = _clearInput
 
     fun setLoading(b : Boolean){
         _loading.value = b

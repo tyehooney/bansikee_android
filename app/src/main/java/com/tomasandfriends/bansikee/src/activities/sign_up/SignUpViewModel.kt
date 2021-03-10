@@ -10,7 +10,7 @@ import com.tomasandfriends.bansikee.src.activities.sign_up.models.SignUpBody
 
 class SignUpViewModel : BaseViewModel(), SignUpView {
 
-    val nickname = MutableLiveData<String>()
+    val nickname = MutableLiveData<String?>()
 
     private val _checkNickname = MutableLiveData<Int>()
     val checkNickname : LiveData<Int> get() = _checkNickname

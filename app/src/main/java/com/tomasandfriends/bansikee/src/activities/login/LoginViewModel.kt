@@ -35,8 +35,8 @@ class LoginViewModel : BaseViewModel(), LoginView {
     private val _googleLoginEvent = SingleLiveEvent<Void>()
     val googleLoginEvent : LiveData<Void> get() = _googleLoginEvent
 
-    private val _goMainActivityEvent = SingleLiveEvent<Void>()
-    val goMainActivityEvent : LiveData<Void> get() = _goMainActivityEvent
+    private val _goMainActivityEvent = SingleLiveEvent<Void?>()
+    val goMainActivityEvent : LiveData<Void?> get() = _goMainActivityEvent
 
     private val loginService = LoginService(this)
 

@@ -3,6 +3,7 @@ package com.tomasandfriends.bansikee.src.activities.onboarding
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.tomasandfriends.bansikee.ApplicationClass
+import com.tomasandfriends.bansikee.src.SingleLiveEvent
 import com.tomasandfriends.bansikee.src.activities.base.BaseViewModel
 import com.tomasandfriends.bansikee.src.activities.onboarding.interfaces.OnboardingView
 import com.tomasandfriends.bansikee.src.activities.onboarding.models.AnswerBody
@@ -15,6 +16,9 @@ class OnboardingViewModel: BaseViewModel(), OnboardingView {
 
     private val _surveyList = MutableLiveData<List<SurveyData>>()
     val surveyList: LiveData<List<SurveyData>> = _surveyList
+
+    private val _goSurveyResultEvent = SingleLiveEvent<Void?>()
+    val goSurveyResultEvent: LiveData<Void?> = _goSurveyResultEvent
 
     private val onBoardingService = OnBoardingService(this)
 
@@ -63,6 +67,7 @@ class OnboardingViewModel: BaseViewModel(), OnboardingView {
 
     override fun answerSurveySuccess(msg: String) {
         _snackbarMessage.value = msg
+        _goSurveyResultEvent.value = null
     }
 
     override fun answerSurveyFailed(msg: String?) {

@@ -31,6 +31,12 @@ class OnboardingActivity : BaseActivity<ActivityOnboardingBinding, OnboardingVie
                         .replace(R.id.onboarding_container, surveyFragments[it])
                         .commit()
         })
+
+        viewModel.goSurveyResultEvent.observe(this, {
+            supportFragmentManager.beginTransaction()
+                    .replace(R.id.onboarding_container, SurveyResultFragment())
+                    .commit()
+        })
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
