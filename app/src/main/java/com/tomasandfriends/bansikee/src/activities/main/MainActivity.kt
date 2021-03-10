@@ -18,11 +18,13 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
     override fun setViewModel() {
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         binding.viewModel = viewModel
+
+        viewModel.goOnboardingEvent.observe(this, {
+            startActivity(Intent(this, OnboardingActivity::class.java))
+        })
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //temp
-        startActivity(Intent(this, OnboardingActivity::class.java))
     }
 }
