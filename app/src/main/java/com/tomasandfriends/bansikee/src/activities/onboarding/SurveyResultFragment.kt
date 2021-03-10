@@ -16,7 +16,5 @@ class SurveyResultFragment: BaseFragment<FragmentSurveyResultBinding, SurveyResu
         viewModel = ViewModelProvider(requireContext() as ViewModelStoreOwner)
                 .get(SurveyResultViewModel::class.java)
         binding.viewModel = viewModel
-
-        viewModel.surveyResults.observe(viewLifecycleOwner, {})
     }
 }

@@ -6,16 +6,21 @@ import android.view.View
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.view.animation.AnimationUtils
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.google.android.material.textfield.TextInputLayout
 import com.tomasandfriends.bansikee.R
 import com.tomasandfriends.bansikee.src.activities.onboarding.OnboardingViewModel
 import com.tomasandfriends.bansikee.src.activities.onboarding.models.SurveyData
+import com.tomasandfriends.bansikee.src.common.adapters.PlantAdapter
+import com.tomasandfriends.bansikee.src.common.adapters.PlantItemViewModel
 import kotlin.math.roundToInt
 
 object DataBindingUtils {
@@ -134,5 +139,25 @@ object DataBindingUtils {
 
             parent.addView(tvAnswer)
         }
+    }
+
+    //setImage
+    @BindingAdapter("imgUrl")
+    @JvmStatic
+    fun setImageUrl(view: ImageView, imgUrl: String?){
+        Glide.with(view.context).load(imgUrl).into(view)
+    }
+
+    //set PlantAdapter
+    @BindingAdapter("plantItems")
+    @JvmStatic
+    fun setPlantAdapter(view: RecyclerView, itemViewModels: LiveData<List<PlantItemViewModel>>){
+        if (view.adapter == null){
+            val plantAdapter = PlantAdapter(view.context)
+            view.adapter = plantAdapter
+        }
+
+        if(itemViewModels.value != null)
+                (view.adapter as PlantAdapter).updateItems(itemViewModels.value!!)
     }
 }

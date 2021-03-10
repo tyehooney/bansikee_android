@@ -1,16 +1,8 @@
-package com.tomasandfriends.bansikee.src.activities.onboarding.models
+package com.tomasandfriends.bansikee.src.common.models
 
 import com.google.gson.annotations.SerializedName
-import com.tomasandfriends.bansikee.src.DefaultResponse
 
-class RecommendationResponse: DefaultResponse(){
-
-    @SerializedName("data")
-    var surveyResultDataList = ArrayList<RecommendationData>()
-
-}
-
-class RecommendationData{
+class PlantData{
 
     @SerializedName("count")
     var count = 0

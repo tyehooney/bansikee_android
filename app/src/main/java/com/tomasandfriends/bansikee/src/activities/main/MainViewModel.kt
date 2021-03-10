@@ -14,7 +14,8 @@ class MainViewModel : BaseViewModel(), MainView {
     private val mainService = MainService(this)
 
     init{
-        mainService.isOnboarded()
+//        mainService.isOnboarded()
+        _goOnboardingEvent.value = null
     }
 
     override fun isOnboardedSuccess(onboarded: Boolean) {

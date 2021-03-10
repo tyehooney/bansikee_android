@@ -26,7 +26,7 @@ class OnboardingActivity : BaseActivity<ActivityOnboardingBinding, OnboardingVie
         })
 
         viewModel.currentPage.observe(this, {
-            if(!surveyFragments.isNullOrEmpty())
+            if(!surveyFragments.isNullOrEmpty() && it >= 0)
                 supportFragmentManager.beginTransaction()
                         .replace(R.id.onboarding_container, surveyFragments[it])
                         .commit()

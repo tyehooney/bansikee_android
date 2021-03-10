@@ -10,7 +10,6 @@ import com.tomasandfriends.bansikee.src.activities.onboarding.OnboardingActivity
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 
-
     override fun getLayoutId(): Int {
         return R.layout.activity_main
     }

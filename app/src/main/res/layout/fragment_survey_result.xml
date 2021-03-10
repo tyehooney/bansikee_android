@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <import type="android.view.View"/>
@@ -43,17 +43,49 @@
                 android:textSize="18sp" />
         </LinearLayout>
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="20dp"
-            android:paddingHorizontal="20dp"
-            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
             android:background="@color/background_splash_light"
-            android:orientation="vertical"
-            android:gravity="center_vertical">
+            android:overScrollMode="never"
+            android:scrollbars="none">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:paddingBottom="20dp"
+                android:paddingHorizontal="20dp"
+                android:orientation="vertical">
 
-        </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:text="세정님과 잘 어울리는\n반려식물들을 보여드려요."
+                    android:textColor="@color/text_black"
+                    android:textSize="24sp"
+                    android:fontFamily="@font/noto_sans_bold"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:textColor="@color/text_gray"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/noto_sans"
+                    android:text="나에게 맞는 식물들을 살펴보고 등록해보세요."/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    plantItems="@{viewModel.surveyResultItems}"
+                    android:overScrollMode="never"
+                    android:nestedScrollingEnabled="false"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
 </layout>
