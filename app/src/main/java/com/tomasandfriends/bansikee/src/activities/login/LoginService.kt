@@ -18,6 +18,24 @@ import retrofit2.Response
 class LoginService(loginView: LoginView) {
     private val mLoginView = loginView
 
+    fun autoLogin(){
+        val retroInterface = initRetrofit().create(LoginRetrofitInterface::class.java)
+
+        retroInterface.autoLogin().enqueue(object: Callback<DefaultResponse> {
+            override fun onResponse(call: Call<DefaultResponse>, response: Response<DefaultResponse>) {
+                if(response.code() == CODE_SUCCESS){
+                    mLoginView.autoLoginSuccess()
+                } else {
+                    mLoginView.autoLoginFailed()
+                }
+            }
+
+            override fun onFailure(call: Call<DefaultResponse>, t: Throwable) {
+                mLoginView.autoLoginFailed()
+            }
+        })
+    }
+
     fun googleLogin(idToken: String){
         val retroInterface = initRetrofit().create(LoginRetrofitInterface::class.java)
 

@@ -16,7 +16,7 @@ class LoginViewModel : BaseViewModel(), LoginView {
     private val _splash = MutableLiveData<Boolean>()
     val splash : LiveData<Boolean> get() = _splash
 
-    val email = MutableLiveData<String>()
+    val email = MutableLiveData<String?>()
 
     private val _checkEmail = MutableLiveData<Int>()
     val checkEmail : LiveData<Int> get() = _checkEmail
@@ -26,14 +26,14 @@ class LoginViewModel : BaseViewModel(), LoginView {
     private val _checkPassword = MutableLiveData<Int>()
     val checkPassword : LiveData<Int> get() = _checkPassword
 
-    private val _goSignUpEvent = SingleLiveEvent<Void>()
-    val goSignUpEvent : LiveData<Void> get() = _goSignUpEvent
+    private val _goSignUpEvent = SingleLiveEvent<Void?>()
+    val goSignUpEvent : LiveData<Void?> get() = _goSignUpEvent
 
-    private val _kakaoLoginEvent = SingleLiveEvent<Void>()
-    val kakaoLoginEvent : LiveData<Void> get() = _kakaoLoginEvent
+    private val _kakaoLoginEvent = SingleLiveEvent<Void?>()
+    val kakaoLoginEvent : LiveData<Void?> get() = _kakaoLoginEvent
 
-    private val _googleLoginEvent = SingleLiveEvent<Void>()
-    val googleLoginEvent : LiveData<Void> get() = _googleLoginEvent
+    private val _googleLoginEvent = SingleLiveEvent<Void?>()
+    val googleLoginEvent : LiveData<Void?> get() = _googleLoginEvent
 
     private val _goMainActivityEvent = SingleLiveEvent<Void?>()
     val goMainActivityEvent : LiveData<Void?> get() = _goMainActivityEvent
@@ -49,7 +49,7 @@ class LoginViewModel : BaseViewModel(), LoginView {
 
     //auto login
     private fun autoLogin() {
-        _splash.value = false    //temp
+        loginService.autoLogin()
     }
 
     //kakao login
@@ -87,6 +87,14 @@ class LoginViewModel : BaseViewModel(), LoginView {
     //go sign up
     fun goSignUp() {
         _goSignUpEvent.value = null
+    }
+
+    override fun autoLoginSuccess() {
+        _goMainActivityEvent.value = null
+    }
+
+    override fun autoLoginFailed() {
+        _splash.value = false
     }
 
     //when login api success
