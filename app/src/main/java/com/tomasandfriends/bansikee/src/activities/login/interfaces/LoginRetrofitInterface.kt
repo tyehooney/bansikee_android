@@ -11,7 +11,7 @@ import retrofit2.http.POST
 interface LoginRetrofitInterface {
 
     //auto login
-    @POST("/autologin")
+    @POST("/autoLogin")
     fun autoLogin(): Call<DefaultResponse>
 
     //Google Login
