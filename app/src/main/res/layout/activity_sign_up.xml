@@ -46,11 +46,13 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
-                backgroundReactive="@{viewModel.checkNickname}"
                 android:hint="@string/nickname"
                 app:boxStrokeWidth="0dp"
                 app:boxStrokeWidthFocused="0dp"
-                android:textColorHint="@color/text_gray">
+                android:textColorHint="@color/text_gray"
+                nicknameDuplicated="@{viewModel.nicknameDuplicated}"
+                resultMessage="@{viewModel.checkNickname}"
+                viewModel="@{viewModel}">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"

@@ -22,4 +22,7 @@
     <string formatted="false" name="divider_format">%d/%d</string>
     <string name="next">다음</string>
     <string name="finished">완료</string>
+    <string name="nickname_duplicated">중복된 닉네임입니다!</string>
+    <string name="nickname_veryfied">사용 가능한 닉네임입니다.</string>
+    <string name="check_nickname_pls">닉네을 다시 입력해주세요!</string>
 </resources>

@@ -15,6 +15,11 @@ class SignUpViewModel : BaseViewModel(), SignUpView {
     private val _checkNickname = MutableLiveData<Int>()
     val checkNickname : LiveData<Int> get() = _checkNickname
 
+    private val _nicknameDuplicated = MutableLiveData(true)
+    val nicknameDuplicated: LiveData<Boolean> = _nicknameDuplicated
+
+    private var lastCheckedNickname = ""
+
     val email = MutableLiveData<String>()
 
     private val _checkEmail = MutableLiveData<Int>()
@@ -28,6 +33,28 @@ class SignUpViewModel : BaseViewModel(), SignUpView {
     val checkPassword : LiveData<Int> get() = _checkPassword
 
     private val signUpService = SignUpService(this)
+
+    //check nickname duplicated
+    fun checkNickname(){
+        if (nickname.value != null)
+            signUpService.checkNickname(nickname.value!!)
+    }
+
+    override fun checkNicknameSuccess(duplicated: Boolean) {
+        _nicknameDuplicated.value = duplicated
+        _checkNickname.value =
+                if(duplicated)
+                    R.string.nickname_duplicated
+                else{
+                    R.string.nickname_veryfied
+                }
+
+        if(!duplicated) lastCheckedNickname = nickname.value!!
+    }
+
+    override fun checkNicknameFailed(msg: String?) {
+        _snackbarMessage.value = msg ?: ApplicationClass.NETWORK_ERROR
+    }
 
     // sign up
     fun signUp(){
@@ -45,10 +72,16 @@ class SignUpViewModel : BaseViewModel(), SignUpView {
                 else if(strPw != strPwCheck)
                     R.string.password_not_same
                 else null
-        _checkNickname.value = if(strNickname.isNullOrEmpty()) R.string.pls_write_nickname else null
+        _checkNickname.value =
+                when {
+                    strNickname.isNullOrEmpty() -> R.string.pls_write_nickname
+                    lastCheckedNickname != strNickname -> R.string.check_nickname_pls
+                    else -> null
+                }
 
         if(!strEmail.isNullOrEmpty() && !strNickname.isNullOrEmpty()
-                && !strPw.isNullOrEmpty() && !strPwCheck.isNullOrEmpty() && strPw == strPwCheck)
+                && !strPw.isNullOrEmpty() && !strPwCheck.isNullOrEmpty()
+                && strPw == strPwCheck && !nicknameDuplicated.value!! && lastCheckedNickname == strNickname)
             signUpService.signUp(SignUpBody(strEmail, strNickname, strPw, strPwCheck))
     }
 

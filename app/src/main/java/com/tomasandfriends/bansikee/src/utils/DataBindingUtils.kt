@@ -19,6 +19,7 @@ import com.google.android.material.textfield.TextInputLayout
 import com.tomasandfriends.bansikee.R
 import com.tomasandfriends.bansikee.src.activities.onboarding.OnboardingViewModel
 import com.tomasandfriends.bansikee.src.activities.onboarding.models.SurveyData
+import com.tomasandfriends.bansikee.src.activities.sign_up.SignUpViewModel
 import com.tomasandfriends.bansikee.src.common.adapters.PlantAdapter
 import com.tomasandfriends.bansikee.src.common.adapters.PlantItemViewModel
 import kotlin.math.roundToInt
@@ -62,6 +63,44 @@ object DataBindingUtils {
             textInputLayout.error = context.getString(errMsg)
             editText.background = ContextCompat.getDrawable(context, R.drawable.edittext_background_error)
         } else {
+            textInputLayout.error = null
+            editText.background =
+                    if (editText.isFocused)
+                        ContextCompat.getDrawable(context, R.drawable.edittext_background_focus)
+                    else
+                        ContextCompat.getDrawable(context, R.drawable.edittext_background)
+        }
+    }
+
+    @BindingAdapter("nicknameDuplicated", "resultMessage" ,"viewModel")
+    @JvmStatic
+    fun setCheckNickname(textInputLayout: TextInputLayout, duplicated: Boolean,
+                         msg: Int?, viewModel: SignUpViewModel){
+        val editText = textInputLayout.editText
+        val context = textInputLayout.context
+
+        editText!!.setOnFocusChangeListener{ v, hasFocus ->
+            v.background =
+                    if (msg != null && duplicated) {
+                        textInputLayout.error = context.getString(msg)
+                        ContextCompat.getDrawable(context, R.drawable.edittext_background_error)
+                    } else {
+                        if (hasFocus)
+                            ContextCompat.getDrawable(context, R.drawable.edittext_background_focus)
+                        else
+                            ContextCompat.getDrawable(context, R.drawable.edittext_background)
+                    }
+
+            if(!hasFocus)
+                viewModel.checkNickname()
+        }
+
+        if (msg != null && duplicated && editText.text.isNotEmpty()){
+            textInputLayout.helperText = null
+            textInputLayout.error = context.getText(msg)
+            editText.background = ContextCompat.getDrawable(context, R.drawable.edittext_background_error)
+        } else{
+            if(msg != null) textInputLayout.helperText = context.getText(msg)
             textInputLayout.error = null
             editText.background =
                     if (editText.isFocused)
