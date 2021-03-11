@@ -45,7 +45,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:gravity="center_horizontal"
-            android:paddingHorizontal="20dp"
+            android:paddingHorizontal="35dp"
             fadeVisibility="@{!viewModel.splash}">
 
             <TextView
