@@ -5,7 +5,7 @@ import com.tomasandfriends.bansikee.ApplicationClass.Companion.X_ACCESS_TOKEN
 import com.tomasandfriends.bansikee.ApplicationClass.Companion.getErrorResponse
 import com.tomasandfriends.bansikee.ApplicationClass.Companion.initRetrofit
 import com.tomasandfriends.bansikee.ApplicationClass.Companion.mSharedPreferences
-import com.tomasandfriends.bansikee.src.DefaultResponse
+import com.tomasandfriends.bansikee.src.common.models.DefaultResponse
 import com.tomasandfriends.bansikee.src.activities.login.interfaces.LoginRetrofitInterface
 import com.tomasandfriends.bansikee.src.activities.login.interfaces.LoginView
 import com.tomasandfriends.bansikee.src.activities.login.models.AccessObject

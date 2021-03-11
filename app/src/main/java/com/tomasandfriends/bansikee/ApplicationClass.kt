@@ -10,7 +10,7 @@ import androidx.annotation.RequiresApi
 import com.google.gson.GsonBuilder
 import com.kakao.sdk.common.KakaoSdk
 import com.tomasandfriends.bansikee.config.XAccessTokenInterceptor
-import com.tomasandfriends.bansikee.src.DefaultResponse
+import com.tomasandfriends.bansikee.src.common.models.DefaultResponse
 import okhttp3.OkHttpClient
 import okhttp3.ResponseBody
 import retrofit2.Retrofit

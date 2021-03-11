@@ -1,6 +1,6 @@
 package com.tomasandfriends.bansikee.src.activities.onboarding.interfaces
 
-import com.tomasandfriends.bansikee.src.DefaultResponse
+import com.tomasandfriends.bansikee.src.common.models.DefaultResponse
 import com.tomasandfriends.bansikee.src.activities.onboarding.models.AnswerListBody
 import com.tomasandfriends.bansikee.src.activities.onboarding.models.GetSurveyResponse
 import com.tomasandfriends.bansikee.src.activities.onboarding.models.RecommendationResponse

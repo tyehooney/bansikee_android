@@ -4,7 +4,7 @@ import com.tomasandfriends.bansikee.ApplicationClass
 import com.tomasandfriends.bansikee.ApplicationClass.Companion.initRetrofit
 import com.tomasandfriends.bansikee.src.activities.main.interfaces.MainRetrofitInterface
 import com.tomasandfriends.bansikee.src.activities.main.interfaces.MainView
-import com.tomasandfriends.bansikee.src.activities.main.models.IsOnboardedResponse
+import com.tomasandfriends.bansikee.src.common.models.BooleanResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -15,11 +15,11 @@ class MainService(mainView: MainView) {
     fun isOnboarded(){
         val retrofitInterface = initRetrofit().create(MainRetrofitInterface::class.java)
 
-        retrofitInterface.isOnboarded().enqueue(object: Callback<IsOnboardedResponse> {
-            override fun onResponse(call: Call<IsOnboardedResponse>, response: Response<IsOnboardedResponse>) {
+        retrofitInterface.isOnboarded().enqueue(object: Callback<BooleanResponse> {
+            override fun onResponse(call: Call<BooleanResponse>, response: Response<BooleanResponse>) {
                 if(response.code() == ApplicationClass.CODE_SUCCESS){
                     val apiResponse = response.body()
-                    mMainView.isOnboardedSuccess(apiResponse!!.onboarded)
+                    mMainView.isOnboardedSuccess(apiResponse!!.data)
                 } else {
                     mMainView.isOnboardedFailed(
                             if(response.body() == null)
@@ -30,7 +30,7 @@ class MainService(mainView: MainView) {
                 }
             }
 
-            override fun onFailure(call: Call<IsOnboardedResponse>, t: Throwable) {
+            override fun onFailure(call: Call<BooleanResponse>, t: Throwable) {
                 mMainView.isOnboardedFailed(null)
             }
         })

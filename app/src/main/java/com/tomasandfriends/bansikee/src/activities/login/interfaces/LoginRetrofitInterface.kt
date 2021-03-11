@@ -1,6 +1,6 @@
 package com.tomasandfriends.bansikee.src.activities.login.interfaces
 
-import com.tomasandfriends.bansikee.src.DefaultResponse
+import com.tomasandfriends.bansikee.src.common.models.DefaultResponse
 import com.tomasandfriends.bansikee.src.activities.login.models.AccessObject
 import com.tomasandfriends.bansikee.src.activities.login.models.LoginBody
 import com.tomasandfriends.bansikee.src.activities.login.models.LoginResponse

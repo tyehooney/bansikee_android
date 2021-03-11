@@ -1,7 +1,7 @@
 package com.tomasandfriends.bansikee.src.activities.sign_up
 
 import com.tomasandfriends.bansikee.ApplicationClass
-import com.tomasandfriends.bansikee.src.DefaultResponse
+import com.tomasandfriends.bansikee.src.common.models.DefaultResponse
 import com.tomasandfriends.bansikee.src.activities.sign_up.interfaces.SignUpRetrofitInterface
 import com.tomasandfriends.bansikee.src.activities.sign_up.interfaces.SignUpView
 import com.tomasandfriends.bansikee.src.activities.sign_up.models.SignUpBody

@@ -2,7 +2,7 @@ package com.tomasandfriends.bansikee.src.activities.onboarding.models
 
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.annotations.SerializedName
-import com.tomasandfriends.bansikee.src.DefaultResponse
+import com.tomasandfriends.bansikee.src.common.models.DefaultResponse
 
 class GetSurveyResponse : DefaultResponse() {
 

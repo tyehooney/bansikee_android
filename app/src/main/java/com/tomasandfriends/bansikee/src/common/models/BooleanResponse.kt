@@ -1,11 +1,9 @@
-package com.tomasandfriends.bansikee.src.activities.login.models
+package com.tomasandfriends.bansikee.src.common.models
 
 import com.google.gson.annotations.SerializedName
 import com.tomasandfriends.bansikee.src.common.models.DefaultResponse
 
-class LoginResponse : DefaultResponse() {
-
+class BooleanResponse: DefaultResponse() {
     @SerializedName("data")
-    var data = ""
-
+    var data = false
 }

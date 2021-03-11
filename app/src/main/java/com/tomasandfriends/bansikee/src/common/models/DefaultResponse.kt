@@ -1,4 +1,4 @@
-package com.tomasandfriends.bansikee.src
+package com.tomasandfriends.bansikee.src.common.models
 
 import com.google.gson.annotations.SerializedName
 
