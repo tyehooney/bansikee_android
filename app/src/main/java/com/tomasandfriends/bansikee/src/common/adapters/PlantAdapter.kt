@@ -1,11 +1,13 @@
 package com.tomasandfriends.bansikee.src.common.adapters
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.tomasandfriends.bansikee.databinding.ItemPlantBinding
+import com.tomasandfriends.bansikee.src.activities.plant_details.PlantDetailsActivity
 
 class PlantAdapter(context: Context): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -50,7 +52,9 @@ class PlantAdapter(context: Context): RecyclerView.Adapter<RecyclerView.ViewHold
             mBinding.lifecycleOwner = mContext as LifecycleOwner
 
             viewModel.goDetailsEvent.observe(mContext as LifecycleOwner, {
-                //go plant details activity
+                val intent = Intent(mContext, PlantDetailsActivity::class.java)
+                intent.putExtra("plantIdx", it)
+                mContext.startActivity(intent)
             })
         }
     }

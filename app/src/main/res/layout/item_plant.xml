@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/item_round_white_green"
         android:layout_marginVertical="5dp"
+        android:onClick="@{()->viewModel.itemClick()}"
         android:padding="20dp">
 
         <androidx.cardview.widget.CardView

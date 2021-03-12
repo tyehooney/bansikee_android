@@ -19,4 +19,8 @@ class PlantItemViewModel(plantData: PlantData): ViewModel() {
 
     private val _goDetailsEvent = SingleLiveEvent<Int>()
     val goDetailsEvent: LiveData<Int> = _goDetailsEvent
+
+    fun itemClick() {
+        _goDetailsEvent.value = plantIdx
+    }
 }
