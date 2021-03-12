@@ -85,6 +85,19 @@
                     android:overScrollMode="never"
                     android:nestedScrollingEnabled="false"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="30dp"
+                    android:background="@drawable/btn_round_green"
+                    android:gravity="center"
+                    android:onClick="@{()->viewModel.finish()}"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/noto_sans_bold"
+                    android:paddingVertical="15dp"
+                    android:textSize="16sp"
+                    android:text="@{viewModel.onBoarded ? @string/check : @string/startWithBansikee}"/>
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

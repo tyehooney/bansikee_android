@@ -3,6 +3,7 @@ package com.tomasandfriends.bansikee.src.activities.onboarding
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.tomasandfriends.bansikee.ApplicationClass
+import com.tomasandfriends.bansikee.ApplicationClass.Companion.mSharedPreferences
 import com.tomasandfriends.bansikee.src.activities.base.BaseViewModel
 import com.tomasandfriends.bansikee.src.common.models.PlantData
 import com.tomasandfriends.bansikee.src.activities.onboarding.interfaces.SurveyResultView
@@ -14,6 +15,8 @@ class SurveyResultViewModel: BaseViewModel(), SurveyResultView {
     val surveyResultItems: LiveData<List<PlantItemViewModel>> = _surveyResultItems
 
     private val surveyResultService = SurveyResultService(this)
+
+    val onBoarded = mSharedPreferences!!.getBoolean("onboarded", false)
 
     init {
         surveyResultService.getSurveyResults()

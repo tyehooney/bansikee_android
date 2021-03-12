@@ -1,4 +1,7 @@
 <resources>
+
+    <string name="check">확인</string>
+
     <string name="app_name">반식이</string>
     <string name="app_name_eng">Bansikee</string>
     <string name="title_sub">내 옆의 반려식물, 반식이</string>
@@ -24,5 +27,8 @@
     <string name="finished">완료</string>
     <string name="nickname_duplicated">중복된 닉네임입니다!</string>
     <string name="nickname_veryfied">사용 가능한 닉네임입니다.</string>
-    <string name="check_nickname_pls">닉네을 다시 입력해주세요!</string>
+    <string name="check_nickname_pls">닉네임을 다시 입력해주세요!</string>
+    
+    <string name="startWithBansikee">반식이랑 시작하기</string>
+    <string name="add_to_my_plants">내 식물로 등록하기</string>
 </resources>

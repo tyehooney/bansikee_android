@@ -182,7 +182,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="관리수준"
+                            android:text="생장 높이"
                             android:textSize="12sp"
                             android:fontFamily="@font/noto_sans"
                             android:textColor="@color/text_black"/>
@@ -211,7 +211,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="관리수준"
+                            android:text="생장 넓이"
                             android:textSize="12sp"
                             android:fontFamily="@font/noto_sans"
                             android:textColor="@color/text_black"/>
@@ -240,7 +240,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="관리수준"
+                            android:text="생장 속도"
                             android:textSize="12sp"
                             android:fontFamily="@font/noto_sans"
                             android:textColor="@color/text_black"/>
@@ -269,7 +269,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="관리수준"
+                            android:text="향기"
                             android:textSize="12sp"
                             android:fontFamily="@font/noto_sans"
                             android:textColor="@color/text_black"/>
@@ -298,7 +298,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="관리수준"
+                            android:text="생육 온도"
                             android:textSize="12sp"
                             android:fontFamily="@font/noto_sans"
                             android:textColor="@color/text_black"/>
@@ -327,7 +327,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="관리수준"
+                            android:text="물주기"
                             android:textSize="12sp"
                             android:fontFamily="@font/noto_sans"
                             android:textColor="@color/text_black"/>
@@ -356,7 +356,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="관리수준"
+                            android:text="햇빛 광도"
                             android:textSize="12sp"
                             android:fontFamily="@font/noto_sans"
                             android:textColor="@color/text_black"/>
@@ -385,7 +385,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="관리수준"
+                            android:text="배치 장소"
                             android:textSize="12sp"
                             android:fontFamily="@font/noto_sans"
                             android:textColor="@color/text_black"/>
@@ -410,7 +410,7 @@
                     android:fontFamily="@font/noto_sans_bold"
                     android:paddingVertical="15dp"
                     android:textSize="16sp"
-                    android:text="내 식물로 등록하기"/>
+                    android:text="@string/add_to_my_plants"/>
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

@@ -66,7 +66,6 @@ class OnboardingViewModel: BaseViewModel(), OnboardingView {
     }
 
     override fun answerSurveySuccess(msg: String) {
-        _snackbarMessage.value = msg
         _currentPage.value = -1
         _goSurveyResultEvent.value = null
     }
