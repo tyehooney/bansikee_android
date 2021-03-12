@@ -43,7 +43,7 @@
                 android:textSize="18sp" />
         </LinearLayout>
 
-        <ScrollView
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="10dp"
@@ -99,6 +99,6 @@
                     android:textSize="16sp"
                     android:text="@{viewModel.onBoarded ? @string/check : @string/startWithBansikee}"/>
             </LinearLayout>
-        </ScrollView>
+        </androidx.core.widget.NestedScrollView>
     </LinearLayout>
 </layout>
