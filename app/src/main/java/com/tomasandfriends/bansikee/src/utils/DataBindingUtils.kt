@@ -155,7 +155,7 @@ object DataBindingUtils {
             tvAnswer.setPadding(0, paddingSize, 0, paddingSize)
 
             val params = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
-            val marginSize = (5 * dm.density).roundToInt()
+            val marginSize = (8 * dm.density).roundToInt()
             params.topMargin = marginSize
             params.bottomMargin = marginSize
             tvAnswer.layoutParams = params
