@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.tomasandfriends.bansikee.databinding.ItemPlantBinding
 import com.tomasandfriends.bansikee.src.activities.plant_details.PlantDetailsActivity
 
@@ -55,6 +56,10 @@ class PlantAdapter(context: Context): RecyclerView.Adapter<RecyclerView.ViewHold
                 val intent = Intent(mContext, PlantDetailsActivity::class.java)
                 intent.putExtra("plantIdx", it)
                 mContext.startActivity(intent)
+            })
+
+            viewModel.snackbarMessage.observe(mContext as LifecycleOwner, {
+                Snackbar.make(mBinding.root, it, Snackbar.LENGTH_SHORT).show()
             })
         }
     }

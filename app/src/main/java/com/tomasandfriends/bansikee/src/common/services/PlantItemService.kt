@@ -18,7 +18,7 @@ class PlantItemService(plantItemView: PlantItemView) {
         retrofitInterface.changePlantLike(plantIdx).enqueue(object: Callback<DefaultResponse> {
             override fun onResponse(call: Call<DefaultResponse>, response: Response<DefaultResponse>) {
                 if(response.code() == ApplicationClass.CODE_SUCCESS){
-                    mPlantItemView.changePlantLikeSuccess()
+                    mPlantItemView.changePlantLikeSuccess(response.body()!!.detail)
                 } else {
                     mPlantItemView.changePlantLikeFailed(
                             if(response.body() == null)

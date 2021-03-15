@@ -1,6 +1,6 @@
 package com.tomasandfriends.bansikee.src.common.interfaces
 
 interface PlantItemView {
-    fun changePlantLikeSuccess()
+    fun changePlantLikeSuccess(msg: String)
     fun changePlantLikeFailed(msg: String?)
 }
