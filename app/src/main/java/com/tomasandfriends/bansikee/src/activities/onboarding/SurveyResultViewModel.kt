@@ -19,6 +19,10 @@ class SurveyResultViewModel: BaseViewModel(), SurveyResultView {
     val onBoarded = mSharedPreferences!!.getBoolean("onboarded", false)
 
     init {
+        getResult()
+    }
+
+    fun getResult(){
         surveyResultService.getSurveyResults()
     }
 

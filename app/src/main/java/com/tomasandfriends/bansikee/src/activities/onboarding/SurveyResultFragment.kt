@@ -17,4 +17,9 @@ class SurveyResultFragment: BaseFragment<FragmentSurveyResultBinding, SurveyResu
                 .get(SurveyResultViewModel::class.java)
         binding.viewModel = viewModel
     }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getResult()
+    }
 }

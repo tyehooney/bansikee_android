@@ -56,7 +56,7 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="10dp"
                 android:paddingBottom="20dp"
-                android:paddingHorizontal="20dp"
+                android:paddingHorizontal="30dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -65,7 +65,8 @@
                     android:layout_marginTop="30dp"
                     android:text="세정님과 잘 어울리는\n반려식물들을 보여드려요."
                     android:textColor="@color/text_black"
-                    android:textSize="24sp"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
                     android:fontFamily="@font/noto_sans_bold"/>
 
                 <TextView
@@ -73,7 +74,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:textColor="@color/text_gray"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:fontFamily="@font/noto_sans"
                     android:text="나에게 맞는 식물들을 살펴보고 등록해보세요."/>
 

@@ -84,7 +84,8 @@
                 android:textSize="12sp"
                 android:fontFamily="@font/noto_sans"
                 android:textColor="@color/text_gray"
-                android:ellipsize="end" />
+                android:ellipsize="end"
+                android:maxLines="2"/>
         </LinearLayout>
     </LinearLayout>
 </layout>
