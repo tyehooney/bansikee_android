@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/home">
+
+    <fragment
+        android:id="@+id/home"
+        android:name="com.tomasandfriends.bansikee.src.activities.main.fragment_home.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/my_garden"
+        android:name="com.tomasandfriends.bansikee.src.activities.main.fragment_my_garden.MyGardenFragment"
+        android:label="MyGardenFragment"
+        tools:layout="@layout/fragment_my_garden" />
+
+    <fragment
+        android:id="@+id/encyclopedia"
+        android:name="com.tomasandfriends.bansikee.src.activities.main.fragment_encyclopedia.EncyclopediaFragment"
+        android:label="EncyclopediaFragment"
+        tools:layout="@layout/fragment_encyclopedia" />
+
+    <fragment
+        android:id="@+id/my_page"
+        android:name="com.tomasandfriends.bansikee.src.activities.main.fragment_my_page.MyPageFragment"
+        android:label="MyPageFragment"
+        tools:layout="@layout/fragment_my_page" />
+
+    <action
+        android:id="@+id/action_back_to_home"
+        app:destination="@+id/home"
+        app:popUpToInclusive="true"/>
+</navigation>

@@ -44,4 +44,8 @@
     <string name="water_terms_format">평상시: %s\n동절기: %s</string>
     <string name="sunlight">햇빛 광도</string>
     <string name="plant_area">배치 장소</string>
+    <string name="menu_home">홈</string>
+    <string name="menu_my_garden">나의 정원</string>
+    <string name="menu_encyclopedia">식물사전</string>
+    <string name="menu_my_page">마이페이지</string>
 </resources>
