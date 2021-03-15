@@ -46,7 +46,7 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:background="@color/background_splash_light"
             android:overScrollMode="never"
             android:scrollbars="none">
@@ -54,50 +54,56 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="10dp"
+                android:paddingTop="20dp"
                 android:paddingBottom="20dp"
-                android:paddingHorizontal="20dp"
+                android:paddingHorizontal="30dp"
                 android:orientation="vertical">
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:maxHeight="300dp"
                     app:cardElevation="0dp"
                     app:cardCornerRadius="10dp">
 
                     <ImageView
                         android:id="@+id/iv_plant"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxHeight="270dp"
+                        imgUrl="@{viewModel.plantDetails.plantImgUrl}"
                         android:fitsSystemWindows="true"
-                        android:scaleType="centerCrop"
                         android:background="@color/light_gray"/>
                 </androidx.cardview.widget.CardView>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:textSize="20sp"
-                        android:text="이름"
+                        android:textSize="17sp"
+                        android:text="@{viewModel.plantDetails.name}"
                         android:fontFamily="@font/noto_sans_bold"
                         android:textColor="@color/text_black"/>
 
-<!--                    찜하기-->
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:onClick="@{()->viewModel.likeClick()}"
+                        android:src="@drawable/ic_like" />
                 </LinearLayout>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:textSize="14sp"
-                    android:text="과"
+                    android:textSize="12sp"
+                    android:text="@{viewModel.plantDetails.species}"
                     android:fontFamily="@font/noto_sans_bold"
                     android:textColor="@color/text_black"/>
 
@@ -111,8 +117,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:textSize="16sp"
-                    android:text="식물 정보"
+                    android:textSize="14sp"
+                    android:text="@string/plant_info"
                     android:fontFamily="@font/noto_sans_bold"
                     android:textColor="@color/text_black"/>
 
@@ -124,14 +130,14 @@
                     android:padding="15dp"
                     android:textSize="12sp"
                     android:fontFamily="@font/noto_sans"
-                    android:text="산세베리아 하니는 꽃처럼 생긴 식물로 키우기 어렵지 않아 처음 접하시는 분들이 키우기에도 좋은 반려식물입니다. 실내 공기 정화에 좋으며 집들이 선물에도 제격인 식물입니다."/>
+                    android:text="@{viewModel.plantDetails.info}"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
-                    android:textSize="16sp"
-                    android:text="관리 정보"
+                    android:textSize="14sp"
+                    android:text="@string/management_info"
                     android:fontFamily="@font/noto_sans_bold"
                     android:textColor="@color/text_black"/>
 
@@ -153,15 +159,17 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="관리수준"
+                            android:text="@string/management_level"
                             android:textSize="12sp"
                             android:fontFamily="@font/noto_sans"
                             android:textColor="@color/text_black"/>
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="초보자"
+                            android:layout_weight="1"
+                            android:gravity="end"
+                            android:text="@{viewModel.plantDetails.managementLevel}"
                             android:textSize="12sp"
                             android:fontFamily="@font/noto_sans_bold"
                             android:textColor="@color/text_black"/>
@@ -182,15 +190,17 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="생장 높이"
+                            android:text="@string/plant_height"
                             android:textSize="12sp"
                             android:fontFamily="@font/noto_sans"
                             android:textColor="@color/text_black"/>
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="초보자"
+                            android:layout_weight="1"
+                            android:gravity="end"
+                            android:text="@{String.format(@string/length_cm_format, viewModel.plantDetails.height)}"
                             android:textSize="12sp"
                             android:fontFamily="@font/noto_sans_bold"
                             android:textColor="@color/text_black"/>
@@ -211,15 +221,17 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="생장 넓이"
+                            android:text="@string/plant_width"
                             android:textSize="12sp"
                             android:fontFamily="@font/noto_sans"
                             android:textColor="@color/text_black"/>
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="초보자"
+                            android:layout_weight="1"
+                            android:gravity="end"
+                            android:text="@{String.format(@string/length_cm_format, viewModel.plantDetails.width)}"
                             android:textSize="12sp"
                             android:fontFamily="@font/noto_sans_bold"
                             android:textColor="@color/text_black"/>
@@ -240,15 +252,17 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="생장 속도"
+                            android:text="@string/growth_speed"
                             android:textSize="12sp"
                             android:fontFamily="@font/noto_sans"
                             android:textColor="@color/text_black"/>
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="초보자"
+                            android:layout_weight="1"
+                            android:gravity="end"
+                            android:text="@{viewModel.plantDetails.speed}"
                             android:textSize="12sp"
                             android:fontFamily="@font/noto_sans_bold"
                             android:textColor="@color/text_black"/>
@@ -269,15 +283,17 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="향기"
+                            android:text="@string/smell"
                             android:textSize="12sp"
                             android:fontFamily="@font/noto_sans"
                             android:textColor="@color/text_black"/>
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="초보자"
+                            android:layout_weight="1"
+                            android:gravity="end"
+                            android:text="@{viewModel.plantDetails.smell}"
                             android:textSize="12sp"
                             android:fontFamily="@font/noto_sans_bold"
                             android:textColor="@color/text_black"/>
@@ -298,15 +314,17 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="생육 온도"
+                            android:text="@string/plant_temperature"
                             android:textSize="12sp"
                             android:fontFamily="@font/noto_sans"
                             android:textColor="@color/text_black"/>
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="초보자"
+                            android:layout_weight="1"
+                            android:gravity="end"
+                            android:text="@{viewModel.plantDetails.temperature}"
                             android:textSize="12sp"
                             android:fontFamily="@font/noto_sans_bold"
                             android:textColor="@color/text_black"/>
@@ -324,18 +342,20 @@
                         android:paddingVertical="15dp">
 
                         <TextView
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="물주기"
+                            android:layout_marginEnd="30dp"
+                            android:text="@string/water_terms"
                             android:textSize="12sp"
                             android:fontFamily="@font/noto_sans"
                             android:textColor="@color/text_black"/>
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="초보자"
+                            android:layout_weight="1"
+                            android:gravity="end"
+                            android:text="@{String.format(@string/water_terms_format, viewModel.plantDetails.summerWater, viewModel.plantDetails.winterWater)}"
                             android:textSize="12sp"
                             android:fontFamily="@font/noto_sans_bold"
                             android:textColor="@color/text_black"/>
@@ -353,18 +373,19 @@
                         android:paddingVertical="15dp">
 
                         <TextView
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="햇빛 광도"
+                            android:layout_marginEnd="30dp"
+                            android:text="@string/sunlight"
                             android:textSize="12sp"
                             android:fontFamily="@font/noto_sans"
                             android:textColor="@color/text_black"/>
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="초보자"
+                            android:layout_weight="1"
+                            android:text="@{viewModel.plantDetails.light}"
                             android:textSize="12sp"
                             android:fontFamily="@font/noto_sans_bold"
                             android:textColor="@color/text_black"/>
@@ -382,19 +403,20 @@
                         android:paddingVertical="15dp">
 
                         <TextView
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="배치 장소"
+                            android:layout_marginEnd="30dp"
+                            android:text="@string/plant_area"
                             android:textSize="12sp"
                             android:fontFamily="@font/noto_sans"
                             android:textColor="@color/text_black"/>
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="초보자"
-                            android:textSize="12sp"
+                            android:layout_weight="1"
+                            android:text="@{viewModel.plantDetails.area}"
+                            android:textSize="10sp"
                             android:fontFamily="@font/noto_sans_bold"
                             android:textColor="@color/text_black"/>
                     </LinearLayout>
@@ -404,7 +426,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="30dp"
-                    android:background="@drawable/btn_round_round_green"
+                    android:background="@drawable/btn_round_green"
                     android:gravity="center"
                     android:textColor="@color/white"
                     android:fontFamily="@font/noto_sans_bold"

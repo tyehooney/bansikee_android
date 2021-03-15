@@ -31,4 +31,17 @@
     
     <string name="startWithBansikee">반식이랑 시작하기</string>
     <string name="add_to_my_plants">내 식물로 등록하기</string>
+    <string name="plant_info">식물 정보</string>
+    <string name="management_info">관리 정보</string>
+    <string name="management_level">관리수준</string>
+    <string name="plant_height">생장 높이</string>
+    <string name="plant_width">생장 넓이</string>
+    <string name="length_cm_format">%d cm</string>
+    <string name="growth_speed">생장 속도</string>
+    <string name="smell">향기</string>
+    <string name="plant_temperature">생육 온도</string>
+    <string name="water_terms">물주기</string>
+    <string name="water_terms_format">평상시: %s\n동절기: %s</string>
+    <string name="sunlight">햇빛 광도</string>
+    <string name="plant_area">배치 장소</string>
 </resources>

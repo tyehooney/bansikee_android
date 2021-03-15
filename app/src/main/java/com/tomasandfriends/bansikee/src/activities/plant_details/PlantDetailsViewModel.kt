@@ -38,6 +38,7 @@ class PlantDetailsViewModel : BaseViewModel(), PlantDetailsView, PlantItemView {
 
     override fun changePlantLikeSuccess(msg: String) {
         _snackbarMessage.value = msg
+        plantDetailsService.getPlantDetails(mPlantIdx)
     }
 
     override fun changePlantLikeFailed(msg: String?) {
