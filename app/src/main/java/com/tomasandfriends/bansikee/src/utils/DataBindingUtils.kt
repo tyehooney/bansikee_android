@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.textfield.TextInputLayout
@@ -192,7 +193,8 @@ object DataBindingUtils {
     @JvmStatic
     fun setPlantAdapter(view: RecyclerView, itemViewModels: LiveData<List<PlantItemViewModel>>){
         if (view.adapter == null){
-            val plantAdapter = PlantAdapter(view.context)
+            val plantAdapter = PlantAdapter(view.context,
+                    (view.layoutManager as LinearLayoutManager).orientation == LinearLayout.HORIZONTAL)
             view.adapter = plantAdapter
         }
 

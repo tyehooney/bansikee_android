@@ -6,15 +6,16 @@ import com.tomasandfriends.bansikee.ApplicationClass
 import com.tomasandfriends.bansikee.ApplicationClass.Companion.mSharedPreferences
 import com.tomasandfriends.bansikee.src.activities.base.BaseViewModel
 import com.tomasandfriends.bansikee.src.common.models.PlantData
-import com.tomasandfriends.bansikee.src.activities.onboarding.interfaces.SurveyResultView
+import com.tomasandfriends.bansikee.src.common.interfaces.RecommendationView
 import com.tomasandfriends.bansikee.src.common.adapters.PlantItemViewModel
+import com.tomasandfriends.bansikee.src.common.services.RecommendationService
 
-class SurveyResultViewModel: BaseViewModel(), SurveyResultView {
+class SurveyResultViewModel: BaseViewModel(), RecommendationView {
 
     private val _surveyResultItems = MutableLiveData<List<PlantItemViewModel>>()
     val surveyResultItems: LiveData<List<PlantItemViewModel>> = _surveyResultItems
 
-    private val surveyResultService = SurveyResultService(this)
+    private val surveyResultService = RecommendationService(this)
 
     val onBoarded = mSharedPreferences!!.getBoolean("onboarded", false)
 
@@ -23,19 +24,19 @@ class SurveyResultViewModel: BaseViewModel(), SurveyResultView {
     }
 
     fun getResult(){
-        surveyResultService.getSurveyResults()
+        surveyResultService.getRecommendations()
     }
 
-    override fun getSurveyResultsSuccess(surveyResults: List<PlantData>) {
+    override fun getRecommendationsSuccess(recommendations: List<PlantData>) {
         val itemViewModels = ArrayList<PlantItemViewModel>()
-        for(plantData in surveyResults){
+        for(plantData in recommendations){
             itemViewModels.add(PlantItemViewModel(plantData))
         }
 
         _surveyResultItems.value = itemViewModels
     }
 
-    override fun getSurveyResultsFailed(msg: String?) {
+    override fun getRecommendationsFailed(msg: String?) {
         _snackbarMessage.value = msg ?: ApplicationClass.NETWORK_ERROR
     }
 }
