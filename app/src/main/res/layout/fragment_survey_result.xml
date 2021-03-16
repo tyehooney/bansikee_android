@@ -19,7 +19,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="30dp"
-            android:paddingBottom="15dp"
             android:paddingHorizontal="20dp"
             android:orientation="horizontal"
             android:gravity="center_vertical">
@@ -44,62 +43,57 @@
                 android:textSize="18sp" />
         </LinearLayout>
 
-        <androidx.core.widget.NestedScrollView
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_marginHorizontal="30dp"
+            android:text="세정님과 잘 어울리는\n반려식물들을 보여드려요."
+            android:textColor="@color/text_black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/noto_sans_bold"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginHorizontal="30dp"
+            android:textColor="@color/text_gray"
+            android:textSize="14sp"
+            android:fontFamily="@font/noto_sans"
+            android:text="나에게 맞는 식물들을 살펴보고 등록해보세요."/>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/background_splash_light"
-            android:overScrollMode="never"
-            android:scrollbars="none">
+            android:layout_marginTop="25dp"
+            android:paddingHorizontal="30dp"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:paddingTop="10dp"
+                android:clipToPadding="false"
+                plantItems="@{viewModel.surveyResultItems}"
+                android:overScrollMode="never"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:paddingBottom="20dp"
-                android:paddingHorizontal="30dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:text="세정님과 잘 어울리는\n반려식물들을 보여드려요."
-                    android:textColor="@color/text_black"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:fontFamily="@font/noto_sans_bold"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:textColor="@color/text_gray"
-                    android:textSize="14sp"
-                    android:fontFamily="@font/noto_sans"
-                    android:text="나에게 맞는 식물들을 살펴보고 등록해보세요."/>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    plantItems="@{viewModel.surveyResultItems}"
-                    android:overScrollMode="never"
-                    android:nestedScrollingEnabled="false"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="30dp"
-                    android:background="@drawable/btn_round_green"
-                    android:gravity="center"
-                    android:onClick="@{()->viewModel.finish()}"
-                    android:textColor="@color/white"
-                    android:fontFamily="@font/noto_sans_bold"
-                    android:paddingVertical="15dp"
-                    android:textSize="16sp"
-                    android:text="@{viewModel.onBoarded ? @string/check : @string/startWithBansikee}"/>
-            </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="40dp"
+                android:background="@drawable/btn_round_green_dark"
+                android:gravity="center"
+                android:onClick="@{()->viewModel.finish()}"
+                android:textColor="@color/white"
+                android:fontFamily="@font/noto_sans_bold"
+                android:paddingVertical="20dp"
+                android:textSize="16sp"
+                android:text="@{viewModel.onBoarded ? @string/check : @string/startWithBansikee}"/>
+        </LinearLayout>
     </LinearLayout>
 </layout>
