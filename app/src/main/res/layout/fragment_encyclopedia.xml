@@ -31,6 +31,7 @@
                 android:layout_below="@+id/ll_search_box"
                 android:layout_marginTop="-20dp"
                 android:overScrollMode="never"
+                android:scrollbars="none"
                 android:background="@color/background_splash_light">
 
                 <LinearLayout
@@ -62,25 +63,36 @@
                             android:textColor="@color/text_gray"/>
                     </LinearLayout>
 
-                    <androidx.recyclerview.widget.RecyclerView
+                    <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingHorizontal="30dp"
-                        android:clipToPadding="false"
-                        plantItems="@{viewModel.recentSearchedPlantItems}"
-                        android:overScrollMode="never"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        android:orientation="horizontal" />
+                        android:layout_height="wrap_content">
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingVertical="40dp"
-                        android:visibility="@{viewModel.recentSearchedPlantItems.empty || viewModel.recentSearchedPlantItems == null ? View.VISIBLE : View.GONE}"
-                        android:gravity="center"
-                        android:textSize="20sp"
-                        android:fontFamily="@font/noto_sans_bold"
-                        android:text="@string/none"/>
+                        <ProgressBar
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingVertical="40dp"
+                            android:visibility="@{viewModel.recentSearchLoading ? View.VISIBLE: View.GONE}"/>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingHorizontal="30dp"
+                            android:clipToPadding="false"
+                            plantItems="@{viewModel.recentSearchedPlantItems}"
+                            android:overScrollMode="never"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            android:orientation="horizontal" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingVertical="40dp"
+                            android:visibility="@{!viewModel.recentSearchLoading &amp;&amp; (viewModel.recentSearchedPlantItems.empty || viewModel.recentSearchedPlantItems == null) ? View.VISIBLE : View.GONE}"
+                            android:gravity="center"
+                            android:textSize="20sp"
+                            android:fontFamily="@font/noto_sans_bold"
+                            android:text="@string/none"/>
+                    </FrameLayout>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -92,25 +104,36 @@
                         android:fontFamily="@font/noto_sans_bold"
                         android:textColor="@color/text_black"/>
 
-                    <androidx.recyclerview.widget.RecyclerView
+                    <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingHorizontal="30dp"
-                        android:clipToPadding="false"
-                        plantItems="@{viewModel.recommendedPlantItems}"
-                        android:overScrollMode="never"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        android:orientation="horizontal"/>
+                        android:layout_height="wrap_content">
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingVertical="40dp"
-                        android:visibility="@{viewModel.recommendedPlantItems.empty || viewModel.recommendedPlantItems == null ? View.VISIBLE : View.GONE}"
-                        android:gravity="center"
-                        android:textSize="20sp"
-                        android:fontFamily="@font/noto_sans_bold"
-                        android:text="@string/onboarding_for_recommendations"/>
+                        <ProgressBar
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingVertical="40dp"
+                            android:visibility="@{viewModel.recommendationLoading ? View.VISIBLE: View.GONE}"/>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingHorizontal="30dp"
+                            android:clipToPadding="false"
+                            plantItems="@{viewModel.recommendedPlantItems}"
+                            android:overScrollMode="never"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            android:orientation="horizontal"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingVertical="40dp"
+                            android:visibility="@{!viewModel.recommendationLoading &amp;&amp; (viewModel.recommendedPlantItems.empty || viewModel.recommendedPlantItems == null) ? View.VISIBLE : View.GONE}"
+                            android:gravity="center"
+                            android:textSize="20sp"
+                            android:fontFamily="@font/noto_sans_bold"
+                            android:text="@string/onboarding_for_recommendations"/>
+                    </FrameLayout>
                 </LinearLayout>
             </ScrollView>
 

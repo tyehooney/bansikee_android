@@ -15,8 +15,14 @@ class EncyclopediaViewModel : BaseViewModel(), RecommendationView {
     private val _recentSearchedPlantItems = MutableLiveData<List<PlantItemViewModel>>()
     val recentSearchedPlantItems: LiveData<List<PlantItemViewModel>> = _recentSearchedPlantItems
 
+    private val _recentSearchLoading = MutableLiveData(true)
+    val recentSearchLoading: LiveData<Boolean> = _recentSearchLoading
+
     private val _recommendedPlantItems = MutableLiveData<List<PlantItemViewModel>>()
     val recommendedPlantItems: LiveData<List<PlantItemViewModel>> = _recommendedPlantItems
+
+    private val _recommendationLoading = MutableLiveData(true)
+    val recommendationLoading: LiveData<Boolean> = _recommendationLoading
 
     private val _goOnboardingEvent = SingleLiveEvent<Void?>()
     val goOnboardingEvent: LiveData<Void?> = _goOnboardingEvent
@@ -24,6 +30,7 @@ class EncyclopediaViewModel : BaseViewModel(), RecommendationView {
     private val recommendationService = RecommendationService(this)
 
     fun getRecommendations(){
+        _recommendationLoading.value = true
         recommendationService.getRecommendations()
     }
 
@@ -38,6 +45,7 @@ class EncyclopediaViewModel : BaseViewModel(), RecommendationView {
         }
 
         _recommendedPlantItems.value = itemViewModels
+        _recommendationLoading.value = false
     }
 
     override fun getRecommendationsFailed(msg: String?) {
