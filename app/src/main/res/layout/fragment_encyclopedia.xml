@@ -21,13 +21,92 @@
             app:viewModel="@{viewModel}"
             app:newNoti="@{true}"/>
 
-        <TextView
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:textSize="46sp"
-            android:fontFamily="@font/poppins_bold"
-            android:textColor="@color/main_green"
-            android:text="Encyclopedia"/>
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/ll_search_box"
+                android:layout_marginTop="-20dp"
+                android:background="@color/background_splash_light"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="30dp"
+                    android:layout_marginTop="60dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/recent_search"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/noto_sans_bold"
+                        android:textColor="@color/text_black"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/delete_all"
+                        android:textSize="12sp"
+                        android:textColor="@color/text_gray"/>
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="30dp"
+                    android:clipToPadding="false"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="30dp"
+                    android:layout_marginTop="50dp"
+                    android:text="@string/recommendations_for_user"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/noto_sans_bold"
+                    android:textColor="@color/text_black"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="30dp"
+                    android:clipToPadding="false"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_search_box"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_marginHorizontal="30dp"
+                android:gravity="center_vertical"
+                android:paddingVertical="10dp"
+                android:paddingHorizontal="20dp"
+                android:orientation="horizontal"
+                android:background="@drawable/edittext_round_background">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_search"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:background="@android:color/transparent"
+                    android:hint="@string/search_hint"
+                    android:textSize="12sp"
+                    android:singleLine="true"
+                    android:fontFamily="@font/noto_sans" />
+            </LinearLayout>
+        </RelativeLayout>
     </LinearLayout>
 </layout>
