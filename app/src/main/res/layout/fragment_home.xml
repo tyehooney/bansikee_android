@@ -16,6 +16,11 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <include
+            layout="@layout/layout_header"
+            app:viewModel="@{viewModel}"
+            app:newNoti="@{true}"/>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
