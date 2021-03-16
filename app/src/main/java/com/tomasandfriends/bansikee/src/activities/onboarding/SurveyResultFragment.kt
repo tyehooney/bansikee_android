@@ -1,5 +1,6 @@
 package com.tomasandfriends.bansikee.src.activities.onboarding
 
+import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 import com.tomasandfriends.bansikee.R
@@ -16,6 +17,11 @@ class SurveyResultFragment: BaseFragment<FragmentSurveyResultBinding, SurveyResu
         viewModel = ViewModelProvider(requireContext() as ViewModelStoreOwner)
                 .get(SurveyResultViewModel::class.java)
         binding.viewModel = viewModel
+
+        viewModel.onboardAgainEvent.observe(viewLifecycleOwner, {
+            startActivity(Intent(requireActivity(), OnboardingActivity::class.java))
+            requireActivity().finish()
+        })
     }
 
     override fun onResume() {

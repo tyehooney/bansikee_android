@@ -130,6 +130,7 @@
                             android:paddingVertical="40dp"
                             android:visibility="@{!viewModel.recommendationLoading &amp;&amp; (viewModel.recommendedPlantItems.empty || viewModel.recommendedPlantItems == null) ? View.VISIBLE : View.GONE}"
                             android:gravity="center"
+                            android:onClick="@{()->viewModel.goOnboardingClick()}"
                             android:textSize="20sp"
                             android:fontFamily="@font/noto_sans_bold"
                             android:text="@string/onboarding_for_recommendations"/>

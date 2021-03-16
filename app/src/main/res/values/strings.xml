@@ -54,4 +54,5 @@
     <string name="delete_all">모두 삭제</string>
     <string name="none">없음</string>
     <string name="onboarding_for_recommendations">추천 식물을 알아보려면\n여기를 눌러주세요!</string>
+    <string name="no_recommendation">추천 식물이 없습니다!\n다시 하시려면 여기를 눌러주세요!</string>
 </resources>
