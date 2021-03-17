@@ -99,7 +99,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="30dp"
                         android:layout_marginTop="50dp"
-                        android:text="@string/recommendations_for_user"
+                        android:text="@{String.format(@string/format_encyclopedia_recommendations, viewModel.userName)}"
                         android:textSize="18sp"
                         android:fontFamily="@font/noto_sans_bold"
                         android:textColor="@color/text_black"/>

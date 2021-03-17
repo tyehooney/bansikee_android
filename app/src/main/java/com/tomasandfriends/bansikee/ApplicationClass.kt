@@ -31,6 +31,9 @@ class ApplicationClass : Application() {
         // JWT Token Key
         const val X_ACCESS_TOKEN : String = "X-AUTH-TOKEN"
 
+        const val USER_EMAIL = "USER_EMAIL"
+        const val USER_NAME = "USER_NAME"
+
         // Retrofit 인스턴스
         var retrofit : Retrofit? = null
 

@@ -1,10 +1,8 @@
 package com.tomasandfriends.bansikee.src.activities.login
 
 import com.tomasandfriends.bansikee.ApplicationClass.Companion.CODE_SUCCESS
-import com.tomasandfriends.bansikee.ApplicationClass.Companion.X_ACCESS_TOKEN
 import com.tomasandfriends.bansikee.ApplicationClass.Companion.getErrorResponse
 import com.tomasandfriends.bansikee.ApplicationClass.Companion.initRetrofit
-import com.tomasandfriends.bansikee.ApplicationClass.Companion.mSharedPreferences
 import com.tomasandfriends.bansikee.src.common.models.DefaultResponse
 import com.tomasandfriends.bansikee.src.activities.login.interfaces.LoginRetrofitInterface
 import com.tomasandfriends.bansikee.src.activities.login.interfaces.LoginView
@@ -43,8 +41,7 @@ class LoginService(loginView: LoginView) {
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                 if(response.code() == CODE_SUCCESS){
                     val apiResponse = response.body()
-                    mSharedPreferences!!.edit().putString(X_ACCESS_TOKEN, apiResponse!!.data).apply()
-                    mLoginView.loginSuccess()
+                    mLoginView.loginSuccess(apiResponse!!.data)
                 } else {
                     mLoginView.loginFailed(
                             if(response.body() == null)
@@ -68,8 +65,7 @@ class LoginService(loginView: LoginView) {
                 call: Call<LoginResponse>, response: Response<LoginResponse>) {
                 if(response.code() == CODE_SUCCESS){
                     val apiResponse = response.body()
-                    mSharedPreferences!!.edit().putString(X_ACCESS_TOKEN, apiResponse!!.data).apply()
-                    mLoginView.loginSuccess()
+                    mLoginView.loginSuccess(apiResponse!!.data)
                 } else {
                     mLoginView.loginFailed(
                             if(response.body() == null)
@@ -92,8 +88,7 @@ class LoginService(loginView: LoginView) {
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                 if(response.code() == CODE_SUCCESS){
                     val apiResponse = response.body()
-                    mSharedPreferences!!.edit().putString(X_ACCESS_TOKEN, apiResponse!!.data).apply()
-                    mLoginView.loginSuccess()
+                    mLoginView.loginSuccess(apiResponse!!.data)
                 } else {
                     mLoginView.loginFailed(
                             if(response.body() == null)
