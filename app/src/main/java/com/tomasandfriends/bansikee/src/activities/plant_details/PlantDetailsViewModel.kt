@@ -16,6 +16,9 @@ class PlantDetailsViewModel : BaseViewModel(), PlantDetailsView, PlantItemView {
     private val _plantDetails = MutableLiveData<PlantDetailsData>()
     val plantDetails: LiveData<PlantDetailsData> = _plantDetails
 
+    private val _plantLike = MutableLiveData<Boolean>()
+    val plantLike: LiveData<Boolean> = _plantLike
+
     private val plantDetailsService = PlantDetailsService(this)
     private val plantItemService = PlantItemService(this)
 
@@ -30,6 +33,7 @@ class PlantDetailsViewModel : BaseViewModel(), PlantDetailsView, PlantItemView {
 
     override fun getPlantDetailsSuccess(plantDetailsData: PlantDetailsData) {
         _plantDetails.value = plantDetailsData
+        _plantLike.value = plantDetailsData.like
     }
 
     override fun getPlantDetailsFailed(msg: String?) {
@@ -37,7 +41,6 @@ class PlantDetailsViewModel : BaseViewModel(), PlantDetailsView, PlantItemView {
     }
 
     override fun changePlantLikeSuccess(msg: String) {
-        _snackbarMessage.value = msg
         plantDetailsService.getPlantDetails(mPlantIdx)
     }
 

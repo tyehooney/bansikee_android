@@ -6,6 +6,7 @@
 
     <data>
         <import type="android.view.View"/>
+
         <variable
             name="viewModel"
             type="com.tomasandfriends.bansikee.src.activities.main.fragment_encyclopedia.EncyclopediaViewModel" />
@@ -44,7 +45,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:paddingHorizontal="30dp"
-                        android:layout_marginTop="60dp">
+                        android:layout_marginTop="50dp">
 
                         <TextView
                             android:layout_width="0dp"
