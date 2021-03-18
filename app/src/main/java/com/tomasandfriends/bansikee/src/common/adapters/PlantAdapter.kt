@@ -58,7 +58,7 @@ class PlantAdapter(context: Context, horizontal: Boolean): RecyclerView.Adapter<
     class PlantViewHolder(context: Context, binding: ItemPlantBinding)
         : RecyclerView.ViewHolder(binding.root){
         private val mContext = context
-        private val mBinding = binding
+        val mBinding = binding
 
         fun bind(viewModel: PlantItemViewModel){
             mBinding.viewModel = viewModel

@@ -19,7 +19,7 @@ class EncyclopediaService(encyclopediaView: EncyclopediaView) {
             override fun onResponse(call: Call<RecommendationResponse>, response: Response<RecommendationResponse>) {
                 if(response.code() == ApplicationClass.CODE_SUCCESS){
                     val apiResponse = response.body()
-                    mEncyclopediaView.getSearchedPlantsSuccess(apiResponse!!.recommendationDataList)
+                    mEncyclopediaView.getSearchedPlantsSuccess(page, apiResponse!!.recommendationDataList)
                 } else {
                     mEncyclopediaView.getSearchedPlantsFailed(
                             if(response.body() == null)

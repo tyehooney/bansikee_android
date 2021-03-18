@@ -33,7 +33,9 @@
                 android:layout_height="match_parent"
                 android:paddingTop="50dp"
                 android:clipToPadding="false"
-                plantItems="@{viewModel.searchedPlantItems}"
+                pagingPlantItems="@{viewModel.searchedPlantItems}"
+                viewModel="@{viewModel}"
+                refreshing="@{viewModel.forRefreshing}"
                 android:overScrollMode="never"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
@@ -45,7 +47,7 @@
                 android:gravity="center"
                 android:textSize="20sp"
                 android:fontFamily="@font/noto_sans_bold"
-                android:text="@{String.format(@string/format_none_searching_results, viewModel.searchingWord)}"/>
+                android:text="@{String.format(@string/format_none_searching_results, viewModel.lastSearchingWord)}"/>
         </FrameLayout>
     </LinearLayout>
 </layout>

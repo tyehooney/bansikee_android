@@ -1,5 +1,7 @@
 package com.tomasandfriends.bansikee.src.activities.main.fragment_encyclopedia
 
+import android.os.Handler
+import android.os.Looper
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.tomasandfriends.bansikee.ApplicationClass
@@ -14,6 +16,10 @@ import com.tomasandfriends.bansikee.src.common.services.RecommendationService
 class EncyclopediaViewModel : BaseViewModel(), RecommendationView, EncyclopediaView {
 
     val searchingWord = MutableLiveData("")
+    var lastSearchingWord = ""
+    private var searchPage = 1
+    private val _forRefreshing = MutableLiveData(true)
+    val forRefreshing: LiveData<Boolean> = _forRefreshing
 
     private val _recentSearchedPlantItems = MutableLiveData<List<PlantItemViewModel>>()
     val recentSearchedPlantItems: LiveData<List<PlantItemViewModel>> = _recentSearchedPlantItems
@@ -32,8 +38,6 @@ class EncyclopediaViewModel : BaseViewModel(), RecommendationView, EncyclopediaV
 
     private val _searchingLoading = MutableLiveData(true)
     val searchingLoading: LiveData<Boolean> = _searchingLoading
-
-    var searchPage = 1
 
     private val _searchPlantsEvent = SingleLiveEvent<Void?>()
     val searchPlantsEvent: LiveData<Void?> = _searchPlantsEvent
@@ -69,16 +73,27 @@ class EncyclopediaViewModel : BaseViewModel(), RecommendationView, EncyclopediaV
     }
 
     fun searchPlantsClick(){
+        lastSearchingWord = searchingWord.value!!
+        searchPage = 1
         _searchPlantsEvent.value = null
     }
 
     fun searchPlants(){
         _searchingLoading.value = true
-        encyclopediaService.getSearchedPlants(searchingWord.value!!, searchPage, "popularity")
+        _forRefreshing.value = true
+        for(i in 1..searchPage)
+            encyclopediaService.getSearchedPlants(lastSearchingWord, i, "popularity")
     }
 
-    override fun getSearchedPlantsSuccess(searchedPlants: List<PlantData>) {
-        if (searchPage == 1)
+    fun onLoadMore(){
+        Handler(Looper.myLooper()!!).postDelayed({
+            _forRefreshing.value = false
+            encyclopediaService.getSearchedPlants(lastSearchingWord, ++searchPage, "popularity")
+        }, 500)
+    }
+
+    override fun getSearchedPlantsSuccess(loadedPage: Int, searchedPlants: List<PlantData>) {
+        if (loadedPage == 1)
             _searchedPlantItems.value = ArrayList()
 
         val results = ArrayList<PlantItemViewModel>()

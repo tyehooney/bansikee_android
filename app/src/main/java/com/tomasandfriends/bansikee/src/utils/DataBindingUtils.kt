@@ -24,6 +24,7 @@ import com.tomasandfriends.bansikee.src.activities.main.fragment_encyclopedia.En
 import com.tomasandfriends.bansikee.src.activities.onboarding.OnboardingViewModel
 import com.tomasandfriends.bansikee.src.activities.onboarding.models.SurveyData
 import com.tomasandfriends.bansikee.src.activities.sign_up.SignUpViewModel
+import com.tomasandfriends.bansikee.src.common.adapters.PagingPlantAdapter
 import com.tomasandfriends.bansikee.src.common.adapters.PlantAdapter
 import com.tomasandfriends.bansikee.src.common.adapters.PlantItemViewModel
 import kotlin.math.roundToInt
@@ -203,6 +204,47 @@ object DataBindingUtils {
 
         if(itemViewModels.value != null)
                 (view.adapter as PlantAdapter).updateItems(itemViewModels.value!!)
+    }
+
+    //set PagingPlantAdapter
+    @BindingAdapter("pagingPlantItems", "viewModel", "refreshing")
+    @JvmStatic
+    fun setPagingPlantAdapter(view: RecyclerView,
+                              itemViewModels: LiveData<List<PlantItemViewModel>>,
+                              viewModel: EncyclopediaViewModel,
+                              refreshing: LiveData<Boolean>){
+
+        if (view.adapter == null){
+            val pagingPlantAdapter = PagingPlantAdapter(view.context)
+            view.adapter = pagingPlantAdapter
+        }
+
+        val mAdapter = view.adapter as PagingPlantAdapter
+
+        if (itemViewModels.value != null) {
+            if (itemViewModels.value!!.size == mAdapter.itemCount-1 && !refreshing.value!!){
+
+                mAdapter.setLastPage(true)
+                view.clearOnScrollListeners()
+
+            } else {
+
+                mAdapter.setLastPage(false)
+                mAdapter.updateItems(itemViewModels.value!!)
+
+                view.addOnScrollListener(object: RecyclerView.OnScrollListener() {
+                    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                        super.onScrolled(recyclerView, dx, dy)
+
+                        val lastVisiblePosition =
+                                (view.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+                        if (lastVisiblePosition == mAdapter.itemCount-1){
+                            viewModel.onLoadMore()
+                        }
+                    }
+                })
+            }
+        }
     }
 
     //searching on Encyclopedia

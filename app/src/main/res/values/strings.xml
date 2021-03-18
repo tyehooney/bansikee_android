@@ -57,5 +57,5 @@
     <string name="no_recommendation">추천 식물이 없습니다!\n다시 하시려면 여기를 눌러주세요!</string>
     <string name="format_onboarding_recommendation">%s님과 잘 어울리는\n반려식물들을 보여드려요.</string>
     <string name="recommendation_sub_comment">나에게 맞는 식물들을 살펴보고 등록해보세요.</string>
-    <string name="format_none_searching_results">&quot;%s&quot;에 대한 검색결과가 없습니다!</string>
+    <string name="format_none_searching_results">\&apos;%s\&apos;에 대한 검색결과가 없습니다!</string>
 </resources>
