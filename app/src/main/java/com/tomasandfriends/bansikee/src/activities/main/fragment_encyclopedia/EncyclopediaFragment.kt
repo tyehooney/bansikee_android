@@ -22,6 +22,15 @@ class EncyclopediaFragment: BaseFragment<FragmentEncyclopediaBinding, Encycloped
         viewModel.goOnboardingEvent.observe(viewLifecycleOwner, {
             startActivity(Intent(requireActivity(), OnboardingActivity::class.java))
         })
+
+        viewModel.searchPlantsEvent.observe(viewLifecycleOwner, {
+            childFragmentManager.popBackStack()
+            val searchResultFragment = SearchResultFragment()
+            childFragmentManager.beginTransaction()
+                    .replace(R.id.fl_fragment_container, searchResultFragment)
+                    .addToBackStack(null)
+                    .commit()
+        })
     }
 
     override fun onResume() {

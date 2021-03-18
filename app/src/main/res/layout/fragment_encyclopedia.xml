@@ -139,6 +139,13 @@
                 </LinearLayout>
             </ScrollView>
 
+            <FrameLayout
+                android:id="@+id/fl_fragment_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/ll_search_box"
+                android:layout_marginTop="-20dp"/>
+
             <LinearLayout
                 android:id="@+id/ll_search_box"
                 android:layout_width="match_parent"
@@ -162,8 +169,11 @@
                     android:layout_marginStart="10dp"
                     android:background="@android:color/transparent"
                     android:hint="@string/search_hint"
+                    android:text="@={viewModel.searchingWord}"
+                    android:imeOptions="actionSearch"
+                    android:inputType="text"
+                    searchingViewModel="@{viewModel}"
                     android:textSize="12sp"
-                    android:singleLine="true"
                     android:fontFamily="@font/noto_sans" />
             </LinearLayout>
         </RelativeLayout>

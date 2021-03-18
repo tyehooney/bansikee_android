@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.view.animation.AnimationUtils
+import android.view.inputmethod.EditorInfo
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -18,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.textfield.TextInputLayout
 import com.tomasandfriends.bansikee.R
+import com.tomasandfriends.bansikee.src.activities.main.fragment_encyclopedia.EncyclopediaViewModel
 import com.tomasandfriends.bansikee.src.activities.onboarding.OnboardingViewModel
 import com.tomasandfriends.bansikee.src.activities.onboarding.models.SurveyData
 import com.tomasandfriends.bansikee.src.activities.sign_up.SignUpViewModel
@@ -200,5 +203,19 @@ object DataBindingUtils {
 
         if(itemViewModels.value != null)
                 (view.adapter as PlantAdapter).updateItems(itemViewModels.value!!)
+    }
+
+    //searching on Encyclopedia
+    @BindingAdapter("searchingViewModel")
+    @JvmStatic
+    fun setSearching(view: EditText, viewModel: EncyclopediaViewModel){
+        view.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH){
+                viewModel.searchPlantsClick()
+                return@setOnEditorActionListener true
+            }
+
+            return@setOnEditorActionListener false
+        }
     }
 }
