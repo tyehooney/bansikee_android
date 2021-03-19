@@ -12,7 +12,7 @@ import retrofit2.Response
 class PlantDetailsService(plantDetailsView: PlantDetailsView) {
     private val mPlantDetailsView = plantDetailsView
 
-    fun getPlantDetails(plantIdx: Int, status: String?){
+    fun getPlantDetails(plantIdx: Int, status: String){
         val retrofitInterface = initRetrofit().create(PlantDetailsRetrofitInterface::class.java)
 
         retrofitInterface.getPlantDetails(plantIdx, status).enqueue(object: Callback<PlantDetailsResponse> {

@@ -47,6 +47,7 @@ class PlantAdapter(context: Context, horizontal: Boolean): RecyclerView.Adapter<
         itemViewModel.goDetailsEvent.observe(mContext as LifecycleOwner, {
             val intent = Intent(mContext, PlantDetailsActivity::class.java)
             intent.putExtra("plantIdx", it)
+            intent.putExtra("status", "")
             mContext.startActivity(intent)
         })
 

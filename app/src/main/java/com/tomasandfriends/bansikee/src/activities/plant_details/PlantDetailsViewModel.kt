@@ -12,7 +12,7 @@ import com.tomasandfriends.bansikee.src.common.services.PlantItemService
 class PlantDetailsViewModel : BaseViewModel(), PlantDetailsView, PlantItemView {
 
     private var mPlantIdx = 0
-    private var mStatus: String? = null
+    private var mStatus: String = ""
 
     private val _plantDetails = MutableLiveData<PlantDetailsData>()
     val plantDetails: LiveData<PlantDetailsData> = _plantDetails
@@ -23,7 +23,7 @@ class PlantDetailsViewModel : BaseViewModel(), PlantDetailsView, PlantItemView {
     private val plantDetailsService = PlantDetailsService(this)
     private val plantItemService = PlantItemService(this)
 
-    fun getPlantDetails(plantIdx: Int, status: String?){
+    fun getPlantDetails(plantIdx: Int, status: String){
         mPlantIdx = plantIdx
         mStatus = status
         plantDetailsService.getPlantDetails(plantIdx, status)

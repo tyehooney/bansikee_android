@@ -10,6 +10,6 @@ interface PlantDetailsRetrofitInterface {
 
     @GET("/plant/{plantIdx}")
     fun getPlantDetails(@Path("plantIdx") plantIdx: Int,
-                        @Query("status") status: String?): Call<PlantDetailsResponse>
+                        @Query("status") status: String): Call<PlantDetailsResponse>
 
 }

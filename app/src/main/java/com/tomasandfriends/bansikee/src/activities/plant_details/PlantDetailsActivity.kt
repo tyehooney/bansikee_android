@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import com.tomasandfriends.bansikee.R
 import com.tomasandfriends.bansikee.databinding.ActivityPlantDetailsBinding
-import com.tomasandfriends.bansikee.databinding.ActivitySignUpBinding
 import com.tomasandfriends.bansikee.src.activities.base.BaseActivity
 
 class PlantDetailsActivity : BaseActivity<ActivityPlantDetailsBinding, PlantDetailsViewModel>() {
@@ -22,7 +21,7 @@ class PlantDetailsActivity : BaseActivity<ActivityPlantDetailsBinding, PlantDeta
         super.onCreate(savedInstanceState)
 
         viewModel.getPlantDetails(intent.getIntExtra("plantIdx", 0),
-                intent.getStringExtra("status"))
+                intent.getStringExtra("status")!!)
     }
 
 }
