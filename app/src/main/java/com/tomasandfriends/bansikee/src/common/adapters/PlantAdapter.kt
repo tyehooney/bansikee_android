@@ -43,6 +43,16 @@ class PlantAdapter(context: Context, horizontal: Boolean): RecyclerView.Adapter<
         } else if(holder is PlantHorizontalViewHolder){
             holder.bind(itemViewModel)
         }
+
+        itemViewModel.goDetailsEvent.observe(mContext as LifecycleOwner, {
+            val intent = Intent(mContext, PlantDetailsActivity::class.java)
+            intent.putExtra("plantIdx", it)
+            mContext.startActivity(intent)
+        })
+
+        itemViewModel.snackbarMessage.observe(mContext as LifecycleOwner, {
+            Snackbar.make(holder.itemView, it, Snackbar.LENGTH_SHORT).show()
+        })
     }
 
     override fun getItemCount(): Int {
@@ -63,16 +73,6 @@ class PlantAdapter(context: Context, horizontal: Boolean): RecyclerView.Adapter<
         fun bind(viewModel: PlantItemViewModel){
             mBinding.viewModel = viewModel
             mBinding.lifecycleOwner = mContext as LifecycleOwner
-
-            viewModel.goDetailsEvent.observe(mContext as LifecycleOwner, {
-                val intent = Intent(mContext, PlantDetailsActivity::class.java)
-                intent.putExtra("plantIdx", it)
-                mContext.startActivity(intent)
-            })
-
-            viewModel.snackbarMessage.observe(mContext as LifecycleOwner, {
-                Snackbar.make(mBinding.root, it, Snackbar.LENGTH_SHORT).show()
-            })
         }
     }
 
@@ -84,12 +84,6 @@ class PlantAdapter(context: Context, horizontal: Boolean): RecyclerView.Adapter<
         fun bind(viewModel: PlantItemViewModel){
             mBinding.viewModel = viewModel
             mBinding.lifecycleOwner = mContext as LifecycleOwner
-
-            viewModel.goDetailsEvent.observe(mContext as LifecycleOwner, {
-                val intent = Intent(mContext, PlantDetailsActivity::class.java)
-                intent.putExtra("plantIdx", it)
-                mContext.startActivity(intent)
-            })
         }
     }
 }

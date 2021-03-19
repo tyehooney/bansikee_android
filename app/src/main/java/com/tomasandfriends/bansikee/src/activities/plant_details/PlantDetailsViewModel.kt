@@ -12,6 +12,7 @@ import com.tomasandfriends.bansikee.src.common.services.PlantItemService
 class PlantDetailsViewModel : BaseViewModel(), PlantDetailsView, PlantItemView {
 
     private var mPlantIdx = 0
+    private var mStatus: String? = null
 
     private val _plantDetails = MutableLiveData<PlantDetailsData>()
     val plantDetails: LiveData<PlantDetailsData> = _plantDetails
@@ -22,9 +23,10 @@ class PlantDetailsViewModel : BaseViewModel(), PlantDetailsView, PlantItemView {
     private val plantDetailsService = PlantDetailsService(this)
     private val plantItemService = PlantItemService(this)
 
-    fun getPlantDetails(plantIdx: Int){
+    fun getPlantDetails(plantIdx: Int, status: String?){
         mPlantIdx = plantIdx
-        plantDetailsService.getPlantDetails(plantIdx)
+        mStatus = status
+        plantDetailsService.getPlantDetails(plantIdx, status)
     }
 
     fun likeClick(){
@@ -41,7 +43,7 @@ class PlantDetailsViewModel : BaseViewModel(), PlantDetailsView, PlantItemView {
     }
 
     override fun changePlantLikeSuccess(msg: String) {
-        plantDetailsService.getPlantDetails(mPlantIdx)
+        plantDetailsService.getPlantDetails(mPlantIdx, mStatus)
     }
 
     override fun changePlantLikeFailed(msg: String?) {

@@ -47,7 +47,20 @@ class PagingPlantAdapter(context: Context): RecyclerView.Adapter<RecyclerView.Vi
         if (holder is PlantAdapter.PlantViewHolder) {
             val itemViewModel = mDataViewModels[position]
             holder.bind(itemViewModel)
+
+            itemViewModel.goDetailsEvent.observe(mContext as LifecycleOwner, {
+                val intent = Intent(mContext, PlantDetailsActivity::class.java)
+                intent.putExtra("plantIdx", it)
+                intent.putExtra("status", "search")
+                mContext.startActivity(intent)
+            })
+
+            itemViewModel.snackbarMessage.observe(mContext as LifecycleOwner, {
+                Snackbar.make(holder.itemView, it, Snackbar.LENGTH_SHORT).show()
+            })
+
             holder.mBinding.ivBtnLike.isEnabled = false
+
         } else if (holder is MoreItemsViewHolder) {
             holder.bind()
             if (lastPage || itemCount % 10 != 1) holder.mBinding.root.visibility = View.GONE
