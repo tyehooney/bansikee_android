@@ -35,4 +35,29 @@ class EncyclopediaService(encyclopediaView: EncyclopediaView) {
             }
         })
     }
+
+    fun getRecentlySearchedPlants(){
+        val retrofitInterface = initRetrofit().create(EncyclopediaRetrofitInterface::class.java)
+
+        retrofitInterface.getRecentlySearchedPlants().enqueue(object: Callback<RecommendationResponse> {
+            override fun onResponse(call: Call<RecommendationResponse>, response: Response<RecommendationResponse>) {
+                if(response.code() == ApplicationClass.CODE_SUCCESS){
+                    val apiResponse = response.body()
+                    mEncyclopediaView.getRecentlySearchedPlantsSuccess(apiResponse!!.recommendationDataList)
+                } else {
+                    mEncyclopediaView.getRecentlySearchedPlantsFailed(
+                            if(response.body() == null)
+                                ApplicationClass.getErrorResponse(response.errorBody()!!)!!.detail
+                            else
+                                response.body()!!.detail
+                    )
+                }
+            }
+
+            override fun onFailure(call: Call<RecommendationResponse>, t: Throwable) {
+                mEncyclopediaView.getRecentlySearchedPlantsFailed(null)
+            }
+        })
+    }
+
 }

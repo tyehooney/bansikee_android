@@ -72,6 +72,26 @@ class EncyclopediaViewModel : BaseViewModel(), RecommendationView, EncyclopediaV
         _snackbarMessage.value = msg ?: ApplicationClass.NETWORK_ERROR
     }
 
+    fun getRecentlySearchedPlants(){
+        encyclopediaService.getRecentlySearchedPlants()
+    }
+
+    override fun getRecentlySearchedPlantsSuccess(recentlySearchedPlants: List<PlantData>) {
+
+        val results = ArrayList<PlantItemViewModel>()
+        for(plantData in recentlySearchedPlants){
+            results.add(PlantItemViewModel(plantData))
+        }
+
+        _recentSearchedPlantItems.value = results
+        _recentSearchLoading.value = false
+    }
+
+    override fun getRecentlySearchedPlantsFailed(msg: String?) {
+        _recentSearchLoading.value = false
+        _snackbarMessage.value = msg ?: ApplicationClass.NETWORK_ERROR
+    }
+
     fun searchPlantsClick(){
         lastSearchingWord = searchingWord.value!!
         searchPage = 1

@@ -36,6 +36,7 @@ class EncyclopediaFragment: BaseFragment<FragmentEncyclopediaBinding, Encycloped
     override fun onResume() {
         super.onResume()
 
+        viewModel.getRecentlySearchedPlants()
         viewModel.getRecommendations()
     }
 }

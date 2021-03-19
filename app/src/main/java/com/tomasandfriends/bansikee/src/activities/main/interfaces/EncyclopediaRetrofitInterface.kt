@@ -13,4 +13,8 @@ interface EncyclopediaRetrofitInterface {
                           @Query("pageNum") pageNum: Int,
                           @Query("sortBy") sortBy: String): Call<RecommendationResponse>
 
+    //get recently searched plants
+    @GET("/plants-search")
+    fun getRecentlySearchedPlants(): Call<RecommendationResponse>
+
 }
