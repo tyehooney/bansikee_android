@@ -1,14 +1,25 @@
 package com.tomasandfriends.bansikee.src.activities.add_my_plant
 
+import android.annotation.SuppressLint
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.tomasandfriends.bansikee.ApplicationClass
 import com.tomasandfriends.bansikee.src.SingleLiveEvent
 import com.tomasandfriends.bansikee.src.activities.add_my_plant.interfaces.AddMyPlantView
+import com.tomasandfriends.bansikee.src.activities.add_my_plant.models.AddPlantBody
 import com.tomasandfriends.bansikee.src.activities.base.BaseViewModel
+import java.text.SimpleDateFormat
+import java.time.ZoneId
+import java.util.*
 
 class AddMyPlantViewModel : BaseViewModel(), AddMyPlantView {
 
     private var plantIdx = 0;
+
+    @SuppressLint("SimpleDateFormat")
+    val dateFormat = SimpleDateFormat("yyyy년 MM월 dd일")
 
     private val _plantName = MutableLiveData<String>()
     val plantName: LiveData<String> = _plantName
@@ -16,8 +27,24 @@ class AddMyPlantViewModel : BaseViewModel(), AddMyPlantView {
     private val _plantSpecies = MutableLiveData<String>()
     val plantSpecies: LiveData<String> = _plantSpecies
 
+    private val _plantImage = MutableLiveData("")
+    val plantImage: LiveData<String> = _plantImage
+
     private val _getPhotoEvent = SingleLiveEvent<Void?>()
     val getPhotoEvent: LiveData<Void?> = _getPhotoEvent
+
+    val myPlantName = MutableLiveData<String>()
+
+    private val _startDate = MutableLiveData(Date())
+    val startDate: LiveData<Date> = _startDate
+
+    private val _setDateEvent = SingleLiveEvent<Void?>()
+    val setDateEvent: LiveData<Void?> = _setDateEvent
+
+    val myPlantIntro = MutableLiveData<String>()
+    val wateringTerms = MutableLiveData("7")
+
+    private val addMyPlantService = AddMyPlantService(this)
 
     fun getPlantData(plantIdx: Int, plantName: String, plantSpecies: String){
         this.plantIdx = plantIdx
@@ -29,5 +56,43 @@ class AddMyPlantViewModel : BaseViewModel(), AddMyPlantView {
         _getPhotoEvent.value = null
     }
 
-    private var mPlantIdx = 0
+    fun setPhotoStrUrl(strImgUrl: String){
+        _plantImage.value = strImgUrl
+    }
+
+    fun setDateClick(){
+        _setDateEvent.value = null
+    }
+
+    fun setStartDate(cal: Calendar){
+        _startDate.value = cal.time
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun addToMyPlants(){
+        when {
+            myPlantName.value.isNullOrEmpty() -> _snackbarMessage.value = "이름을 입력해주세요!"
+            myPlantIntro.value.isNullOrEmpty() -> _snackbarMessage.value = "내 식물 한줄 소개를 작성해주세요!"
+            else -> {
+                _loading.value = true
+
+                val ldtStartDate = startDate.value!!.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()
+                val addPlantBody = AddPlantBody(plantImage.value!!,
+                    ldtStartDate.toString(), plantIdx, myPlantIntro.value!!, myPlantName.value!!, wateringTerms.value!!.toInt())
+
+                addMyPlantService.addToMyPlants(addPlantBody)
+            }
+        }
+    }
+
+    override fun addToMyPlantsSuccess(msg: String) {
+        _loading.value = false
+        _toastMessage.value = msg
+        finish()
+    }
+
+    override fun addToMyPlantsFailed(msg: String?) {
+        _loading.value = false
+        _snackbarMessage.value = msg ?: ApplicationClass.NETWORK_ERROR
+    }
 }

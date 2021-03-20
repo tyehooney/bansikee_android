@@ -1,5 +1,6 @@
 package com.tomasandfriends.bansikee.src.activities.base
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.os.IBinder
 import android.view.inputmethod.InputMethodManager
@@ -24,6 +25,7 @@ abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel> : AppCompat
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
 
         binding = DataBindingUtil.setContentView(this, getLayoutId())
         binding.lifecycleOwner = this
