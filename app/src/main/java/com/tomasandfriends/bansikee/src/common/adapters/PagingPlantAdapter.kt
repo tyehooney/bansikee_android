@@ -63,7 +63,7 @@ class PagingPlantAdapter(context: Context): RecyclerView.Adapter<RecyclerView.Vi
 
         } else if (holder is MoreItemsViewHolder) {
             holder.bind()
-            if (lastPage || itemCount % 10 != 1) holder.mBinding.root.visibility = View.GONE
+            if (lastPage || itemCount % 10 != 1 || itemCount == 1) holder.mBinding.root.visibility = View.GONE
             else holder.mBinding.root.visibility = View.VISIBLE
         }
     }

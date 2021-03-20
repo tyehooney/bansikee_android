@@ -13,40 +13,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="30dp"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="20dp"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:src="@drawable/ic_back"
-                android:onClick="@{()->viewModel.goBack()}"/>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginStart="5dp"
-                android:fontFamily="@font/poppins_bold"
-                android:textStyle="bold"
-                android:includeFontPadding="false"
-                android:text="@string/app_name_eng"
-                android:textColor="@color/title_text"
-                android:textSize="18sp" />
-        </LinearLayout>
+        <include
+            layout="@layout/layout_header_contains_back"
+            viewModel="@{viewModel}"/>
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
             android:background="@color/background_splash_light"
             android:overScrollMode="never"
             android:scrollbars="none">
