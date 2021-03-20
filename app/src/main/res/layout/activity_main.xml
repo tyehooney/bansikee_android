@@ -29,7 +29,7 @@
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bnv_menu"
             android:layout_width="match_parent"
-            android:layout_height="75dp"
+            android:layout_height="60dp"
             app:itemTextAppearanceInactive="@style/BottomNavigationView"
             app:itemTextAppearanceActive="@style/BottomNavigationView.Active"
             app:menu="@menu/bottom_navigation"
