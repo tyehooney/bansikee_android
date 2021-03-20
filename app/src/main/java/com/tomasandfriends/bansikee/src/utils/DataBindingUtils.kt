@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.view.animation.AnimationUtils
+import android.view.inputmethod.EditorInfo
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -13,13 +15,16 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.textfield.TextInputLayout
 import com.tomasandfriends.bansikee.R
+import com.tomasandfriends.bansikee.src.activities.main.fragment_encyclopedia.EncyclopediaViewModel
 import com.tomasandfriends.bansikee.src.activities.onboarding.OnboardingViewModel
 import com.tomasandfriends.bansikee.src.activities.onboarding.models.SurveyData
 import com.tomasandfriends.bansikee.src.activities.sign_up.SignUpViewModel
+import com.tomasandfriends.bansikee.src.common.adapters.PagingPlantAdapter
 import com.tomasandfriends.bansikee.src.common.adapters.PlantAdapter
 import com.tomasandfriends.bansikee.src.common.adapters.PlantItemViewModel
 import kotlin.math.roundToInt
@@ -192,11 +197,67 @@ object DataBindingUtils {
     @JvmStatic
     fun setPlantAdapter(view: RecyclerView, itemViewModels: LiveData<List<PlantItemViewModel>>){
         if (view.adapter == null){
-            val plantAdapter = PlantAdapter(view.context)
+            val plantAdapter = PlantAdapter(view.context,
+                    (view.layoutManager as LinearLayoutManager).orientation == LinearLayout.HORIZONTAL)
             view.adapter = plantAdapter
         }
 
         if(itemViewModels.value != null)
                 (view.adapter as PlantAdapter).updateItems(itemViewModels.value!!)
+    }
+
+    //set PagingPlantAdapter
+    @BindingAdapter("pagingPlantItems", "viewModel", "refreshing")
+    @JvmStatic
+    fun setPagingPlantAdapter(view: RecyclerView,
+                              itemViewModels: LiveData<List<PlantItemViewModel>>,
+                              viewModel: EncyclopediaViewModel,
+                              refreshing: LiveData<Boolean>){
+
+        if (view.adapter == null){
+            val pagingPlantAdapter = PagingPlantAdapter(view.context)
+            view.adapter = pagingPlantAdapter
+        }
+
+        val mAdapter = view.adapter as PagingPlantAdapter
+
+        if (itemViewModels.value != null) {
+            if (itemViewModels.value!!.size == mAdapter.itemCount-1 && !refreshing.value!!){
+
+                mAdapter.setLastPage(true)
+                view.clearOnScrollListeners()
+
+            } else {
+
+                mAdapter.setLastPage(false)
+                mAdapter.updateItems(itemViewModels.value!!)
+
+                view.addOnScrollListener(object: RecyclerView.OnScrollListener() {
+                    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                        super.onScrolled(recyclerView, dx, dy)
+
+                        val lastVisiblePosition =
+                                (view.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+                        if (lastVisiblePosition == mAdapter.itemCount-1){
+                            viewModel.onLoadMore()
+                        }
+                    }
+                })
+            }
+        }
+    }
+
+    //searching on Encyclopedia
+    @BindingAdapter("searchingViewModel")
+    @JvmStatic
+    fun setSearching(view: EditText, viewModel: EncyclopediaViewModel){
+        view.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH){
+                viewModel.searchPlantsClick()
+                return@setOnEditorActionListener true
+            }
+
+            return@setOnEditorActionListener false
+        }
     }
 }

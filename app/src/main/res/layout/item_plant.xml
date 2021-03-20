@@ -58,10 +58,11 @@
                     android:maxLines="1"/>
 
                 <ImageView
+                    android:id="@+id/iv_btn_like"
                     android:layout_width="17dp"
                     android:layout_height="16dp"
                     android:onClick="@{()->viewModel.itemLikeClick()}"
-                    android:src="@drawable/ic_like"/>
+                    android:src="@{viewModel.like ? @drawable/ic_like : @drawable/ic_unlike}"/>
             </LinearLayout>
 
             <TextView

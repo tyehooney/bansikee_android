@@ -95,7 +95,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:onClick="@{()->viewModel.likeClick()}"
-                        android:src="@drawable/ic_like" />
+                        android:src="@{viewModel.plantLike ? @drawable/ic_like : @drawable/ic_unlike}" />
                 </LinearLayout>
 
                 <TextView
@@ -155,6 +155,12 @@
                         android:orientation="horizontal"
                         android:paddingVertical="15dp">
 
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="5dp"
+                            android:src="@drawable/ic_management_level"/>
+
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -185,6 +191,12 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:paddingVertical="15dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="5dp"
+                            android:src="@drawable/ic_plant_height"/>
 
                         <TextView
                             android:layout_width="0dp"
@@ -217,6 +229,12 @@
                         android:orientation="horizontal"
                         android:paddingVertical="15dp">
 
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="5dp"
+                            android:src="@drawable/ic_plant_width"/>
+
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -247,6 +265,12 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:paddingVertical="15dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="5dp"
+                            android:src="@drawable/ic_plant_speed"/>
 
                         <TextView
                             android:layout_width="0dp"
@@ -279,6 +303,12 @@
                         android:orientation="horizontal"
                         android:paddingVertical="15dp">
 
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="5dp"
+                            android:src="@drawable/ic_plant_smell"/>
+
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -309,6 +339,12 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:paddingVertical="15dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="5dp"
+                            android:src="@drawable/ic_plant_temperature"/>
 
                         <TextView
                             android:layout_width="0dp"
@@ -341,6 +377,12 @@
                         android:orientation="horizontal"
                         android:paddingVertical="15dp">
 
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="5dp"
+                            android:src="@drawable/ic_plant_water"/>
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -370,6 +412,12 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:paddingVertical="15dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="5dp"
+                            android:src="@drawable/ic_plant_sunlight"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -401,6 +449,12 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:paddingVertical="15dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="5dp"
+                            android:src="@drawable/ic_plant_place"/>
 
                         <TextView
                             android:layout_width="wrap_content"

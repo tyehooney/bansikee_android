@@ -4,12 +4,14 @@ import android.os.Handler
 import android.os.Looper
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.tomasandfriends.bansikee.ApplicationClass
 import com.tomasandfriends.bansikee.ApplicationClass.Companion.NETWORK_ERROR
 import com.tomasandfriends.bansikee.R
 import com.tomasandfriends.bansikee.src.SingleLiveEvent
 import com.tomasandfriends.bansikee.src.activities.base.BaseViewModel
 import com.tomasandfriends.bansikee.src.activities.login.interfaces.LoginView
 import com.tomasandfriends.bansikee.src.activities.login.models.LoginBody
+import com.tomasandfriends.bansikee.src.activities.login.models.LoginData
 
 class LoginViewModel : BaseViewModel(), LoginView {
 
@@ -98,7 +100,14 @@ class LoginViewModel : BaseViewModel(), LoginView {
     }
 
     //when login api success
-    override fun loginSuccess() {
+    override fun loginSuccess(loginData: LoginData) {
+
+        val editor = ApplicationClass.mSharedPreferences!!.edit()
+        editor.putString(ApplicationClass.X_ACCESS_TOKEN, loginData.jwt)
+        editor.putString(ApplicationClass.USER_EMAIL, loginData.email)
+        editor.putString(ApplicationClass.USER_NAME, loginData.name)
+        editor.apply()
+
         _goMainActivityEvent.value = null;
     }
 

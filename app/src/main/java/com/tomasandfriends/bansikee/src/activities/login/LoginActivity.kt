@@ -94,7 +94,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
             }
 
             //토큰 검사(있으면 로그인, 없으면 회원가입)
-            viewModel.googleLogin(account!!.idToken!!)
+            if(account != null)
+                viewModel.googleLogin(account.idToken!!)
         }
     }
 }

@@ -1,26 +1,26 @@
-package com.tomasandfriends.bansikee.src.activities.onboarding
+package com.tomasandfriends.bansikee.src.common.services
 
 import com.tomasandfriends.bansikee.ApplicationClass
-import com.tomasandfriends.bansikee.src.activities.onboarding.interfaces.OnboardingRetrofitInterface
-import com.tomasandfriends.bansikee.src.activities.onboarding.interfaces.SurveyResultView
-import com.tomasandfriends.bansikee.src.activities.onboarding.models.RecommendationResponse
+import com.tomasandfriends.bansikee.src.common.interfaces.RecommendationView
+import com.tomasandfriends.bansikee.src.common.models.RecommendationResponse
+import com.tomasandfriends.bansikee.src.common.interfaces.CommonRetrofitInterface
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class SurveyResultService(surveyResultView: SurveyResultView) {
-    private val mSurveyResultView = surveyResultView
+class RecommendationService(recommendationView: RecommendationView) {
+    private val mRecommendationView = recommendationView
 
-    fun getSurveyResults(){
-        val retrofitInterface = ApplicationClass.initRetrofit().create(OnboardingRetrofitInterface::class.java)
+    fun getRecommendations(){
+        val retrofitInterface = ApplicationClass.initRetrofit().create(CommonRetrofitInterface::class.java)
 
         retrofitInterface.getRecommendations().enqueue(object: Callback<RecommendationResponse> {
             override fun onResponse(call: Call<RecommendationResponse>, response: Response<RecommendationResponse>) {
                 if(response.code() == ApplicationClass.CODE_SUCCESS){
                     val apiResponse = response.body()
-                    mSurveyResultView.getSurveyResultsSuccess(apiResponse!!.surveyResultDataList)
+                    mRecommendationView.getRecommendationsSuccess(apiResponse!!.recommendationDataList)
                 } else {
-                    mSurveyResultView.getSurveyResultsFailed(
+                    mRecommendationView.getRecommendationsFailed(
                             if(response.body() == null)
                                 ApplicationClass.getErrorResponse(response.errorBody()!!)!!.detail
                             else
@@ -30,7 +30,7 @@ class SurveyResultService(surveyResultView: SurveyResultView) {
             }
 
             override fun onFailure(call: Call<RecommendationResponse>, t: Throwable) {
-                mSurveyResultView.getSurveyResultsFailed(null)
+                mRecommendationView.getRecommendationsFailed(null)
             }
         })
     }

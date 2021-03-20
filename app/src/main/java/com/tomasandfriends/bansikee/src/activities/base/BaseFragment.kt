@@ -32,7 +32,6 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>: Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.lifecycleOwner = this
-//        binding.executePendingBindings()
         setViewModel()
 
         setBaseEvents()

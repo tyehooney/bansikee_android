@@ -34,7 +34,6 @@ class PlantItemViewModel(plantData: PlantData): BaseViewModel(), PlantItemView {
     }
 
     override fun changePlantLikeSuccess(msg: String) {
-        _snackbarMessage.value = msg
         _like.value = !(like.value!!)
     }
 

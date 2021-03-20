@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <import type="android.view.View"/>
+
+        <variable
+            name="viewModel"
+            type="com.tomasandfriends.bansikee.src.activities.main.fragment_encyclopedia.EncyclopediaViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            layout="@layout/layout_header"
+            app:viewModel="@{viewModel}"
+            app:newNoti="@{true}"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/ll_search_box"
+                android:layout_marginTop="-20dp"
+                android:overScrollMode="never"
+                android:scrollbars="none"
+                android:background="@color/background_splash_light">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="30dp"
+                        android:layout_marginTop="50dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/recent_search"
+                            android:textSize="18sp"
+                            android:fontFamily="@font/noto_sans_bold"
+                            android:textColor="@color/text_black"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/delete_all"
+                            android:textSize="12sp"
+                            android:textColor="@color/text_gray"/>
+                    </LinearLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ProgressBar
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingVertical="40dp"
+                            android:visibility="@{viewModel.recentSearchLoading ? View.VISIBLE: View.GONE}"/>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingHorizontal="30dp"
+                            android:clipToPadding="false"
+                            plantItems="@{viewModel.recentSearchedPlantItems}"
+                            android:overScrollMode="never"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            android:orientation="horizontal" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingVertical="40dp"
+                            android:visibility="@{!viewModel.recentSearchLoading &amp;&amp; (viewModel.recentSearchedPlantItems.empty || viewModel.recentSearchedPlantItems == null) ? View.VISIBLE : View.GONE}"
+                            android:gravity="center"
+                            android:textSize="20sp"
+                            android:fontFamily="@font/noto_sans_bold"
+                            android:text="@string/none"/>
+                    </FrameLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="30dp"
+                        android:layout_marginTop="30dp"
+                        android:text="@{String.format(@string/format_encyclopedia_recommendations, viewModel.userName)}"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/noto_sans_bold"
+                        android:textColor="@color/text_black"/>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ProgressBar
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingVertical="40dp"
+                            android:visibility="@{viewModel.recommendationLoading ? View.VISIBLE: View.GONE}"/>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingHorizontal="30dp"
+                            android:clipToPadding="false"
+                            plantItems="@{viewModel.recommendedPlantItems}"
+                            android:overScrollMode="never"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            android:orientation="horizontal"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingVertical="40dp"
+                            android:visibility="@{!viewModel.recommendationLoading &amp;&amp; (viewModel.recommendedPlantItems.empty || viewModel.recommendedPlantItems == null) ? View.VISIBLE : View.GONE}"
+                            android:gravity="center"
+                            android:onClick="@{()->viewModel.goOnboardingClick()}"
+                            android:textSize="20sp"
+                            android:fontFamily="@font/noto_sans_bold"
+                            android:text="@string/onboarding_for_recommendations"/>
+                    </FrameLayout>
+                </LinearLayout>
+            </ScrollView>
+
+            <FrameLayout
+                android:id="@+id/fl_fragment_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/ll_search_box"
+                android:layout_marginTop="-20dp"/>
+
+            <LinearLayout
+                android:id="@+id/ll_search_box"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_marginHorizontal="30dp"
+                android:gravity="center_vertical"
+                android:paddingVertical="10dp"
+                android:paddingHorizontal="20dp"
+                android:orientation="horizontal"
+                android:background="@drawable/edittext_round_background">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_search"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:background="@android:color/transparent"
+                    android:hint="@string/search_hint"
+                    android:text="@={viewModel.searchingWord}"
+                    android:imeOptions="actionSearch"
+                    android:inputType="text"
+                    searchingViewModel="@{viewModel}"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/noto_sans" />
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+</layout>
