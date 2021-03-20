@@ -4,6 +4,9 @@ import android.os.Handler
 import android.os.Looper
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.tomasandfriends.bansikee.ApplicationClass
 import com.tomasandfriends.bansikee.ApplicationClass.Companion.NETWORK_ERROR
 import com.tomasandfriends.bansikee.R
@@ -92,6 +95,8 @@ class LoginViewModel : BaseViewModel(), LoginView {
     }
 
     override fun autoLoginSuccess() {
+        loginAnonymouslyOnFirebase()
+
         _goMainActivityEvent.value = null
     }
 
@@ -108,7 +113,17 @@ class LoginViewModel : BaseViewModel(), LoginView {
         editor.putString(ApplicationClass.USER_NAME, loginData.name)
         editor.apply()
 
+        loginAnonymouslyOnFirebase()
+
         _goMainActivityEvent.value = null;
+    }
+
+    private fun loginAnonymouslyOnFirebase() {
+        val auth = Firebase.auth
+        val user = auth.currentUser
+        if (user == null ){
+            auth.signInAnonymously()
+        }
     }
 
     //when login api failed

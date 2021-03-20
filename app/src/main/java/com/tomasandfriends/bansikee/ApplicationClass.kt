@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.util.Base64
 import androidx.annotation.RequiresApi
+import com.google.firebase.FirebaseApp
 import com.google.gson.GsonBuilder
 import com.kakao.sdk.common.KakaoSdk
 import com.tomasandfriends.bansikee.config.XAccessTokenInterceptor
@@ -85,6 +86,9 @@ class ApplicationClass : Application() {
 
         // Kakao SDK 초기화
         KakaoSdk.init(this, getString(R.string.kakao_app_key))
+
+        //Firebase 초기화
+        FirebaseApp.initializeApp(this)
     }
 
     @RequiresApi(Build.VERSION_CODES.P)

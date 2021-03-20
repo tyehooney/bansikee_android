@@ -1,15 +1,18 @@
 package com.tomasandfriends.bansikee.src.activities.add_my_plant
 
 import android.annotation.SuppressLint
+import android.net.Uri
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.storage.FirebaseStorage
 import com.tomasandfriends.bansikee.ApplicationClass
 import com.tomasandfriends.bansikee.src.SingleLiveEvent
 import com.tomasandfriends.bansikee.src.activities.add_my_plant.interfaces.AddMyPlantView
 import com.tomasandfriends.bansikee.src.activities.add_my_plant.models.AddPlantBody
 import com.tomasandfriends.bansikee.src.activities.base.BaseViewModel
+import java.io.File
 import java.text.SimpleDateFormat
 import java.time.ZoneId
 import java.util.*
@@ -77,10 +80,35 @@ class AddMyPlantViewModel : BaseViewModel(), AddMyPlantView {
                 _loading.value = true
 
                 val ldtStartDate = startDate.value!!.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()
-                val addPlantBody = AddPlantBody(plantImage.value!!,
-                    ldtStartDate.toString(), plantIdx, myPlantIntro.value!!, myPlantName.value!!, wateringTerms.value!!.toInt())
+                val imageUrlToUpload = plantImage.value!!
+                var addPlantBody: AddPlantBody
 
-                addMyPlantService.addToMyPlants(addPlantBody)
+                if(!imageUrlToUpload.isNullOrEmpty()){
+                    val storage = FirebaseStorage.getInstance()
+                    val uriFromFile = Uri.fromFile(File(plantImage.value!!))
+                    val fileName = uriFromFile.lastPathSegment
+                    val reference = storage.getReference("/Images/$fileName")
+
+                    reference.putFile(uriFromFile).addOnSuccessListener {
+                        reference.downloadUrl.addOnSuccessListener {
+                            addPlantBody = AddPlantBody(it.toString(), ldtStartDate.toString(),
+                                plantIdx, myPlantIntro.value!!, myPlantName.value!!, wateringTerms.value!!.toInt())
+
+                            addMyPlantService.addToMyPlants(addPlantBody)
+                        }.addOnFailureListener {
+                            _loading.value = false
+                            _snackbarMessage.value = it.message
+                        }
+                    }.addOnFailureListener {
+                        _loading.value = false
+                        _snackbarMessage.value = it.message
+                    }
+                } else {
+                    addPlantBody = AddPlantBody(imageUrlToUpload, ldtStartDate.toString(),
+                        plantIdx, myPlantIntro.value!!, myPlantName.value!!, wateringTerms.value!!.toInt())
+
+                    addMyPlantService.addToMyPlants(addPlantBody)
+                }
             }
         }
     }
