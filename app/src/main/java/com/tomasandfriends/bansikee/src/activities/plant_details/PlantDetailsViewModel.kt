@@ -1,8 +1,10 @@
 package com.tomasandfriends.bansikee.src.activities.plant_details
 
+import android.os.Bundle
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.tomasandfriends.bansikee.ApplicationClass
+import com.tomasandfriends.bansikee.src.SingleLiveEvent
 import com.tomasandfriends.bansikee.src.activities.base.BaseViewModel
 import com.tomasandfriends.bansikee.src.activities.plant_details.interfaces.PlantDetailsView
 import com.tomasandfriends.bansikee.src.activities.plant_details.models.PlantDetailsData
@@ -19,6 +21,9 @@ class PlantDetailsViewModel : BaseViewModel(), PlantDetailsView, PlantItemView {
 
     private val _plantLike = MutableLiveData<Boolean>()
     val plantLike: LiveData<Boolean> = _plantLike
+
+    private val _goAddMyPlantEvent = SingleLiveEvent<Bundle>()
+    val goAddMyPlantEvent: LiveData<Bundle> = _goAddMyPlantEvent
 
     private val plantDetailsService = PlantDetailsService(this)
     private val plantItemService = PlantItemService(this)
@@ -48,5 +53,13 @@ class PlantDetailsViewModel : BaseViewModel(), PlantDetailsView, PlantItemView {
 
     override fun changePlantLikeFailed(msg: String?) {
         _snackbarMessage.value = msg ?: ApplicationClass.NETWORK_ERROR
+    }
+
+    fun goAddMyPlantClick(){
+        val bundle = Bundle()
+        bundle.putInt("plantIdx", mPlantIdx)
+        bundle.putString("plantName", plantDetails.value!!.name)
+        bundle.putString("plantSpecies", plantDetails.value!!.species)
+        _goAddMyPlantEvent.value = bundle
     }
 }

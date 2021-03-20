@@ -462,6 +462,7 @@
                     android:fontFamily="@font/noto_sans_bold"
                     android:paddingVertical="15dp"
                     android:textSize="16sp"
+                    android:onClick="@{()->viewModel.goAddMyPlantClick()}"
                     android:text="@string/add_to_my_plants"/>
             </LinearLayout>
         </ScrollView>
