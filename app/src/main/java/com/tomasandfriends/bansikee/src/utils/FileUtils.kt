@@ -14,6 +14,7 @@ import android.os.Build
 import android.os.Environment.DIRECTORY_PICTURES
 import android.provider.MediaStore
 import androidx.annotation.RequiresApi
+import androidx.core.content.FileProvider
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import com.tomasandfriends.bansikee.R
@@ -23,9 +24,14 @@ import java.lang.Exception
 
 object FileUtils {
 
-    const val PICK_FROM_ALBUM = 100
-    const val PICK_FROM_CAMERA = 200
     const val MAX_IMAGE_SIZE = 500 * 1024
+    const val FILE_PROVIDER_AUTHORITY = "com.tomasandfriends.bansikee.fileprovider"
+
+    fun createCacheFile(context: Context): Uri{
+        val tmpUrl = "tmp_"+System.currentTimeMillis()+".jpg"
+        val tmpFile = File(context.externalCacheDir, tmpUrl)
+        return FileProvider.getUriForFile(context, FILE_PROVIDER_AUTHORITY, tmpFile)
+    }
 
     //check permissions for photo
     fun tedPermissionForPhoto(context: Context, permissionListener: PermissionListener){
@@ -42,11 +48,7 @@ object FileUtils {
         var bitmap: Bitmap?
         val degreeToRotate = getOrientationOfImage(getRealPath(context, originalUri)!!)
 
-        val source =
-            if (originalUri.toString().startsWith("/"))
-                ImageDecoder.createSource(context.contentResolver, Uri.parse("file://$originalUri"))
-            else
-                ImageDecoder.createSource(context.contentResolver, originalUri)
+        val source = ImageDecoder.createSource(context.contentResolver, originalUri)
         bitmap = ImageDecoder.decodeBitmap(source)
         bitmap = getRotatedBitmap(bitmap, degreeToRotate)
 
@@ -88,8 +90,8 @@ object FileUtils {
         var cursor: Cursor? = null
         var result: String?
 
-        if (uri.toString().startsWith("/"))
-            result = uri.toString()
+        if (uri.toString().contains(FILE_PROVIDER_AUTHORITY))
+            result = context.externalCacheDir!!.absolutePath+"/"+uri.lastPathSegment
         else {
             try {
                 val proj = arrayOf(MediaStore.Images.Media.DATA)
