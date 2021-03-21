@@ -192,6 +192,12 @@ object DataBindingUtils {
         Glide.with(view.context).load(imgUrl).into(view)
     }
 
+    @BindingAdapter("roundImgUrl")
+    @JvmStatic
+    fun setRoundImageUrl(view: ImageView, imgUrl: String?){
+        Glide.with(view.context).load(imgUrl).circleCrop().into(view)
+    }
+
     //set PlantAdapter
     @BindingAdapter("plantItems")
     @JvmStatic

@@ -77,4 +77,6 @@
     <string name="hint_my_plant_name">반려식물의 이름을 입력해주세요.</string>
     <string name="name">이름</string>
     <string name="simple_plant_introduction">한줄 소개</string>
+    <string name="my_garden_sub_info">%s님과 함께하는 반식이들을 보여드려요.</string>
+    <string name="search_my_garden_hint">내 정원의 반려식물을 검색해보세요.</string>
 </resources>

@@ -173,7 +173,7 @@
                     android:imeOptions="actionSearch"
                     android:inputType="text"
                     searchingViewModel="@{viewModel}"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     android:fontFamily="@font/noto_sans" />
             </LinearLayout>
         </RelativeLayout>
