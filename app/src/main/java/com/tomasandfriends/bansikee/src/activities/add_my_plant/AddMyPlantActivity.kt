@@ -105,10 +105,14 @@ class AddMyPlantActivity : BaseActivity<ActivityAddMyPlantBinding, AddMyPlantVie
 
             if (result.resultCode == RESULT_OK){
 
-                val photoUri = if(result.data == null) tmpUri else result.data!!.data
+                val photoUri =
+                        if(result.data == null || result.data!!.data == null)
+                            tmpUri
+                        else
+                            result.data!!.data
                 val imgPath = getPathOfImageFileResizing(this, photoUri!!)
 
-                if (imgPath.isNullOrEmpty())
+                if (imgPath.isEmpty())
                     showAlert(this, R.string.app_name, R.string.upload_image_error)
                 else{
                     viewModel.setPhotoStrUrl(imgPath)

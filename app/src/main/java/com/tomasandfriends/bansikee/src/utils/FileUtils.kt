@@ -44,7 +44,7 @@ object FileUtils {
     }
 
     @RequiresApi(Build.VERSION_CODES.R)
-    fun getPathOfImageFileResizing(context: Context, originalUri: Uri): String? {
+    fun getPathOfImageFileResizing(context: Context, originalUri: Uri): String {
         var bitmap: Bitmap?
         val degreeToRotate = getOrientationOfImage(getRealPath(context, originalUri)!!)
 
@@ -70,9 +70,9 @@ object FileUtils {
 
                 while (streamLength >= MAX_IMAGE_SIZE){
                     fout = FileOutputStream(file)
-                    bitmap!!.compress(Bitmap.CompressFormat.JPEG, compressQuality, fout)
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, compressQuality, fout)
                     streamLength = file.length().toInt()
-                    compressQuality -= 5
+                    compressQuality -= 10
                 }
 
                 fout!!.flush()
