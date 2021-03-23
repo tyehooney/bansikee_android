@@ -3,6 +3,7 @@ package com.tomasandfriends.bansikee.src.activities.login
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -77,25 +78,27 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
 
         val mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
         val signInIntent = mGoogleSignInClient.signInIntent
-        startActivityForResult(signInIntent, REQUEST_GOOGLE_SIGN_IN)
+//        startActivityForResult(signInIntent, REQUEST_GOOGLE_SIGN_IN)
+        resultLauncher.launch(signInIntent)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
+    private var resultLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
 
-        if(requestCode == REQUEST_GOOGLE_SIGN_IN){
-            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-            var account : GoogleSignInAccount? = null
-            try{
-                account = task.getResult(ApiException::class.java)!!
-                Log.d(TAG, "google account : "+ account.email)
-            } catch (e: ApiException){
-                Log.w(TAG, "Google sign in failed", e)
+                if (result.resultCode == RESULT_OK){
+
+                    val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+                    var account : GoogleSignInAccount? = null
+                    try{
+                        account = task.getResult(ApiException::class.java)!!
+                        Log.d(TAG, "google account : "+ account.email)
+                    } catch (e: ApiException){
+                        Log.w(TAG, "Google sign in failed", e)
+                    }
+
+                    //토큰 검사(있으면 로그인, 없으면 회원가입)
+                    if(account != null)
+                        viewModel.googleLogin(account.idToken!!)
+                }
             }
-
-            //토큰 검사(있으면 로그인, 없으면 회원가입)
-            if(account != null)
-                viewModel.googleLogin(account.idToken!!)
-        }
-    }
 }

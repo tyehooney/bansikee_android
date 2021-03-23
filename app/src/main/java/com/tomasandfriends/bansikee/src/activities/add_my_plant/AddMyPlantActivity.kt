@@ -100,7 +100,7 @@ class AddMyPlantActivity : BaseActivity<ActivityAddMyPlantBinding, AddMyPlantVie
 
     //onActivityResult
     @RequiresApi(Build.VERSION_CODES.R)
-    var resultLauncher =
+    private var resultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
 
             if (result.resultCode == RESULT_OK){
