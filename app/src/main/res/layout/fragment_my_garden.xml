@@ -61,7 +61,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <androidx.core.widget.NestedScrollView
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@+id/ll_search_box"
@@ -70,19 +70,32 @@
                 android:scrollbars="none"
                 android:background="@color/background_splash_light">
 
-                <LinearLayout
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingHorizontal="30dp"
-                    android:orientation="vertical">
+                    android:paddingVertical="60dp"
+                    android:visibility="@{!viewModel.getMyPlantsLoading &amp;&amp; (viewModel.myPlantItems.empty || viewModel.myPlantItems == null) ? View.VISIBLE : View.GONE}"
+                    android:gravity="center"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/noto_sans_bold"
+                    android:text="@string/not_have_my_plants"/>
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="40dp"
-                        android:nestedScrollingEnabled="false"/>
-                </LinearLayout>
-            </androidx.core.widget.NestedScrollView>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    myPlantItems="@{viewModel.myPlantItems}"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:layout_marginHorizontal="30dp"
+                    android:layout_marginTop="40dp"
+                    android:nestedScrollingEnabled="false"/>
+
+                <ProgressBar
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="60dp"
+                    android:visibility="@{viewModel.getMyPlantsLoading ? View.VISIBLE: View.GONE}"/>
+
+            </FrameLayout>
 
             <LinearLayout
                 android:id="@+id/ll_search_box"

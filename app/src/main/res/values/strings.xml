@@ -80,4 +80,5 @@
     <string name="my_garden_sub_info">%s님과 함께하는 반식이들을 보여드려요.</string>
     <string name="search_my_garden_hint">내 정원의 반려식물을 검색해보세요.</string>
     <string name="set_default_image">기본 이미지로 초기화</string>
+    <string name="not_have_my_plants">내가 등록한 식물이 없습니다!</string>
 </resources>
