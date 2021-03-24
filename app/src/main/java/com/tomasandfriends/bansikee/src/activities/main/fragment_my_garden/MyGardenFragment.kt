@@ -18,4 +18,8 @@ class MyGardenFragment: BaseFragment<FragmentMyGardenBinding, MyGardenViewModel>
         binding.viewModel = viewModel
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.getMyPlants()
+    }
 }

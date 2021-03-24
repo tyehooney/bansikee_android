@@ -36,7 +36,7 @@ class AddMyPlantViewModel : BaseViewModel(), AddMyPlantView {
     private val _getPhotoEvent = SingleLiveEvent<Void?>()
     val getPhotoEvent: LiveData<Void?> = _getPhotoEvent
 
-    val myPlantName = MutableLiveData<String>()
+    val myPlantName = MutableLiveData<String?>()
 
     private val _startDate = MutableLiveData(Date())
     val startDate: LiveData<Date> = _startDate
@@ -80,7 +80,7 @@ class AddMyPlantViewModel : BaseViewModel(), AddMyPlantView {
                 _loading.value = true
 
                 val ldtStartDate = startDate.value!!.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()
-                val imageUrlToUpload = plantImage.value!!
+                val imageUrlToUpload = plantImage.value
                 var addPlantBody: AddPlantBody
 
                 if(!imageUrlToUpload.isNullOrEmpty()){
@@ -104,7 +104,7 @@ class AddMyPlantViewModel : BaseViewModel(), AddMyPlantView {
                         _snackbarMessage.value = it.message
                     }
                 } else {
-                    addPlantBody = AddPlantBody(imageUrlToUpload, ldtStartDate.toString(),
+                    addPlantBody = AddPlantBody(imageUrlToUpload!!, ldtStartDate.toString(),
                         plantIdx, myPlantIntro.value!!, myPlantName.value!!, wateringTerms.value!!.toInt())
 
                     addMyPlantService.addToMyPlants(addPlantBody)

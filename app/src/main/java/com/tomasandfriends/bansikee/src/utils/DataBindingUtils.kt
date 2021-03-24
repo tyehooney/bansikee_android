@@ -1,6 +1,7 @@
 package com.tomasandfriends.bansikee.src.utils
 
 import android.graphics.Typeface
+import android.graphics.drawable.Drawable
 import android.view.Gravity.CENTER
 import android.view.View
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
@@ -18,15 +19,17 @@ import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.google.android.material.textfield.TextInputLayout
 import com.tomasandfriends.bansikee.R
 import com.tomasandfriends.bansikee.src.activities.main.fragment_encyclopedia.EncyclopediaViewModel
 import com.tomasandfriends.bansikee.src.activities.onboarding.OnboardingViewModel
 import com.tomasandfriends.bansikee.src.activities.onboarding.models.SurveyData
 import com.tomasandfriends.bansikee.src.activities.sign_up.SignUpViewModel
-import com.tomasandfriends.bansikee.src.common.adapters.PagingPlantAdapter
-import com.tomasandfriends.bansikee.src.common.adapters.PlantAdapter
-import com.tomasandfriends.bansikee.src.common.adapters.PlantItemViewModel
+import com.tomasandfriends.bansikee.src.common.adapters.*
 import kotlin.math.roundToInt
 
 object DataBindingUtils {
@@ -192,6 +195,15 @@ object DataBindingUtils {
         Glide.with(view.context).load(imgUrl).into(view)
     }
 
+    @BindingAdapter("roundImgUrl")
+    @JvmStatic
+    fun setRoundImageUrl(view: ImageView, imgUrl: String?){
+        Glide.with(view.context).load(imgUrl)
+                .circleCrop()
+                .placeholder(ContextCompat.getDrawable(view.context, R.drawable.image_background))
+                .into(view)
+    }
+
     //set PlantAdapter
     @BindingAdapter("plantItems")
     @JvmStatic
@@ -245,6 +257,19 @@ object DataBindingUtils {
                 })
             }
         }
+    }
+
+    //set MyPlantAdapter
+    @BindingAdapter("myPlantItems")
+    @JvmStatic
+    fun setMyPlantAdapter(view: RecyclerView, itemViewModels: LiveData<List<MyPlantItemViewModel>>){
+        if (view.adapter == null){
+            val myPlantAdapter = MyPlantAdapter(view.context)
+            view.adapter = myPlantAdapter
+        }
+
+        if(itemViewModels.value != null)
+                (view.adapter as MyPlantAdapter).updateItems(itemViewModels.value!!)
     }
 
     //searching on Encyclopedia
