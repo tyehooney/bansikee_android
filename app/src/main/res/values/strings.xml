@@ -73,6 +73,7 @@
     <string name="hint_my_plant_introduction">내 반려식물을 소개하는 한줄을 자유롭게 작성해보세요.</string>
     <string name="watering_terms">물 주는 주기</string>
     <string name="add_my_plant">내 반려식물 등록하기</string>
+    <string name="edit_my_plant">수정하기</string>
     <string name="starting_date">함께하기 시작한 날</string>
     <string name="hint_my_plant_name">반려식물의 이름을 입력해주세요.</string>
     <string name="name">이름</string>

@@ -33,9 +33,8 @@ class MyPlantDetailsActivity: BaseActivity<ActivityMyPlantDetailsBinding, MyPlan
         })
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
+    override fun onResume() {
+        super.onResume()
         viewModel.getMyPlantDetails(intent.getIntExtra("myPlantIdx", 0))
     }
 }

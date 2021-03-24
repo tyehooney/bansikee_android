@@ -24,7 +24,7 @@ import java.lang.Exception
 
 object FileUtils {
 
-    const val MAX_IMAGE_SIZE = 500 * 1024
+    private const val MAX_IMAGE_SIZE = 500 * 1024
     const val FILE_PROVIDER_AUTHORITY = "com.tomasandfriends.bansikee.fileprovider"
 
     fun createCacheFile(context: Context): Uri{
@@ -46,11 +46,11 @@ object FileUtils {
     @RequiresApi(Build.VERSION_CODES.R)
     fun getPathOfImageFileResizing(context: Context, originalUri: Uri): String {
         var bitmap: Bitmap?
-        val degreeToRotate = getOrientationOfImage(getRealPath(context, originalUri)!!)
+//        val degreeToRotate = getOrientationOfImage(getRealPath(context, originalUri)!!)
 
         val source = ImageDecoder.createSource(context.contentResolver, originalUri)
         bitmap = ImageDecoder.decodeBitmap(source)
-        bitmap = getRotatedBitmap(bitmap, degreeToRotate)
+//        bitmap = getRotatedBitmap(bitmap, degreeToRotate)
 
         var mStrUri = ""
 
@@ -85,50 +85,40 @@ object FileUtils {
         return mStrUri
     }
 
-    @SuppressLint("Recycle")
-    fun getRealPath(context: Context, uri: Uri): String? {
-        var cursor: Cursor? = null
-        var result: String?
-
-        if (uri.toString().contains(FILE_PROVIDER_AUTHORITY))
-            result = context.externalCacheDir!!.absolutePath+"/"+uri.lastPathSegment
-        else {
-            try {
-                val proj = arrayOf(MediaStore.Images.Media.DATA)
-                cursor = context.contentResolver.query(uri, proj, null, null, null)
-                val columnIdx = cursor!!.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
-                cursor.moveToFirst()
-                result = cursor.getString(columnIdx)
-            } finally {
-                cursor?.close()
-            }
-        }
-
-        return result
-    }
-
-    private fun getOrientationOfImage(filePath: String): Int {
-        val exif = ExifInterface(filePath)
-        val orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, -1)
-
-        if (orientation != -1){
-            when(orientation){
-                ExifInterface.ORIENTATION_ROTATE_90 -> return 90
-                ExifInterface.ORIENTATION_ROTATE_180 -> return 180
-                ExifInterface.ORIENTATION_ROTATE_270 -> return 270
-            }
-        }
-
-        return 0
-    }
-
-    private fun getRotatedBitmap(bitmap: Bitmap?, degrees: Int): Bitmap? {
-        if (bitmap == null) return null
-        if (degrees == 0) return bitmap
-
-        val matrix = Matrix()
-        matrix.setRotate(degrees.toFloat(), bitmap.width.toFloat() / 2, bitmap.height.toFloat() / 2)
-
-        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
-    }
+//    @SuppressLint("Recycle")
+//    fun getRealPath(context: Context, uri: Uri): String? {
+//        var cursor: Cursor? = null
+//        var result: String?
+//
+//        if (uri.toString().contains(FILE_PROVIDER_AUTHORITY))
+//            result = context.externalCacheDir!!.absolutePath+"/"+uri.lastPathSegment
+//        else {
+//            try {
+//                val proj = arrayOf(MediaStore.Images.Media.DATA)
+//                cursor = context.contentResolver.query(uri, proj, null, null, null)
+//                val columnIdx = cursor!!.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+//                cursor.moveToFirst()
+//                result = cursor.getString(columnIdx)
+//            } finally {
+//                cursor?.close()
+//            }
+//        }
+//
+//        return result
+//    }
+//
+//    private fun getOrientationOfImage(filePath: String): Int {
+//        val exif = ExifInterface(filePath)
+//        val orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, -1)
+//
+//        if (orientation != -1){
+//            when(orientation){
+//                ExifInterface.ORIENTATION_ROTATE_90 -> return 90
+//                ExifInterface.ORIENTATION_ROTATE_180 -> return 180
+//                ExifInterface.ORIENTATION_ROTATE_270 -> return 270
+//            }
+//        }
+//
+//        return 0
+//    }
 }

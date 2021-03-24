@@ -80,6 +80,7 @@ class MyPlantDetailsViewModel: BaseViewModel(), MyPlantDetailsView {
         val currentMyPlantData = myPlantDetails.value!!
 
         bundle.putInt("myPlantIdx", currentMyPlantData.myPlantIdx)
+        bundle.putString("plantName", currentMyPlantData.plantName)
         bundle.putInt("plantIdx", currentMyPlantData.plantIdx)
         bundle.putString("imgUrl", currentMyPlantData.profileImgUrl)
         bundle.putString("startDate", currentMyPlantData.startDateTime)

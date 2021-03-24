@@ -24,7 +24,8 @@ import java.util.*
 class AddMyPlantViewModel : BaseViewModel(), AddMyPlantView {
 
     private var plantIdx = 0
-    private var myPlantIdx = 0
+    private val _myPlantIdx = MutableLiveData(0)
+    val myPlantIdx: LiveData<Int> = _myPlantIdx
 
     @SuppressLint("SimpleDateFormat")
     val dateFormat = SimpleDateFormat("yyyy년 MM월 dd일")
@@ -62,7 +63,7 @@ class AddMyPlantViewModel : BaseViewModel(), AddMyPlantView {
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun getMyPlantDataToEdit(bundle: Bundle){
-        myPlantIdx = bundle.getInt("myPlantIdx")
+        _myPlantIdx.value = bundle.getInt("myPlantIdx")
         plantIdx = bundle.getInt("plantIdx")
         _plantName.value = bundle.getString("plantName")
         myPlantName.value = bundle.getString("nickname")
@@ -92,7 +93,7 @@ class AddMyPlantViewModel : BaseViewModel(), AddMyPlantView {
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun editMyPlantClick(){
-        if (myPlantIdx == 0) addToMyPlants()
+        if (_myPlantIdx.value == 0) addToMyPlants()
         else editMyPlant()
     }
 
@@ -158,7 +159,7 @@ class AddMyPlantViewModel : BaseViewModel(), AddMyPlantView {
 
                     reference.putFile(uriFromFile).addOnSuccessListener {
                         reference.downloadUrl.addOnSuccessListener {
-                            editMyPlantBody = EditMyPlantBody(myPlantIdx, it.toString(), ldtStartDate.toString(),
+                            editMyPlantBody = EditMyPlantBody(myPlantIdx.value!!, it.toString(), ldtStartDate.toString(),
                                     plantIdx, myPlantIntro.value!!, myPlantName.value!!, wateringTerms.value!!.toInt())
 
                             addMyPlantService.editMyPlant(editMyPlantBody)
@@ -171,7 +172,7 @@ class AddMyPlantViewModel : BaseViewModel(), AddMyPlantView {
                         _snackbarMessage.value = it.message
                     }
                 } else {
-                    editMyPlantBody = EditMyPlantBody(myPlantIdx, imageUrlToUpload!!, ldtStartDate.toString(),
+                    editMyPlantBody = EditMyPlantBody(myPlantIdx.value!!, imageUrlToUpload!!, ldtStartDate.toString(),
                             plantIdx, myPlantIntro.value!!, myPlantName.value!!, wateringTerms.value!!.toInt())
 
                     addMyPlantService.editMyPlant(editMyPlantBody)

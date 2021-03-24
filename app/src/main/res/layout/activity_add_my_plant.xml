@@ -223,7 +223,7 @@
                         android:fontFamily="@font/noto_sans_bold"
                         android:paddingVertical="15dp"
                         android:textSize="16sp"
-                        android:text="@string/add_my_plant"/>
+                        android:text="@{viewModel.myPlantIdx == 0 ? @string/add_my_plant : @string/edit_my_plant}"/>
                 </LinearLayout>
             </ScrollView>
         </LinearLayout>

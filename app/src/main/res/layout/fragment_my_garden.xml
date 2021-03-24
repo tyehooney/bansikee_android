@@ -87,7 +87,7 @@
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     android:layout_marginHorizontal="30dp"
                     android:layout_marginTop="40dp"
-                    android:nestedScrollingEnabled="false"/>
+                    android:overScrollMode="never"/>
 
                 <ProgressBar
                     android:layout_width="match_parent"

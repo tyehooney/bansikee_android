@@ -71,4 +71,10 @@ class SimpleDiaryData {
     @SerializedName("writeDate")
     val writeDate = ""
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun getTrimmedStartDate(): String{
+        val localDate = LocalDateTime.parse(writeDate, DateTimeFormatter.ISO_LOCAL_DATE_TIME)
+
+        return localDate.format(localDateTimeFormat)
+    }
 }
