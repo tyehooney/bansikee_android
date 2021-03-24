@@ -55,6 +55,7 @@
         <activity android:name=".src.activities.onboarding.OnboardingActivity" />
         <activity android:name=".src.activities.plant_details.PlantDetailsActivity"/>
         <activity android:name=".src.activities.add_my_plant.AddMyPlantActivity"/>
+        <activity android:name=".src.activities.my_plant_details.MyPlantDetailsActivity"/>
 
         <meta-data
             android:name="preloaded_fonts"

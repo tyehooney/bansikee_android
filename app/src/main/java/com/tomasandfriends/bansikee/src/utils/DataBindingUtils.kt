@@ -272,6 +272,20 @@ object DataBindingUtils {
                 (view.adapter as MyPlantAdapter).updateItems(itemViewModels.value!!)
     }
 
+    //set DiaryAdapter
+    @BindingAdapter("diaryItems")
+    @JvmStatic
+    fun setDiaryAdapter(view: RecyclerView, itemViewModels: LiveData<List<DiaryItemViewModel>>){
+        if (view.adapter == null){
+            val diaryAdapter = DiaryAdapter(view.context,
+                    (view.layoutManager as LinearLayoutManager).orientation == LinearLayout.HORIZONTAL)
+            view.adapter = diaryAdapter
+        }
+
+        if(itemViewModels.value != null)
+            (view.adapter as DiaryAdapter).updateItems(itemViewModels.value!!)
+    }
+
     //searching on Encyclopedia
     @BindingAdapter("searchingViewModel")
     @JvmStatic

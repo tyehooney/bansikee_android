@@ -219,7 +219,7 @@
                         android:background="@drawable/btn_round_green"
                         android:gravity="center"
                         android:textColor="@color/white"
-                        android:onClick="@{()->viewModel.addToMyPlants()}"
+                        android:onClick="@{()->viewModel.editMyPlantClick()}"
                         android:fontFamily="@font/noto_sans_bold"
                         android:paddingVertical="15dp"
                         android:textSize="16sp"

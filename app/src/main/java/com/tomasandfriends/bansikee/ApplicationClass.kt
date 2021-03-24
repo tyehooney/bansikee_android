@@ -17,6 +17,7 @@ import okhttp3.ResponseBody
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.security.MessageDigest
+import java.time.format.DateTimeFormatter
 import java.util.concurrent.TimeUnit
 
 class ApplicationClass : Application() {
@@ -34,6 +35,9 @@ class ApplicationClass : Application() {
 
         const val USER_EMAIL = "USER_EMAIL"
         const val USER_NAME = "USER_NAME"
+
+        @RequiresApi(Build.VERSION_CODES.O)
+        val localDateTimeFormat = DateTimeFormatter.ofPattern("yyyy/MM/dd")
 
         // Retrofit 인스턴스
         var retrofit : Retrofit? = null

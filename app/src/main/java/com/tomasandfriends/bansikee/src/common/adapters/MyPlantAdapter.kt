@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.tomasandfriends.bansikee.databinding.ItemMyPlantBinding
+import com.tomasandfriends.bansikee.src.activities.my_plant_details.MyPlantDetailsActivity
 
 class MyPlantAdapter(context: Context): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -32,7 +33,9 @@ class MyPlantAdapter(context: Context): RecyclerView.Adapter<RecyclerView.ViewHo
         }
 
         itemViewModel.goDetailsEvent.observe(mContext as LifecycleOwner, {
-            //TODO : go MyPlantDetailsActivity
+            val intent = Intent(mContext, MyPlantDetailsActivity::class.java)
+            intent.putExtra("myPlantIdx", it)
+            mContext.startActivity(intent)
         })
     }
 

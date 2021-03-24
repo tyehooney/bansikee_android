@@ -63,10 +63,15 @@ class AddMyPlantActivity : BaseActivity<ActivityAddMyPlantBinding, AddMyPlantVie
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val plantIdx = intent.getIntExtra("plantIdx", 0)
-        val plantName = intent.getStringExtra("plantName")
-        val plantSpecies = intent.getStringExtra("plantSpecies")
-        viewModel.getPlantData(plantIdx, plantName!!, plantSpecies!!)
+        if (intent.getBundleExtra("bundle") == null){
+            val plantIdx = intent.getIntExtra("plantIdx", 0)
+            val plantName = intent.getStringExtra("plantName")
+            val plantSpecies = intent.getStringExtra("plantSpecies")
+            viewModel.getPlantData(plantIdx, plantName!!, plantSpecies!!)
+        } else {
+            val bundle = intent.getBundleExtra("bundle")
+            viewModel.getMyPlantDataToEdit(bundle!!)
+        }
     }
 
     private fun showChoosingPhotoDialog(){
