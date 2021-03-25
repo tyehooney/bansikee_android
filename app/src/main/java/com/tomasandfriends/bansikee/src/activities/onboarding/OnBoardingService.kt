@@ -7,7 +7,6 @@ import com.tomasandfriends.bansikee.src.common.models.DefaultResponse
 import com.tomasandfriends.bansikee.src.activities.onboarding.interfaces.OnboardingRetrofitInterface
 import com.tomasandfriends.bansikee.src.activities.onboarding.interfaces.OnboardingView
 import com.tomasandfriends.bansikee.src.activities.onboarding.models.AnswerBody
-import com.tomasandfriends.bansikee.src.activities.onboarding.models.AnswerListBody
 import com.tomasandfriends.bansikee.src.activities.onboarding.models.GetSurveyResponse
 import retrofit2.Call
 import retrofit2.Callback
@@ -43,7 +42,7 @@ class OnBoardingService(onboardingView: OnboardingView) {
     fun answerSurvey(answerList: List<AnswerBody>){
         val retrofitInterface = initRetrofit().create(OnboardingRetrofitInterface::class.java)
 
-        retrofitInterface.answerSurvey(AnswerListBody(answerList)).enqueue(object: Callback<DefaultResponse> {
+        retrofitInterface.answerSurvey(answerList).enqueue(object: Callback<DefaultResponse> {
             override fun onResponse(call: Call<DefaultResponse>, response: Response<DefaultResponse>) {
                 if(response.code() == ApplicationClass.CODE_SUCCESS){
                     val apiResponse = response.body()

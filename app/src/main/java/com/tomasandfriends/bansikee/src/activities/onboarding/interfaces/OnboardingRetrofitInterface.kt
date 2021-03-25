@@ -1,7 +1,7 @@
 package com.tomasandfriends.bansikee.src.activities.onboarding.interfaces
 
+import com.tomasandfriends.bansikee.src.activities.onboarding.models.AnswerBody
 import com.tomasandfriends.bansikee.src.common.models.DefaultResponse
-import com.tomasandfriends.bansikee.src.activities.onboarding.models.AnswerListBody
 import com.tomasandfriends.bansikee.src.activities.onboarding.models.GetSurveyResponse
 import retrofit2.Call
 import retrofit2.http.Body
@@ -15,5 +15,5 @@ interface OnboardingRetrofitInterface {
 
     //post answers
     @POST("/on-boarding")
-    fun answerSurvey(@Body reqAnswerDto: AnswerListBody): Call<DefaultResponse>
+    fun answerSurvey(@Body reqAnswerDto: List<AnswerBody>): Call<DefaultResponse>
 }
