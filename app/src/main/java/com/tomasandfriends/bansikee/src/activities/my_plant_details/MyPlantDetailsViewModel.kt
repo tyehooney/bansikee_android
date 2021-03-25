@@ -109,12 +109,11 @@ class MyPlantDetailsViewModel: BaseViewModel(), MyPlantDetailsView {
 
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     fun goWriteDairyClick(){
 
         val bundle = Bundle()
         bundle.putString("myPlantName", myPlantDetails.value!!.nickname)
-        bundle.putString("startDate", myPlantDetails.value!!.getTrimmedStartDate())
+        bundle.putInt("dDay", myPlantDetails.value!!.dDay)
         bundle.putInt("myPlantIdx", myPlantIdx)
 
         _goWriteDiaryEvent.value = bundle

@@ -90,4 +90,11 @@
     <string name="format_d_day">D+%d</string>
     <string name="format_start_date">%s 부터 함께했어요.</string>
     <string name="alert_delete_my_plant">반식이를 삭제하면 해당 반식이의 일지 등의 모든 정보가 삭제됩니다.\n삭제하시겠습니까?</string>
+    <string name="diary_of">의 관리일지</string>
+    <string name="weather_today">오늘의 날씨</string>
+    <string name="diary_plant_height">식물의 키</string>
+    <string name="hint_diary">오늘 내 반려식물에 대한 일기를 자유롭게 적어보세요.</string>
+    <string name="write_diary">일기 작성하기</string>
+    <string name="question_watered_to_plant">식물에게 물을 줬나요?</string>
+    <string name="format_diary_d_day">%d일차</string>
 </resources>
