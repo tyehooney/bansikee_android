@@ -9,13 +9,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tomasandfriends.bansikee.databinding.ItemMyPlantBinding
 import com.tomasandfriends.bansikee.src.activities.my_plant_details.MyPlantDetailsActivity
 
-class MyPlantAdapter(context: Context): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MyPlantAdapter(context: Context): RecyclerView.Adapter<MyPlantAdapter.MyPlantViewHolder>() {
 
     private val mContext = context
     private val mDataViewModels = ArrayList<MyPlantItemViewModel>()
     private lateinit var inflater: LayoutInflater
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    lateinit var deleteMyPlantListener: DeleteMyPlantListener
+
+    interface DeleteMyPlantListener {
+        fun onDeleteClick(myPlantIdx: Int)
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyPlantViewHolder {
 
         inflater = LayoutInflater.from(mContext)
 
@@ -24,18 +30,24 @@ class MyPlantAdapter(context: Context): RecyclerView.Adapter<RecyclerView.ViewHo
         return MyPlantViewHolder(mContext, itemBinding)
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MyPlantViewHolder, position: Int) {
 
         val itemViewModel = mDataViewModels[position]
 
-        if (holder is MyPlantViewHolder) {
-            holder.bind(itemViewModel)
+        holder.bind(itemViewModel)
+
+        holder.itemView.setOnLongClickListener {
+            for (i in 0 until mDataViewModels.size){
+                if (i != position) mDataViewModels[i].setDeleteShowing(false)
+            }
+
+            itemViewModel.setDeleteShowing(true)
+
+            true
         }
 
-        itemViewModel.goDetailsEvent.observe(mContext as LifecycleOwner, {
-            val intent = Intent(mContext, MyPlantDetailsActivity::class.java)
-            intent.putExtra("myPlantIdx", it)
-            mContext.startActivity(intent)
+        itemViewModel.deleteEvent.observe(mContext as LifecycleOwner, {
+            deleteMyPlantListener.onDeleteClick(it)
         })
     }
 
@@ -57,6 +69,15 @@ class MyPlantAdapter(context: Context): RecyclerView.Adapter<RecyclerView.ViewHo
         fun bind(viewModel: MyPlantItemViewModel){
             mBinding.viewModel = viewModel
             mBinding.lifecycleOwner = mContext as LifecycleOwner
+
+            viewModel.goDetailsEvent.observe(mContext as LifecycleOwner, {
+                if(viewModel.deleteShowing.value!!) viewModel.setDeleteShowing(false)
+                else{
+                    val intent = Intent(mContext, MyPlantDetailsActivity::class.java)
+                    intent.putExtra("myPlantIdx", it)
+                    mContext.startActivity(intent)
+                }
+            })
         }
     }
 }

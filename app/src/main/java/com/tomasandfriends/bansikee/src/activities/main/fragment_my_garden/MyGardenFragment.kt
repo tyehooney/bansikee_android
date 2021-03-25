@@ -1,5 +1,6 @@
 package com.tomasandfriends.bansikee.src.activities.main.fragment_my_garden
 
+import android.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 import com.tomasandfriends.bansikee.R
@@ -16,6 +17,15 @@ class MyGardenFragment: BaseFragment<FragmentMyGardenBinding, MyGardenViewModel>
         viewModel = ViewModelProvider(requireContext() as ViewModelStoreOwner)
                 .get(MyGardenViewModel::class.java)
         binding.viewModel = viewModel
+
+        viewModel.deleteMyPlantClickEvent.observe(viewLifecycleOwner, {
+            AlertDialog.Builder(requireContext())
+                    .setMessage(R.string.alert_delete_my_plant)
+                    .setPositiveButton(R.string.yes) { _, _ ->
+                        viewModel.deleteMyPlant(it)
+                    }.setNegativeButton(R.string.no, null)
+                    .create().show()
+        })
     }
 
     override fun onResume() {

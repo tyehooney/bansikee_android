@@ -7,4 +7,7 @@ interface MyGardenView {
     fun getMyPlantsSuccess(myPlantList: List<MyPlantData>)
     fun getMyPlantsFailed(msg: String?)
 
+    fun deleteMyPlantSuccess(msg: String)
+    fun deleteMyPlantFailed(msg: String?)
+
 }
