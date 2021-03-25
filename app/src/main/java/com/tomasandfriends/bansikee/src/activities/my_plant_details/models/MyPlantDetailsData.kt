@@ -65,6 +65,9 @@ class DiaryListResponse: DefaultResponse() {
 
 class SimpleDiaryData {
 
+    @SerializedName("diaryId")
+    val diaryId = 0
+
     @SerializedName("diaryProfile")
     val dairyImgUrl = ""
 

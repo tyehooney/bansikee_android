@@ -9,6 +9,8 @@ import com.tomasandfriends.bansikee.src.activities.my_plant_details.models.Simpl
 
 class DiaryItemViewModel(diaryData: SimpleDiaryData): ViewModel() {
 
+    private val diaryId = diaryData.diaryId
+
     val imageUrl = diaryData.dairyImgUrl
     @RequiresApi(Build.VERSION_CODES.O)
     val writeDate = diaryData.getTrimmedStartDate()
@@ -17,6 +19,6 @@ class DiaryItemViewModel(diaryData: SimpleDiaryData): ViewModel() {
     val goDetailsEvent: LiveData<Int> = _goDetailsEvent
 
     fun itemClick() {
-        //TODO: go DiaryDetailsActivity
+        _goDetailsEvent.value = diaryId
     }
 }
