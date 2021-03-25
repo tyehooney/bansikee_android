@@ -39,4 +39,13 @@ class MyGardenViewModel : BaseViewModel(), MyGardenView {
         _getMyPlantsLoading.value = false
         _snackbarMessage.value = msg ?: ApplicationClass.NETWORK_ERROR
     }
+
+    override fun deleteMyPlantSuccess(msg: String) {
+        _toastMessage.value = msg
+        myGardenService.getMyPlants()
+    }
+
+    override fun deleteMyPlantFailed(msg: String?) {
+        _snackbarMessage.value = msg ?: ApplicationClass.NETWORK_ERROR
+    }
 }
