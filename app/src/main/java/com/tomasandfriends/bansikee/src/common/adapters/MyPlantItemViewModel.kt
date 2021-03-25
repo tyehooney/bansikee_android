@@ -27,4 +27,11 @@ class MyPlantItemViewModel(plantData: MyPlantData): ViewModel() {
     fun itemClick() {
         _goDetailsEvent.value = myPlantIdx
     }
+
+    private val _deleteEvent = SingleLiveEvent<Int>()
+    val deleteEvent: LiveData<Int> = _deleteEvent
+
+    fun deleteClick() {
+        _deleteEvent.value = myPlantIdx
+    }
 }

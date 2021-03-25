@@ -26,6 +26,7 @@ import com.bumptech.glide.request.target.Target
 import com.google.android.material.textfield.TextInputLayout
 import com.tomasandfriends.bansikee.R
 import com.tomasandfriends.bansikee.src.activities.main.fragment_encyclopedia.EncyclopediaViewModel
+import com.tomasandfriends.bansikee.src.activities.main.fragment_my_garden.MyGardenViewModel
 import com.tomasandfriends.bansikee.src.activities.onboarding.OnboardingViewModel
 import com.tomasandfriends.bansikee.src.activities.onboarding.models.SurveyData
 import com.tomasandfriends.bansikee.src.activities.sign_up.SignUpViewModel
@@ -260,11 +261,12 @@ object DataBindingUtils {
     }
 
     //set MyPlantAdapter
-    @BindingAdapter("myPlantItems")
+    @BindingAdapter("myPlantItems", "listeningViewModel")
     @JvmStatic
-    fun setMyPlantAdapter(view: RecyclerView, itemViewModels: LiveData<List<MyPlantItemViewModel>>){
+    fun setMyPlantAdapter(view: RecyclerView, itemViewModels: LiveData<List<MyPlantItemViewModel>>, viewModel: MyGardenViewModel){
         if (view.adapter == null){
             val myPlantAdapter = MyPlantAdapter(view.context)
+            myPlantAdapter.deleteMyPlantListener = viewModel
             view.adapter = myPlantAdapter
         }
 

@@ -15,6 +15,12 @@ class MyPlantAdapter(context: Context): RecyclerView.Adapter<MyPlantAdapter.MyPl
     private val mDataViewModels = ArrayList<MyPlantItemViewModel>()
     private lateinit var inflater: LayoutInflater
 
+    lateinit var deleteMyPlantListener: DeleteMyPlantListener
+
+    interface DeleteMyPlantListener {
+        fun onDeleteClick(myPlantIdx: Int)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyPlantViewHolder {
 
         inflater = LayoutInflater.from(mContext)
@@ -30,15 +36,6 @@ class MyPlantAdapter(context: Context): RecyclerView.Adapter<MyPlantAdapter.MyPl
 
         holder.bind(itemViewModel)
 
-        itemViewModel.goDetailsEvent.observe(mContext as LifecycleOwner, {
-            if(itemViewModel.deleteShowing.value!!) itemViewModel.setDeleteShowing(false)
-            else{
-                val intent = Intent(mContext, MyPlantDetailsActivity::class.java)
-                intent.putExtra("myPlantIdx", it)
-                mContext.startActivity(intent)
-            }
-        })
-
         holder.itemView.setOnLongClickListener {
             for (i in 0 until mDataViewModels.size){
                 if (i != position) mDataViewModels[i].setDeleteShowing(false)
@@ -48,6 +45,10 @@ class MyPlantAdapter(context: Context): RecyclerView.Adapter<MyPlantAdapter.MyPl
 
             true
         }
+
+        itemViewModel.deleteEvent.observe(mContext as LifecycleOwner, {
+            deleteMyPlantListener.onDeleteClick(it)
+        })
     }
 
     override fun getItemCount(): Int {
@@ -68,6 +69,15 @@ class MyPlantAdapter(context: Context): RecyclerView.Adapter<MyPlantAdapter.MyPl
         fun bind(viewModel: MyPlantItemViewModel){
             mBinding.viewModel = viewModel
             mBinding.lifecycleOwner = mContext as LifecycleOwner
+
+            viewModel.goDetailsEvent.observe(mContext as LifecycleOwner, {
+                if(viewModel.deleteShowing.value!!) viewModel.setDeleteShowing(false)
+                else{
+                    val intent = Intent(mContext, MyPlantDetailsActivity::class.java)
+                    intent.putExtra("myPlantIdx", it)
+                    mContext.startActivity(intent)
+                }
+            })
         }
     }
 }
