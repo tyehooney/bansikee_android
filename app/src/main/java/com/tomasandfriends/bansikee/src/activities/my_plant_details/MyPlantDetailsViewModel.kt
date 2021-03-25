@@ -1,15 +1,20 @@
 package com.tomasandfriends.bansikee.src.activities.my_plant_details
 
+import android.os.Build
 import android.os.Bundle
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.tomasandfriends.bansikee.ApplicationClass
+import com.tomasandfriends.bansikee.ApplicationClass.Companion.mSimpleDateFormat
 import com.tomasandfriends.bansikee.src.SingleLiveEvent
 import com.tomasandfriends.bansikee.src.activities.base.BaseViewModel
 import com.tomasandfriends.bansikee.src.activities.my_plant_details.interfaces.MyPlantDetailsView
 import com.tomasandfriends.bansikee.src.activities.my_plant_details.models.MyPlantDetailsData
 import com.tomasandfriends.bansikee.src.activities.my_plant_details.models.SimpleDiaryData
 import com.tomasandfriends.bansikee.src.common.adapters.DiaryItemViewModel
+import java.util.*
+import kotlin.collections.ArrayList
 
 class MyPlantDetailsViewModel: BaseViewModel(), MyPlantDetailsView {
 
@@ -34,6 +39,12 @@ class MyPlantDetailsViewModel: BaseViewModel(), MyPlantDetailsView {
     private val _goEditMyPlantEvent = SingleLiveEvent<Bundle>()
     val goEditMyPlantEvent: LiveData<Bundle> = _goEditMyPlantEvent
 
+    private val _goWriteDiaryEvent = SingleLiveEvent<Bundle>()
+    val goWriteDiaryEvent: LiveData<Bundle> = _goWriteDiaryEvent
+
+    private val _didWriteTodaysDiary = MutableLiveData(false)
+    val didWriteTodaysDiary: LiveData<Boolean> = _didWriteTodaysDiary
+
     private val myPlantDetailsService = MyPlantDetailsService(this)
 
     fun getMyPlantDetails(myPlantIdx: Int){
@@ -52,10 +63,16 @@ class MyPlantDetailsViewModel: BaseViewModel(), MyPlantDetailsView {
         _snackbarMessage.value = msg ?: ApplicationClass.NETWORK_ERROR
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun getDiaryListSuccess(diaryList: List<SimpleDiaryData>) {
         val results = ArrayList<DiaryItemViewModel>()
         for (simpleDiary in diaryList)
             results.add(DiaryItemViewModel(simpleDiary))
+
+        if (diaryList.isNotEmpty()){
+            val strToday = mSimpleDateFormat.format(Date())
+            _didWriteTodaysDiary.value = strToday.equals(diaryList[0].getTrimmedStartDate())
+        }
 
         _myPlantDiaryItems.value = results
         _getDiaryListLoading.value = false
@@ -90,5 +107,16 @@ class MyPlantDetailsViewModel: BaseViewModel(), MyPlantDetailsView {
 
         _goEditMyPlantEvent.value = bundle
 
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun goWriteDairyClick(){
+
+        val bundle = Bundle()
+        bundle.putString("myPlantName", myPlantDetails.value!!.nickname)
+        bundle.putString("startDate", myPlantDetails.value!!.getTrimmedStartDate())
+        bundle.putInt("myPlantIdx", myPlantIdx)
+
+        _goWriteDiaryEvent.value = bundle
     }
 }

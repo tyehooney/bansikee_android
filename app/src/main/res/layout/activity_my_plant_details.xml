@@ -290,11 +290,13 @@
                     android:layout_marginBottom="15dp"
                     android:layout_marginHorizontal="30dp"
                     android:background="@drawable/btn_round_green"
+                    android:visibility="@{viewModel.didWriteTodaysDiary ? View.GONE : View.VISIBLE}"
                     android:textColor="@color/white"
                     android:fontFamily="@font/noto_sans_bold"
                     android:textStyle="bold"
                     android:gravity="center"
-                    android:text="@string/write_my_plant_diary"/>
+                    android:text="@string/write_my_plant_diary"
+                    android:onClick="@{()->viewModel.goWriteDairyClick()}"/>
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

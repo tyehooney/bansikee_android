@@ -11,6 +11,7 @@ import com.tomasandfriends.bansikee.databinding.ItemDiaryBinding
 import com.tomasandfriends.bansikee.databinding.ItemDiaryHorizontalBinding
 import com.tomasandfriends.bansikee.databinding.ItemPlantBinding
 import com.tomasandfriends.bansikee.databinding.ItemPlantHorizontalBinding
+import com.tomasandfriends.bansikee.src.activities.diary.DiaryActivity
 import com.tomasandfriends.bansikee.src.activities.plant_details.PlantDetailsActivity
 
 class DiaryAdapter(context: Context, horizontal: Boolean): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -47,6 +48,9 @@ class DiaryAdapter(context: Context, horizontal: Boolean): RecyclerView.Adapter<
         }
 
         itemViewModel.goDetailsEvent.observe(mContext as LifecycleOwner, {
+            val intent = Intent(mContext, DiaryActivity::class.java)
+            intent.putExtra("diaryIdx", it)
+            mContext.startActivity(intent)
         })
     }
 
