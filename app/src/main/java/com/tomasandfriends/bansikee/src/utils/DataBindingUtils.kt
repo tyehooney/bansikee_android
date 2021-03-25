@@ -299,4 +299,23 @@ object DataBindingUtils {
             return@setOnEditorActionListener false
         }
     }
+
+    //set animation for delete btn in MyPlantItem
+    @BindingAdapter("showing")
+    @JvmStatic
+    fun setShowingAnimation(view: View, showing: Boolean){
+        val animation = AnimationUtils.loadAnimation(view.context, R.anim.left_fade_in)
+        view.visibility = if (showing) View.VISIBLE else View.GONE
+
+        if(showing) view.startAnimation(animation)
+    }
+
+    @BindingAdapter("shaking")
+    @JvmStatic
+    fun setShakingAnimation(view: View, shaking: Boolean){
+        val shakeAnim = AnimationUtils.loadAnimation(view.context, R.anim.shake)
+        if (shaking){
+            view.startAnimation(shakeAnim)
+        }
+    }
 }

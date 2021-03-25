@@ -85,8 +85,9 @@
                     android:layout_height="wrap_content"
                     myPlantItems="@{viewModel.myPlantItems}"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    android:layout_marginHorizontal="30dp"
+                    android:paddingHorizontal="30dp"
                     android:layout_marginTop="40dp"
+                    android:clipToPadding="false"
                     android:overScrollMode="never"/>
 
                 <ProgressBar
