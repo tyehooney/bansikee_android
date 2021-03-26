@@ -37,12 +37,15 @@ class DiaryViewModel: BaseViewModel(), DiaryView {
     private val _weather = MutableLiveData("GOOD")
     val weather: LiveData<String> = _weather
 
-    private val _height = MutableLiveData<Int>()
+    private val _height = MutableLiveData(0)
     val height: LiveData<Int> = _height
 
     val watered = MutableLiveData(false)
 
     val diaryContents = MutableLiveData<String?>()
+
+    private val _editHeightEvent = SingleLiveEvent<Int>()
+    val editHeightEvent: LiveData<Int> = _editHeightEvent
 
     private val diaryService = DiaryService(this)
 
@@ -85,5 +88,13 @@ class DiaryViewModel: BaseViewModel(), DiaryView {
 
     fun weatherClick(strWeather: String){
         _weather.value = strWeather
+    }
+
+    fun editHeightClick(){
+        _editHeightEvent.value = height.value!!
+    }
+
+    fun setHeight(newHeight: Int){
+        _height.value = newHeight
     }
 }

@@ -6,15 +6,18 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.widget.NumberPicker
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProvider
 import com.gun0912.tedpermission.PermissionListener
 import com.tomasandfriends.bansikee.R
 import com.tomasandfriends.bansikee.databinding.ActivityDiaryBinding
+import com.tomasandfriends.bansikee.databinding.DialogPlantHeightBinding
 import com.tomasandfriends.bansikee.src.activities.base.BaseActivity
 import com.tomasandfriends.bansikee.src.utils.FileUtils
 import com.tomasandfriends.bansikee.src.utils.SystemUtils
+import com.tomasandfriends.bansikee.src.utils.SystemUtils.convertDpToPx
 import java.io.File
 import java.lang.Math.min
 import java.util.ArrayList
@@ -42,6 +45,10 @@ class DiaryActivity: BaseActivity<ActivityDiaryBinding, DiaryViewModel>() {
                 override fun onPermissionDenied(deniedPermissions: ArrayList<String>?) {}
             })
         })
+
+        viewModel.editHeightEvent.observe(this, {
+            showEditHeightDialog(it)
+        })
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,6 +59,23 @@ class DiaryActivity: BaseActivity<ActivityDiaryBinding, DiaryViewModel>() {
         }else{
             viewModel.initWriteDiary(intent.getBundleExtra("bundle")!!)
         }
+    }
+
+    private fun showEditHeightDialog(lastHeight: Int){
+
+        val dialogHeightBinding = DialogPlantHeightBinding.inflate(layoutInflater)
+        dialogHeightBinding.root.minimumHeight = convertDpToPx(this, 100)
+        dialogHeightBinding.npHeight.minValue = 0
+        dialogHeightBinding.npHeight.maxValue = 300
+        dialogHeightBinding.npHeight.value = lastHeight
+
+        AlertDialog.Builder(this)
+                .setMessage(R.string.edit_plant_height)
+                .setView(dialogHeightBinding.root)
+                .setPositiveButton(R.string.check) { _, _ ->
+                    viewModel.setHeight(dialogHeightBinding.npHeight.value)
+                }.setNegativeButton(R.string.cancel, null)
+                .create().show()
     }
 
     @RequiresApi(Build.VERSION_CODES.P)

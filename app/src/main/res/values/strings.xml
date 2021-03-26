@@ -105,4 +105,5 @@
     <string name="weather_good">GOOD</string>
     <string name="weather_soso">SOSO</string>
     <string name="weather_bad">BAD</string>
+    <string name="edit_plant_height">내 반식이는 얼마나 컸나요?</string>
 </resources>
