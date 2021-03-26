@@ -1,9 +1,9 @@
 package com.tomasandfriends.bansikee.src.utils
 
 import android.graphics.Typeface
-import android.graphics.drawable.Drawable
 import android.view.Gravity.CENTER
 import android.view.View
+import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.view.animation.AnimationUtils
@@ -16,13 +16,13 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.widget.MarginPageTransformer
+import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.target.Target
 import com.google.android.material.textfield.TextInputLayout
 import com.tomasandfriends.bansikee.R
 import com.tomasandfriends.bansikee.src.activities.main.fragment_encyclopedia.EncyclopediaViewModel
@@ -31,6 +31,7 @@ import com.tomasandfriends.bansikee.src.activities.onboarding.OnboardingViewMode
 import com.tomasandfriends.bansikee.src.activities.onboarding.models.SurveyData
 import com.tomasandfriends.bansikee.src.activities.sign_up.SignUpViewModel
 import com.tomasandfriends.bansikee.src.common.adapters.*
+import com.tomasandfriends.bansikee.src.utils.SystemUtils.convertDpToPx
 import kotlin.math.roundToInt
 
 object DataBindingUtils {
@@ -286,6 +287,43 @@ object DataBindingUtils {
 
         if(itemViewModels.value != null)
             (view.adapter as DiaryAdapter).updateItems(itemViewModels.value!!)
+    }
+
+    //set ImagePagerAdapter
+    @BindingAdapter("imageItems", "currentPage")
+    @JvmStatic
+    fun setImagePagerAdapter(pager: ViewPager2, items: LiveData<List<String>>, currentPage: MutableLiveData<Int>){
+        if (pager.adapter == null){
+            val imagePagerAdapter = ImagePagerAdapter(pager.context)
+            pager.adapter = imagePagerAdapter
+        }
+
+        if (items.value != null)
+            (pager.adapter as ImagePagerAdapter).updateItems(items.value!!)
+
+        pager.offscreenPageLimit = 2
+        pager.setPageTransformer(MarginPageTransformer(convertDpToPx(pager.context, 10)))
+
+        pager.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                currentPage.value = position+1
+            }
+        })
+    }
+
+    //set enabled to all child views (except ViewPager)
+    @BindingAdapter("enabledToAllChild")
+    @JvmStatic
+    fun setEnabledToAllChildViews(view: View, enabled: Boolean){
+        view.isEnabled = enabled
+
+        if (view is ViewGroup){
+            for(i in 0 until view.childCount){
+                val child = view.getChildAt(i)
+                if (child !is ViewPager)
+                    setEnabledToAllChildViews(child, enabled)
+            }
+        }
     }
 
     //searching on Encyclopedia

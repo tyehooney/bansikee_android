@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.tomasandfriends.bansikee.ApplicationClass
 import com.tomasandfriends.bansikee.ApplicationClass.Companion.mSimpleDateFormat
+import com.tomasandfriends.bansikee.src.SingleLiveEvent
 import com.tomasandfriends.bansikee.src.activities.base.BaseViewModel
 import com.tomasandfriends.bansikee.src.activities.diary.interfaces.DiaryView
 import com.tomasandfriends.bansikee.src.activities.diary.models.DiaryDetailsData
@@ -13,14 +14,19 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class DiaryViewModel: BaseViewModel(), DiaryView {
-    private var diaryIdx = 0
+    var diaryIdx = 0
     private var myPlantIdx = 0
 
     private val _diaryDate = MutableLiveData<String>()
     val diaryDate: LiveData<String> = _diaryDate
 
-    private val _diaryImages = MutableLiveData<ArrayList<String>>()
-    val diaryImages: LiveData<ArrayList<String>> = _diaryImages
+    private val _diaryImages = MutableLiveData<List<String>>()
+    val diaryImages: LiveData<List<String>> = _diaryImages
+
+    val currentPage = MutableLiveData(1)
+
+    private val _getPhotosEvent = SingleLiveEvent<Void?>()
+    val getPhotosEvent: LiveData<Void?> = _getPhotosEvent
 
     private val _dDay = MutableLiveData<Int>()
     val dDay: LiveData<Int> = _dDay
@@ -36,7 +42,7 @@ class DiaryViewModel: BaseViewModel(), DiaryView {
 
     val watered = MutableLiveData(false)
 
-    val diaryContents = MutableLiveData<String>()
+    val diaryContents = MutableLiveData<String?>()
 
     private val diaryService = DiaryService(this)
 
@@ -67,5 +73,13 @@ class DiaryViewModel: BaseViewModel(), DiaryView {
 
     override fun getDiaryDetailsFailed(msg: String?) {
         _snackbarMessage.value = msg ?: ApplicationClass.NETWORK_ERROR
+    }
+
+    fun getPhotosClick() {
+        _getPhotosEvent.value = null
+    }
+
+    fun setPhotos(imgUrls: ArrayList<String>){
+        _diaryImages.value = imgUrls
     }
 }
