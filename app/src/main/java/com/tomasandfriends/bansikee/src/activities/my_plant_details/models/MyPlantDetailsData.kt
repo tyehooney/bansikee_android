@@ -1,11 +1,8 @@
 package com.tomasandfriends.bansikee.src.activities.my_plant_details.models
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import com.google.gson.annotations.SerializedName
 import com.tomasandfriends.bansikee.ApplicationClass.Companion.localDateTimeFormat
 import com.tomasandfriends.bansikee.src.common.models.DefaultResponse
-import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 

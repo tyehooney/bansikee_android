@@ -72,7 +72,7 @@ fun getPathOfImageFileResizing(context: Context, originalUri: Uri): String {
                     fout = FileOutputStream(file)
                     bitmap.compress(Bitmap.CompressFormat.JPEG, compressQuality, fout)
                     streamLength = file.length().toInt()
-                    compressQuality -= 10
+                    compressQuality -= 5
                 }
 
                 fout!!.flush()

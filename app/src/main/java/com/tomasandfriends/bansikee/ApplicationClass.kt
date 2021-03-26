@@ -5,9 +5,7 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
-import android.os.Build
 import android.util.Base64
-import androidx.annotation.RequiresApi
 import com.google.firebase.FirebaseApp
 import com.google.gson.GsonBuilder
 import com.kakao.sdk.common.KakaoSdk

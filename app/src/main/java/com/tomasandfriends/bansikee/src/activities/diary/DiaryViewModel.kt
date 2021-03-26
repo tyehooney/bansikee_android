@@ -1,8 +1,6 @@
 package com.tomasandfriends.bansikee.src.activities.diary
 
-import android.os.Build
 import android.os.Bundle
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.tomasandfriends.bansikee.ApplicationClass

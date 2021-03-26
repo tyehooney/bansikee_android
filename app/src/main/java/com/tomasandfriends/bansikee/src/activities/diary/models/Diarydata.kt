@@ -1,7 +1,5 @@
 package com.tomasandfriends.bansikee.src.activities.diary.models
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import com.google.gson.annotations.SerializedName
 import com.tomasandfriends.bansikee.ApplicationClass
 import com.tomasandfriends.bansikee.src.common.models.DefaultResponse

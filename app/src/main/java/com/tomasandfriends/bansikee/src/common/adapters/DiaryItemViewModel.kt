@@ -1,7 +1,5 @@
 package com.tomasandfriends.bansikee.src.common.adapters
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.tomasandfriends.bansikee.src.SingleLiveEvent

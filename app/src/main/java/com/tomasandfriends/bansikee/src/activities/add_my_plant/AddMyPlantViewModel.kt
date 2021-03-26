@@ -2,9 +2,7 @@ package com.tomasandfriends.bansikee.src.activities.add_my_plant
 
 import android.annotation.SuppressLint
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.storage.FirebaseStorage
