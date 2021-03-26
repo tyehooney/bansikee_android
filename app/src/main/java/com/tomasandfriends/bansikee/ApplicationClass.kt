@@ -38,7 +38,6 @@ class ApplicationClass : Application() {
         const val USER_EMAIL = "USER_EMAIL"
         const val USER_NAME = "USER_NAME"
 
-        @RequiresApi(Build.VERSION_CODES.O)
         val localDateTimeFormat = DateTimeFormatter.ofPattern("yyyy/MM/dd")
         @SuppressLint("SimpleDateFormat")
         val mSimpleDateFormat = SimpleDateFormat("yyyy/MM/dd")
@@ -99,7 +98,6 @@ class ApplicationClass : Application() {
         FirebaseApp.initializeApp(this)
     }
 
-    @RequiresApi(Build.VERSION_CODES.P)
     fun getKeyHash(context : Context) : String? {
         var key : String? = null
         val packageInfo = packageManager

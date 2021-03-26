@@ -43,8 +43,8 @@ object FileUtils {
             .check()
     }
 
-    @RequiresApi(Build.VERSION_CODES.R)
-    fun getPathOfImageFileResizing(context: Context, originalUri: Uri): String {
+@RequiresApi(Build.VERSION_CODES.P)
+fun getPathOfImageFileResizing(context: Context, originalUri: Uri): String {
         var bitmap: Bitmap?
 //        val degreeToRotate = getOrientationOfImage(getRealPath(context, originalUri)!!)
 

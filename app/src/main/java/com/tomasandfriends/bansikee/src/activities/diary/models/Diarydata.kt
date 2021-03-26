@@ -42,7 +42,6 @@ class DiaryDetailsData {
     @SerializedName("writeDate")
     val writeDate = ""
 
-    @RequiresApi(Build.VERSION_CODES.O)
     fun getStrDate(): String{
         var result = ""
 

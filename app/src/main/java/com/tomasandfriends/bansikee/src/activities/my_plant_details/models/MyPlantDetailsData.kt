@@ -48,7 +48,6 @@ class MyPlantDetailsData {
     @SerializedName("water")
     val waterPeriod = 0
 
-    @RequiresApi(Build.VERSION_CODES.O)
     fun getTrimmedStartDate(): String{
         val localDate = LocalDateTime.parse(startDateTime, DateTimeFormatter.ISO_LOCAL_DATE_TIME)
 
@@ -74,7 +73,6 @@ class SimpleDiaryData {
     @SerializedName("writeDate")
     val writeDate = ""
 
-    @RequiresApi(Build.VERSION_CODES.O)
     fun getTrimmedStartDate(): String{
         val localDate = LocalDateTime.parse(writeDate, DateTimeFormatter.ISO_LOCAL_DATE_TIME)
 

@@ -24,7 +24,6 @@ import com.tomasandfriends.bansikee.src.utils.SystemUtils.showAlert
 import java.io.File
 import java.util.*
 
-@RequiresApi(Build.VERSION_CODES.R)
 class AddMyPlantActivity : BaseActivity<ActivityAddMyPlantBinding, AddMyPlantViewModel>() {
 
     private var tmpUri: Uri? = null
@@ -41,7 +40,9 @@ class AddMyPlantActivity : BaseActivity<ActivityAddMyPlantBinding, AddMyPlantVie
             //get photo from gallery or camera
             tedPermissionForPhoto(this, object: PermissionListener {
                 override fun onPermissionGranted() {
-                    showChoosingPhotoDialog()
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                        showChoosingPhotoDialog()
+                    }
                 }
 
                 override fun onPermissionDenied(deniedPermissions: ArrayList<String>?) {}
@@ -74,6 +75,7 @@ class AddMyPlantActivity : BaseActivity<ActivityAddMyPlantBinding, AddMyPlantVie
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.P)
     private fun showChoosingPhotoDialog(){
 
         AlertDialog.Builder(this)
@@ -104,7 +106,7 @@ class AddMyPlantActivity : BaseActivity<ActivityAddMyPlantBinding, AddMyPlantVie
     }
 
     //onActivityResult
-    @RequiresApi(Build.VERSION_CODES.R)
+    @RequiresApi(Build.VERSION_CODES.P)
     private var resultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
 

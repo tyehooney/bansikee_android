@@ -63,7 +63,6 @@ class MyPlantDetailsViewModel: BaseViewModel(), MyPlantDetailsView {
         _snackbarMessage.value = msg ?: ApplicationClass.NETWORK_ERROR
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun getDiaryListSuccess(diaryList: List<SimpleDiaryData>) {
         val results = ArrayList<DiaryItemViewModel>()
         for (simpleDiary in diaryList)

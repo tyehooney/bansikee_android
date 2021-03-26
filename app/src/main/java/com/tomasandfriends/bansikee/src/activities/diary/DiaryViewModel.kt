@@ -57,7 +57,6 @@ class DiaryViewModel: BaseViewModel(), DiaryView {
         diaryService.getDiaryDetails(diaryIdx)
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun getDiaryDetailsSuccess(diaryDetails: DiaryDetailsData) {
         diaryContents.value = diaryDetails.contents
         _diaryImages.value = diaryDetails.diaryPictures.imgUrls
