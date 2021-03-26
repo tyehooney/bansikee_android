@@ -39,7 +39,7 @@
             android:layout_marginTop="8dp"
             android:textSize="14sp"
             android:text="@{viewModel.writeDate}"
-            android:fontFamily="@font/noto_sans_bold"
+            android:fontFamily="@font/noto_sans"
             android:textColor="@color/text_dark_gray"
             android:ellipsize="end"
             android:maxLines="1"/>

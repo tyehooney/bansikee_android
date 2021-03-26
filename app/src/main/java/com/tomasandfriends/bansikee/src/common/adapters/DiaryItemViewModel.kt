@@ -10,7 +10,7 @@ class DiaryItemViewModel(diaryData: SimpleDiaryData): ViewModel() {
     private val diaryId = diaryData.diaryId
 
     val imageUrl = diaryData.dairyImgUrl
-    val writeDate = diaryData.getTrimmedStartDate()
+    val writeDate = diaryData.writeDate
 
     private val _goDetailsEvent = SingleLiveEvent<Int>()
     val goDetailsEvent: LiveData<Int> = _goDetailsEvent

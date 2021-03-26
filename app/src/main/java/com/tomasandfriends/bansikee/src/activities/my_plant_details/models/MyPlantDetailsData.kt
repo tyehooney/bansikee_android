@@ -70,9 +70,9 @@ class SimpleDiaryData {
     @SerializedName("writeDate")
     val writeDate = ""
 
-    fun getTrimmedStartDate(): String{
-        val localDate = LocalDateTime.parse(writeDate, DateTimeFormatter.ISO_LOCAL_DATE_TIME)
-
-        return localDate.format(localDateTimeFormat)
-    }
+//    fun getTrimmedStartDate(): String{
+//        val localDate = LocalDateTime.parse(writeDate, DateTimeFormatter.ISO_LOCAL_DATE_TIME)
+//
+//        return localDate.format(localDateTimeFormat)
+//    }
 }

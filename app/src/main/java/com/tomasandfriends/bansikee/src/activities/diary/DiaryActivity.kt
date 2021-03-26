@@ -164,11 +164,15 @@ class DiaryActivity: BaseActivity<ActivityDiaryBinding, DiaryViewModel>() {
             }
 
     override fun onBackPressed() {
-        AlertDialog.Builder(this)
-                .setMessage(getString(R.string.ask_exit_while_adding))
-                .setPositiveButton(R.string.yes) {_, _ ->
-                    finish()
-                }.setNegativeButton(R.string.no, null)
-                .create().show()
+        if (viewModel.diaryIdx == 0){
+            AlertDialog.Builder(this)
+                    .setMessage(getString(R.string.ask_exit_while_adding))
+                    .setPositiveButton(R.string.yes) {_, _ ->
+                        finish()
+                    }.setNegativeButton(R.string.no, null)
+                    .create().show()
+        } else {
+            super.onBackPressed()
+        }
     }
 }

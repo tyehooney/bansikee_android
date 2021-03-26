@@ -301,7 +301,6 @@ object DataBindingUtils {
         if (items.value != null)
             (pager.adapter as ImagePagerAdapter).updateItems(items.value!!)
 
-        pager.offscreenPageLimit = 2
         pager.setPageTransformer(MarginPageTransformer(convertDpToPx(pager.context, 10)))
 
         pager.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback() {

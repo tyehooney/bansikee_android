@@ -156,6 +156,7 @@ class DiaryViewModel: BaseViewModel(), DiaryView {
     override fun addDiarySuccess(msg: String) {
         _loading.value = false
         _toastMessage.value = msg
+        finish()
     }
 
     override fun addDiaryFailed(msg: String?) {

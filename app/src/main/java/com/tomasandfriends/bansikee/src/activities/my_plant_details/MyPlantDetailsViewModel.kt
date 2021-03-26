@@ -18,6 +18,7 @@ class MyPlantDetailsViewModel: BaseViewModel(), MyPlantDetailsView {
 
     private var myPlantIdx = 0
     private var plantIdx = 0
+    private var latestHeight = 0
 
     private val _myPlantDetails = MutableLiveData<MyPlantDetailsData>()
     val myPlantDetails: LiveData<MyPlantDetailsData> = _myPlantDetails
@@ -68,7 +69,7 @@ class MyPlantDetailsViewModel: BaseViewModel(), MyPlantDetailsView {
 
         if (diaryList.isNotEmpty()){
             val strToday = mSimpleDateFormat.format(Date())
-            _didWriteTodaysDiary.value = strToday.equals(diaryList[0].getTrimmedStartDate())
+            _didWriteTodaysDiary.value = strToday.equals(diaryList[0].writeDate)
         }
 
         _myPlantDiaryItems.value = results

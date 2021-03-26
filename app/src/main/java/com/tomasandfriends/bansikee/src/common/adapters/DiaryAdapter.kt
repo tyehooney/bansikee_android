@@ -27,9 +27,9 @@ class DiaryAdapter(context: Context, horizontal: Boolean): RecyclerView.Adapter<
 
         val itemBinding =
                 if(mHorizontal)
-                    ItemPlantHorizontalBinding.inflate(inflater, parent, false)
+                    ItemDiaryHorizontalBinding.inflate(inflater, parent, false)
                 else
-                    ItemPlantBinding.inflate(inflater, parent, false)
+                    ItemDiaryBinding.inflate(inflater, parent, false)
 
         return if (mHorizontal)
             DiaryHorizontalViewHolder(mContext, itemBinding as ItemDiaryHorizontalBinding)
