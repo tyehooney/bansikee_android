@@ -20,7 +20,7 @@ class DiaryDetailsData {
     val contents = ""
 
     @SerializedName("diaryPictures")
-    val diaryPictures = DiaryPicturesData()
+    val diaryPictures = DiaryPicturesData(ArrayList<String>())
 
     @SerializedName("height")
     val height = 0
@@ -50,9 +50,16 @@ class DiaryDetailsData {
     }
 }
 
-class DiaryPicturesData {
+class DiaryPicturesData(urlList: ArrayList<String>) {
 
     @SerializedName("urls")
-    val imgUrls = ArrayList<String>()
+    val imgUrls = urlList
 
 }
+
+class AddDiaryBody(private val myPlantId: Int,
+                   private val dailyPictures: DiaryPicturesData,
+                   private val weather: String,
+                   private val height: Int,
+                   private val watered: String,
+                   private val contents: String)

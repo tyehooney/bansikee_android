@@ -106,4 +106,5 @@
     <string name="weather_soso">SOSO</string>
     <string name="weather_bad">BAD</string>
     <string name="edit_plant_height">내 반식이는 얼마나 컸나요?</string>
+    <string name="before_finish_diary">관리일지 작성을 완료하면 해당 기록을 수정할 수 없습니다.\n저장하시겠습니까?</string>
 </resources>

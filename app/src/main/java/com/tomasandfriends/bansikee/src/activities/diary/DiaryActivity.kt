@@ -49,6 +49,15 @@ class DiaryActivity: BaseActivity<ActivityDiaryBinding, DiaryViewModel>() {
         viewModel.editHeightEvent.observe(this, {
             showEditHeightDialog(it)
         })
+
+        viewModel.finishDiaryEvent.observe(this, {
+            AlertDialog.Builder(this)
+                    .setMessage(R.string.before_finish_diary)
+                    .setPositiveButton(R.string.yes) { _,_->
+                        viewModel.addDiary()
+                    }.setNegativeButton(R.string.no, null)
+                    .create().show()
+        })
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -153,4 +162,13 @@ class DiaryActivity: BaseActivity<ActivityDiaryBinding, DiaryViewModel>() {
                     }
                 }
             }
+
+    override fun onBackPressed() {
+        AlertDialog.Builder(this)
+                .setMessage(getString(R.string.ask_exit_while_adding))
+                .setPositiveButton(R.string.yes) {_, _ ->
+                    finish()
+                }.setNegativeButton(R.string.no, null)
+                .create().show()
+    }
 }

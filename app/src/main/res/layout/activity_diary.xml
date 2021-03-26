@@ -9,344 +9,368 @@
             type="com.tomasandfriends.bansikee.src.activities.diary.DiaryViewModel" />
     </data>
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <include
-            layout="@layout/layout_header_contains_back"
-            viewModel="@{viewModel}"/>
-
-        <ScrollView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/background_splash_light"
-            android:overScrollMode="never"
-            android:scrollbars="none">
+            android:orientation="vertical">
 
-            <LinearLayout
+            <include
+                layout="@layout/layout_header_contains_back"
+                viewModel="@{viewModel}"/>
+
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="20dp"
-                android:paddingBottom="20dp"
-                enabledToAllChild="@{viewModel.diaryIdx == 0}"
-                android:orientation="vertical">
+                android:layout_height="match_parent"
+                android:background="@color/background_splash_light"
+                android:overScrollMode="never"
+                android:scrollbars="none">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{viewModel.diaryDate}"
-                    android:gravity="center"
-                    android:textSize="14sp"
-                    android:fontFamily="@font/noto_sans"
-                    android:textColor="@color/text_dark_gray"/>
+                    android:paddingTop="20dp"
+                    android:paddingBottom="20dp"
+                    enabledToAllChild="@{viewModel.diaryIdx == 0}"
+                    android:orientation="vertical">
 
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="270dp"
-                    android:layout_marginTop="10dp"
-                    android:visibility="@{viewModel.diaryIdx != 0 &amp;&amp; viewModel.diaryImages.empty ? View.GONE : View.VISIBLE}">
-
-                    <LinearLayout
+                    <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.diaryDate}"
                         android:gravity="center"
-                        android:orientation="vertical"
-                        android:visibility="@{viewModel.diaryImages == null || viewModel.diaryImages.empty ? View.VISIBLE : View.GONE}"
-                        android:onClick="@{()->viewModel.getPhotosClick()}">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_add"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:textSize="14sp"
-                            android:textColor="@color/text_gray"
-                            android:text="@string/click_to_add_photos"
-                            android:fontFamily="@font/noto_sans"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="12sp"
-                            android:textColor="@color/text_gray"
-                            android:text="@string/click_to_add_photos_2"
-                            android:fontFamily="@font/noto_sans"/>
-                    </LinearLayout>
-
-                    <androidx.viewpager2.widget.ViewPager2
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:paddingHorizontal="30dp"
-                        imageItems="@{viewModel.diaryImages}"
-                        currentPage="@{viewModel.currentPage}"
-                        fadeVisibility="@{!(viewModel.diaryImages == null || viewModel.diaryImages.empty)}"
-                        android:clipToPadding="false"
-                        android:clipChildren="false"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:visibility="@{viewModel.diaryImages == null || viewModel.diaryImages.empty ? View.GONE : View.VISIBLE}"
-                        android:paddingHorizontal="10dp"
-                        android:paddingVertical="2dp"
-                        android:layout_gravity="bottom|center_horizontal"
-                        android:text="@{String.format(@string/format_image_page, viewModel.currentPage, viewModel.diaryImages.size())}"
-                        android:textColor="@color/white"
-                        android:background="@drawable/bg_round_round_pager_transparent"
+                        android:textSize="14sp"
                         android:fontFamily="@font/noto_sans"
-                        android:textSize="12sp"
-                        android:layout_marginBottom="5dp"/>
+                        android:textColor="@color/text_dark_gray"/>
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="bottom|end"
-                        android:layout_marginEnd="40dp"
-                        android:layout_marginBottom="15dp"
-                        android:onClick="@{()->viewModel.getPhotosClick()}"
-                        android:visibility="@{viewModel.diaryIdx == 0 &amp;&amp; !(viewModel.diaryImages == null || viewModel.diaryImages.empty) ? View.VISIBLE : View.GONE}"
-                        android:background="@drawable/bg_round_round_pager_transparent"
-                        android:src="@drawable/ic_edit_white"
-                        android:padding="4dp"/>
-                </FrameLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="20dp"
-                    android:paddingHorizontal="30dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingVertical="3dp"
-                        android:paddingHorizontal="10dp"
-                        android:text="@{String.format(@string/format_diary_d_day, viewModel.dDay)}"
-                        android:textColor="@color/white"
-                        android:textSize="12sp"
-                        android:fontFamily="@font/noto_sans_bold"
-                        android:textStyle="bold"
-                        android:background="@drawable/btn_round_round_green"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:text="@{viewModel.nickname}"
-                        android:textColor="@color/text_black"
-                        android:textSize="14sp"
-                        android:fontFamily="@font/noto_sans_bold" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/diary_of"
-                        android:textColor="@color/text_black"
-                        android:textSize="14sp"
-                        android:fontFamily="@font/noto_sans" />
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="18dp"
-                    android:layout_marginHorizontal="30dp"
-                    android:textSize="16sp"
-                    android:fontFamily="@font/noto_sans_bold"
-                    android:textStyle="bold"
-                    android:textColor="@color/text_black"
-                    android:text="내 식물 관찰해보기"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginHorizontal="30dp"
-                    android:paddingHorizontal="18dp"
-                    android:gravity="center_vertical"
-                    android:background="@drawable/item_round_white_green">
-
-                    <LinearLayout
+                    <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_weather"
-                            android:layout_marginVertical="15dp"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:text="@string/weather_today"
-                            android:textSize="14sp"
-                            android:fontFamily="@font/noto_sans"
-                            android:textColor="@color/text_black"/>
+                        android:layout_height="270dp"
+                        android:layout_marginTop="10dp"
+                        android:visibility="@{viewModel.diaryIdx != 0 &amp;&amp; viewModel.diaryImages.empty ? View.GONE : View.VISIBLE}">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:orientation="horizontal"
-                            android:gravity="center_vertical|end">
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:visibility="@{viewModel.diaryImages == null || viewModel.diaryImages.empty ? View.VISIBLE : View.GONE}"
+                            android:onClick="@{()->viewModel.getPhotosClick()}">
 
                             <ImageView
-                                android:contentDescription="@string/weather_good"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                weatherClick="@{viewModel.weather}"
-                                android:onClick="@{()->viewModel.weatherClick(@string/weather_good)}"
-                                android:layout_marginHorizontal="4dp"
-                                android:src="@drawable/ic_good"/>
-
-                            <ImageView
-                                android:contentDescription="@string/weather_soso"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                weatherClick="@{viewModel.weather}"
-                                android:onClick="@{()->viewModel.weatherClick(@string/weather_soso)}"
-                                android:layout_marginHorizontal="4dp"
-                                android:src="@drawable/ic_soso"/>
-
-                            <ImageView
-                                android:contentDescription="@string/weather_bad"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                weatherClick="@{viewModel.weather}"
-                                android:onClick="@{()->viewModel.weatherClick(@string/weather_bad)}"
-                                android:layout_marginHorizontal="4dp"
-                                android:src="@drawable/ic_bad"/>
-                        </LinearLayout>
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/text_gray"/>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:paddingVertical="15dp">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_plant_height"/>
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_marginStart="8dp"
-                            android:text="@string/diary_plant_height"
-                            android:textSize="14sp"
-                            android:fontFamily="@font/noto_sans"
-                            android:textColor="@color/text_black"/>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:gravity="center_vertical"
-                            android:onClick="@{()->viewModel.editHeightClick()}">
+                                android:src="@drawable/ic_add"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
                                 android:textSize="14sp"
-                                android:fontFamily="@font/noto_sans_bold"
-                                android:text="@{String.format(@string/length_cm_format, viewModel.height)}"
-                                android:textColor="@color/text_black"/>
+                                android:textColor="@color/text_gray"
+                                android:text="@string/click_to_add_photos"
+                                android:fontFamily="@font/noto_sans"/>
 
-                            <ImageView
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:layout_marginStart="5dp"
-                                android:src="@drawable/ic_edit"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:textColor="@color/text_gray"
+                                android:text="@string/click_to_add_photos_2"
+                                android:fontFamily="@font/noto_sans"/>
                         </LinearLayout>
-                    </LinearLayout>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/text_gray"/>
+                        <androidx.viewpager2.widget.ViewPager2
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingHorizontal="30dp"
+                            imageItems="@{viewModel.diaryImages}"
+                            currentPage="@{viewModel.currentPage}"
+                            fadeVisibility="@{!(viewModel.diaryImages == null || viewModel.diaryImages.empty)}"
+                            android:clipToPadding="false"
+                            android:clipChildren="false"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:visibility="@{viewModel.diaryImages == null || viewModel.diaryImages.empty ? View.GONE : View.VISIBLE}"
+                            android:paddingHorizontal="10dp"
+                            android:paddingVertical="2dp"
+                            android:layout_gravity="bottom|center_horizontal"
+                            android:text="@{String.format(@string/format_image_page, viewModel.currentPage, viewModel.diaryImages.size())}"
+                            android:textColor="@color/white"
+                            android:background="@drawable/bg_round_round_pager_transparent"
+                            android:fontFamily="@font/noto_sans"
+                            android:textSize="12sp"
+                            android:layout_marginBottom="5dp"/>
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom|end"
+                            android:layout_marginEnd="40dp"
+                            android:layout_marginBottom="15dp"
+                            android:onClick="@{()->viewModel.getPhotosClick()}"
+                            android:visibility="@{viewModel.diaryIdx == 0 &amp;&amp; !(viewModel.diaryImages == null || viewModel.diaryImages.empty) ? View.VISIBLE : View.GONE}"
+                            android:background="@drawable/bg_round_round_pager_transparent"
+                            android:src="@drawable/ic_edit_white"
+                            android:padding="4dp"/>
+                    </FrameLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:paddingVertical="15dp">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_plant_water"/>
+                        android:layout_marginTop="20dp"
+                        android:paddingHorizontal="30dp">
 
                         <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_marginStart="8dp"
-                            android:text="@string/question_watered_to_plant"
-                            android:textSize="14sp"
-                            android:fontFamily="@font/noto_sans"
-                            android:textColor="@color/text_black"/>
-
-                        <CheckBox
                             android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_marginEnd="-20dp"
-                            android:checked="@={viewModel.watered}"/>
+                            android:layout_height="wrap_content"
+                            android:paddingVertical="3dp"
+                            android:paddingHorizontal="10dp"
+                            android:text="@{String.format(@string/format_diary_d_day, viewModel.dDay)}"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:fontFamily="@font/noto_sans_bold"
+                            android:textStyle="bold"
+                            android:background="@drawable/btn_round_round_green"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="@{viewModel.nickname}"
+                            android:textColor="@color/text_black"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/noto_sans_bold" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/diary_of"
+                            android:textColor="@color/text_black"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/noto_sans" />
                     </LinearLayout>
-                </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="22dp"
-                    android:layout_marginHorizontal="30dp"
-                    android:textSize="16sp"
-                    android:fontFamily="@font/noto_sans_bold"
-                    android:textStyle="bold"
-                    android:textColor="@color/text_black"
-                    android:text="@string/write_diary"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="18dp"
+                        android:layout_marginHorizontal="30dp"
+                        android:textSize="16sp"
+                        android:fontFamily="@font/noto_sans_bold"
+                        android:textStyle="bold"
+                        android:textColor="@color/text_black"
+                        android:text="내 식물 관찰해보기"/>
 
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:background="@drawable/item_round_white_green"
-                    android:layout_marginTop="18dp"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginHorizontal="30dp">
-
-                    <EditText
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@android:color/transparent"
-                        android:fontFamily="@font/noto_sans"
-                        android:gravity="top"
-                        android:hint="@string/hint_diary"
-                        android:text="@={viewModel.diaryContents}"
-                        android:minHeight="100dp"
-                        android:padding="15dp"
-                        android:textSize="14sp"
-                        android:textColor="@color/text_black" />
-                </FrameLayout>
-            </LinearLayout>
-        </ScrollView>
-    </LinearLayout>
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginHorizontal="30dp"
+                        android:paddingHorizontal="18dp"
+                        android:gravity="center_vertical"
+                        android:background="@drawable/item_round_white_green">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_weather"
+                                android:layout_marginVertical="15dp"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:text="@string/weather_today"
+                                android:textSize="14sp"
+                                android:fontFamily="@font/noto_sans"
+                                android:textColor="@color/text_black"/>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical|end">
+
+                                <ImageView
+                                    android:contentDescription="@string/weather_good"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    weatherClick="@{viewModel.weather}"
+                                    android:onClick="@{()->viewModel.weatherClick(@string/weather_good)}"
+                                    android:layout_marginHorizontal="4dp"
+                                    android:src="@drawable/ic_good"/>
+
+                                <ImageView
+                                    android:contentDescription="@string/weather_soso"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    weatherClick="@{viewModel.weather}"
+                                    android:onClick="@{()->viewModel.weatherClick(@string/weather_soso)}"
+                                    android:layout_marginHorizontal="4dp"
+                                    android:src="@drawable/ic_soso"/>
+
+                                <ImageView
+                                    android:contentDescription="@string/weather_bad"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    weatherClick="@{viewModel.weather}"
+                                    android:onClick="@{()->viewModel.weatherClick(@string/weather_bad)}"
+                                    android:layout_marginHorizontal="4dp"
+                                    android:src="@drawable/ic_bad"/>
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/text_gray"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:paddingVertical="15dp">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_plant_height"/>
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginStart="8dp"
+                                android:text="@string/diary_plant_height"
+                                android:textSize="14sp"
+                                android:fontFamily="@font/noto_sans"
+                                android:textColor="@color/text_black"/>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical"
+                                android:onClick="@{()->viewModel.editHeightClick()}">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="14sp"
+                                    android:fontFamily="@font/noto_sans_bold"
+                                    android:text="@{String.format(@string/length_cm_format, viewModel.height)}"
+                                    android:textColor="@color/text_black"/>
+
+                                <ImageView
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:layout_marginStart="5dp"
+                                    android:src="@drawable/ic_edit"/>
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/text_gray"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:paddingVertical="15dp">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_plant_water"/>
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginStart="8dp"
+                                android:text="@string/question_watered_to_plant"
+                                android:textSize="14sp"
+                                android:fontFamily="@font/noto_sans"
+                                android:textColor="@color/text_black"/>
+
+                            <CheckBox
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginEnd="-20dp"
+                                android:checked="@={viewModel.watered}"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="22dp"
+                        android:layout_marginHorizontal="30dp"
+                        android:textSize="16sp"
+                        android:fontFamily="@font/noto_sans_bold"
+                        android:textStyle="bold"
+                        android:textColor="@color/text_black"
+                        android:text="@string/write_diary"/>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:background="@drawable/item_round_white_green"
+                        android:layout_marginTop="18dp"
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginHorizontal="30dp">
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@android:color/transparent"
+                            android:fontFamily="@font/noto_sans"
+                            android:gravity="top"
+                            android:hint="@string/hint_diary"
+                            android:text="@={viewModel.diaryContents}"
+                            android:minHeight="100dp"
+                            android:padding="15dp"
+                            android:textSize="14sp"
+                            android:textColor="@color/text_black" />
+                    </FrameLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="15dp"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginHorizontal="30dp"
+                        android:background="@drawable/btn_round_green"
+                        android:visibility="@{viewModel.diaryIdx == 0 ? View.VISIBLE : View.GONE}"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/noto_sans_bold"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:text="@string/write_my_plant_diary"
+                        android:onClick="@{()->viewModel.finishDiaryClick()}"/>
+                </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
+
+        <include
+            layout="@layout/layout_loading"
+            viewModel="@{viewModel}"/>
+    </FrameLayout>
 </layout>

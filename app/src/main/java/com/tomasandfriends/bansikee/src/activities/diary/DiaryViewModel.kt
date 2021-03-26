@@ -1,15 +1,20 @@
 package com.tomasandfriends.bansikee.src.activities.diary
 
+import android.net.Uri
 import android.os.Bundle
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.storage.FirebaseStorage
 import com.tomasandfriends.bansikee.ApplicationClass
 import com.tomasandfriends.bansikee.ApplicationClass.Companion.mSimpleDateFormat
 import com.tomasandfriends.bansikee.src.SingleLiveEvent
 import com.tomasandfriends.bansikee.src.activities.base.BaseViewModel
 import com.tomasandfriends.bansikee.src.activities.diary.interfaces.DiaryView
+import com.tomasandfriends.bansikee.src.activities.diary.models.AddDiaryBody
 import com.tomasandfriends.bansikee.src.activities.diary.models.DiaryDetailsData
+import com.tomasandfriends.bansikee.src.activities.diary.models.DiaryPicturesData
 import com.tomasandfriends.bansikee.src.utils.SystemUtils.getDayOfWeek
+import java.io.File
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -42,10 +47,13 @@ class DiaryViewModel: BaseViewModel(), DiaryView {
 
     val watered = MutableLiveData(false)
 
-    val diaryContents = MutableLiveData<String?>()
+    val diaryContents = MutableLiveData("")
 
     private val _editHeightEvent = SingleLiveEvent<Int>()
     val editHeightEvent: LiveData<Int> = _editHeightEvent
+
+    private val _finishDiaryEvent = SingleLiveEvent<Void?>()
+    val finishDiaryEvent: LiveData<Void?> = _finishDiaryEvent
 
     private val diaryService = DiaryService(this)
 
@@ -96,5 +104,62 @@ class DiaryViewModel: BaseViewModel(), DiaryView {
 
     fun setHeight(newHeight: Int){
         _height.value = newHeight
+    }
+
+    fun finishDiaryClick(){
+        _finishDiaryEvent.value = null
+    }
+
+    fun addDiary(){
+        _loading.value = true
+
+        val strWatered = if (watered.value!!) "YES" else "NO"
+
+        if (!diaryImages.value!!.isNullOrEmpty()){
+            val uploadedImgUrls = ArrayList<String>()
+            val storage = FirebaseStorage.getInstance()
+
+            for (i in diaryImages.value!!.indices){
+                val imgUrl = diaryImages.value!![i]
+                val uriFromFile = Uri.fromFile(File(imgUrl))
+                val fileName = uriFromFile.lastPathSegment
+                val reference = storage.getReference("/Images/$fileName")
+
+                reference.putFile(uriFromFile).addOnSuccessListener {
+                    reference.downloadUrl.addOnSuccessListener {
+                        uploadedImgUrls.add(it.toString())
+                        if (i == diaryImages.value!!.size-1){
+                            val addDiaryBody = AddDiaryBody(myPlantIdx,
+                                    DiaryPicturesData(uploadedImgUrls),
+                                    weather.value!!,
+                                    height.value!!,
+                                    strWatered,
+                                    diaryContents.value!!)
+
+                            diaryService.addDiary(addDiaryBody)
+                        }
+                    }
+                }
+            }
+        } else {
+            val addDiaryBody = AddDiaryBody(myPlantIdx,
+                    DiaryPicturesData(ArrayList()),
+                    weather.value!!,
+                    height.value!!,
+                    strWatered,
+                    diaryContents.value!!)
+
+            diaryService.addDiary(addDiaryBody)
+        }
+    }
+
+    override fun addDiarySuccess(msg: String) {
+        _loading.value = false
+        _toastMessage.value = msg
+    }
+
+    override fun addDiaryFailed(msg: String?) {
+        _loading.value = false
+        _snackbarMessage.value = msg ?: ApplicationClass.NETWORK_ERROR
     }
 }
