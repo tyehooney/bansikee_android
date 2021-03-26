@@ -101,4 +101,8 @@
     <string name="click_to_add_photos">사진을 추가하려면 여기를 눌러주세요!</string>
     <string name="click_to_add_photos_2">여러 장을 올리려면 앨범을 통해 올려주세요 (최대 5장)!</string>
     <string name="choose_picker_app">앱을 선택해주세요.</string>
+
+    <string name="weather_good">GOOD</string>
+    <string name="weather_soso">SOSO</string>
+    <string name="weather_bad">BAD</string>
 </resources>

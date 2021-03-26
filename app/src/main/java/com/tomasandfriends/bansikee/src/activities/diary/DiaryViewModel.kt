@@ -82,4 +82,8 @@ class DiaryViewModel: BaseViewModel(), DiaryView {
     fun setPhotos(imgUrls: ArrayList<String>){
         _diaryImages.value = imgUrls
     }
+
+    fun weatherClick(strWeather: String){
+        _weather.value = strWeather
+    }
 }

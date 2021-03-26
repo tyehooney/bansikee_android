@@ -202,7 +202,7 @@ object DataBindingUtils {
     fun setRoundImageUrl(view: ImageView, imgUrl: String?){
         Glide.with(view.context).load(imgUrl)
                 .circleCrop()
-                .placeholder(ContextCompat.getDrawable(view.context, R.drawable.image_background))
+                .placeholder(ContextCompat.getDrawable(view.context, R.drawable.image_camera))
                 .into(view)
     }
 
@@ -356,6 +356,19 @@ object DataBindingUtils {
         val shakeAnim = AnimationUtils.loadAnimation(view.context, R.anim.shake)
         if (shaking){
             view.startAnimation(shakeAnim)
+        }
+    }
+
+    @BindingAdapter("weatherClick")
+    @JvmStatic
+    fun setWeatherClick(view: ImageView, strWeather: String){
+        val animBig = AnimationUtils.loadAnimation(view.context, R.anim.scale_big)
+        val animSmall = AnimationUtils.loadAnimation(view.context, R.anim.scale_small)
+
+        if (view.contentDescription.toString() == strWeather){
+            view.startAnimation(animBig)
+        } else if(view.animation != null && view.animation.fillAfter) {
+            view.startAnimation(animSmall)
         }
     }
 }

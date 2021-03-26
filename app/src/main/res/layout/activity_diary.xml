@@ -177,18 +177,17 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:paddingVertical="15dp">
+                        android:gravity="center_vertical">
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/ic_weather"/>
+                            android:src="@drawable/ic_weather"
+                            android:layout_marginVertical="15dp"/>
 
                         <TextView
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
                             android:layout_marginStart="8dp"
                             android:text="@string/weather_today"
                             android:textSize="14sp"
@@ -196,26 +195,35 @@
                             android:textColor="@color/text_black"/>
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical|end">
 
                             <ImageView
+                                android:contentDescription="@string/weather_good"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                weatherClick="@{viewModel.weather}"
+                                android:onClick="@{()->viewModel.weatherClick(@string/weather_good)}"
                                 android:layout_marginHorizontal="4dp"
-                                android:layout_gravity="center_vertical"
                                 android:src="@drawable/ic_good"/>
 
                             <ImageView
+                                android:contentDescription="@string/weather_soso"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                weatherClick="@{viewModel.weather}"
+                                android:onClick="@{()->viewModel.weatherClick(@string/weather_soso)}"
                                 android:layout_marginHorizontal="4dp"
                                 android:src="@drawable/ic_soso"/>
 
                             <ImageView
+                                android:contentDescription="@string/weather_bad"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                weatherClick="@{viewModel.weather}"
+                                android:onClick="@{()->viewModel.weatherClick(@string/weather_bad)}"
                                 android:layout_marginHorizontal="4dp"
                                 android:src="@drawable/ic_bad"/>
                         </LinearLayout>
