@@ -21,6 +21,12 @@ class DiaryAdapter(context: Context, horizontal: Boolean): RecyclerView.Adapter<
     private val mDataViewModels = ArrayList<DiaryItemViewModel>()
     private lateinit var inflater: LayoutInflater
 
+    lateinit var deleteMyDiaryListener: DeleteMyDiaryListener
+
+    interface DeleteMyDiaryListener {
+        fun onDeleteClick(myDiaryIdx: Int)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
         inflater = LayoutInflater.from(mContext)
@@ -47,10 +53,18 @@ class DiaryAdapter(context: Context, horizontal: Boolean): RecyclerView.Adapter<
             holder.bind(itemViewModel)
         }
 
-        itemViewModel.goDetailsEvent.observe(mContext as LifecycleOwner, {
-            val intent = Intent(mContext, DiaryActivity::class.java)
-            intent.putExtra("diaryIdx", it)
-            mContext.startActivity(intent)
+        holder.itemView.setOnLongClickListener {
+            for(i in 0 until mDataViewModels.size){
+                if (i != position) mDataViewModels[i].setDeleteShowing(false)
+            }
+
+            itemViewModel.setDeleteShowing(true)
+
+            true
+        }
+
+        itemViewModel.deleteEvent.observe(mContext as LifecycleOwner, {
+            deleteMyDiaryListener.onDeleteClick(it)
         })
     }
 
@@ -83,6 +97,15 @@ class DiaryAdapter(context: Context, horizontal: Boolean): RecyclerView.Adapter<
         fun bind(viewModel: DiaryItemViewModel){
             mBinding.viewModel = viewModel
             mBinding.lifecycleOwner = mContext as LifecycleOwner
+
+            viewModel.goDetailsEvent.observe(mContext as LifecycleOwner, {
+                if (viewModel.deleteShowing.value!!) viewModel.setDeleteShowing(false)
+                else {
+                    val intent = Intent(mContext, DiaryActivity::class.java)
+                    intent.putExtra("diaryIdx", it)
+                    mContext.startActivity(intent)
+                }
+            })
         }
     }
 }

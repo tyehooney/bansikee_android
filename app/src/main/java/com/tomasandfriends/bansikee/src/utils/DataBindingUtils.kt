@@ -27,6 +27,7 @@ import com.google.android.material.textfield.TextInputLayout
 import com.tomasandfriends.bansikee.R
 import com.tomasandfriends.bansikee.src.activities.main.fragment_encyclopedia.EncyclopediaViewModel
 import com.tomasandfriends.bansikee.src.activities.main.fragment_my_garden.MyGardenViewModel
+import com.tomasandfriends.bansikee.src.activities.my_plant_details.MyPlantDetailsViewModel
 import com.tomasandfriends.bansikee.src.activities.onboarding.OnboardingViewModel
 import com.tomasandfriends.bansikee.src.activities.onboarding.models.SurveyData
 import com.tomasandfriends.bansikee.src.activities.sign_up.SignUpViewModel
@@ -276,12 +277,13 @@ object DataBindingUtils {
     }
 
     //set DiaryAdapter
-    @BindingAdapter("diaryItems")
+    @BindingAdapter("diaryItems", "listeningViewModel")
     @JvmStatic
-    fun setDiaryAdapter(view: RecyclerView, itemViewModels: LiveData<List<DiaryItemViewModel>>){
+    fun setDiaryAdapter(view: RecyclerView, itemViewModels: LiveData<List<DiaryItemViewModel>>, viewModel: MyPlantDetailsViewModel){
         if (view.adapter == null){
             val diaryAdapter = DiaryAdapter(view.context,
                     (view.layoutManager as LinearLayoutManager).orientation == LinearLayout.HORIZONTAL)
+            diaryAdapter.deleteMyDiaryListener = viewModel
             view.adapter = diaryAdapter
         }
 
@@ -344,6 +346,16 @@ object DataBindingUtils {
     @JvmStatic
     fun setShowingAnimation(view: View, showing: Boolean){
         val animation = AnimationUtils.loadAnimation(view.context, R.anim.left_fade_in)
+        view.visibility = if (showing) View.VISIBLE else View.GONE
+
+        if(showing) view.startAnimation(animation)
+    }
+
+    //set animation for delete btn in DiaryItem
+    @BindingAdapter("showingHorizontal")
+    @JvmStatic
+    fun setShowingHorizontalAnimation(view: View, showing: Boolean){
+        val animation = AnimationUtils.loadAnimation(view.context, R.anim.down_fade_in)
         view.visibility = if (showing) View.VISIBLE else View.GONE
 
         if(showing) view.startAnimation(animation)

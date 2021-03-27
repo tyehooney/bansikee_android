@@ -10,11 +10,12 @@ import com.tomasandfriends.bansikee.src.activities.base.BaseViewModel
 import com.tomasandfriends.bansikee.src.activities.my_plant_details.interfaces.MyPlantDetailsView
 import com.tomasandfriends.bansikee.src.activities.my_plant_details.models.MyPlantDetailsData
 import com.tomasandfriends.bansikee.src.activities.my_plant_details.models.SimpleDiaryData
+import com.tomasandfriends.bansikee.src.common.adapters.DiaryAdapter
 import com.tomasandfriends.bansikee.src.common.adapters.DiaryItemViewModel
 import java.util.*
 import kotlin.collections.ArrayList
 
-class MyPlantDetailsViewModel: BaseViewModel(), MyPlantDetailsView {
+class MyPlantDetailsViewModel: BaseViewModel(), MyPlantDetailsView, DiaryAdapter.DeleteMyDiaryListener {
 
     private var myPlantIdx = 0
     private var plantIdx = 0
@@ -115,5 +116,9 @@ class MyPlantDetailsViewModel: BaseViewModel(), MyPlantDetailsView {
         bundle.putInt("myPlantIdx", myPlantIdx)
 
         _goWriteDiaryEvent.value = bundle
+    }
+
+    override fun onDeleteClick(myDiaryIdx: Int) {
+        TODO("Not yet implemented")
     }
 }
