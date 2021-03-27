@@ -33,6 +33,15 @@ class MyPlantDetailsActivity: BaseActivity<ActivityMyPlantDetailsBinding, MyPlan
             startActivity(intent)
         })
 
+        viewModel.goDiaryListFragmentEvent.observe(this, {
+            supportFragmentManager.popBackStack()
+            supportFragmentManager.beginTransaction()
+                    .replace(R.id.fl_fragment_container,
+                            DiaryListFragment.newInstance(intent.getIntExtra("myPlantIdx", 0)))
+                    .addToBackStack(null)
+                    .commit()
+        })
+
         viewModel.goWriteDiaryEvent.observe(this, {
             val intent = Intent(this, DiaryActivity::class.java)
             intent.putExtra("bundle", it)

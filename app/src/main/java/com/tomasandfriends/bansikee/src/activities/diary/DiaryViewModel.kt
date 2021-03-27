@@ -115,7 +115,7 @@ class DiaryViewModel: BaseViewModel(), DiaryView {
 
         val strWatered = if (watered.value!!) "YES" else "NO"
 
-        if (!diaryImages.value!!.isNullOrEmpty()){
+        if (!diaryImages.value.isNullOrEmpty()){
             val uploadedImgUrls = ArrayList<String>()
             val storage = FirebaseStorage.getInstance()
 

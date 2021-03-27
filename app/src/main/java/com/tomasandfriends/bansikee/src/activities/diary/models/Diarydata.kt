@@ -44,7 +44,7 @@ class DiaryDetailsData {
         var result = ""
 
         val localDate = LocalDateTime.parse(writeDate, DateTimeFormatter.ISO_LOCAL_DATE_TIME)
-        result = "${localDate.format(ApplicationClass.localDateTimeFormat)} ${getDayOfWeek(localDate.dayOfWeek.value)}"
+        result = "${localDate.format(ApplicationClass.localDateTimeFormat)} ${getDayOfWeek(if(localDate.dayOfWeek.value == 7) 1 else localDate.dayOfWeek.value+1)}"
 
         return result
     }

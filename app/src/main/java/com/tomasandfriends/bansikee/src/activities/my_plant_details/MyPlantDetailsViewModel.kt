@@ -44,6 +44,9 @@ class MyPlantDetailsViewModel: BaseViewModel(), MyPlantDetailsView, DiaryAdapter
     private val _deleteMyDiaryEvent = SingleLiveEvent<Int>()
     val deleteMtDiaryEvent: LiveData<Int> = _deleteMyDiaryEvent
 
+    private val _goDiaryListFragmentEvent = SingleLiveEvent<Void?>()
+    val goDiaryListFragmentEvent: LiveData<Void?> = _goDiaryListFragmentEvent
+
     private val _didWriteTodaysDiary = MutableLiveData(false)
     val didWriteTodaysDiary: LiveData<Boolean> = _didWriteTodaysDiary
 
@@ -108,6 +111,10 @@ class MyPlantDetailsViewModel: BaseViewModel(), MyPlantDetailsView, DiaryAdapter
 
         _goEditMyPlantEvent.value = bundle
 
+    }
+
+    fun goDiaryListFragmentClick(){
+        _goDiaryListFragmentEvent.value = null
     }
 
     fun goWriteDairyClick(){
