@@ -22,6 +22,9 @@ class DiaryDetailsData {
     @SerializedName("diaryPictures")
     val diaryPictures = DiaryPicturesData(ArrayList<String>())
 
+    @SerializedName("dayFromBirth")
+    val dayFromStart = 0
+
     @SerializedName("height")
     val height = 0
 

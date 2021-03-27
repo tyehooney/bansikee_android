@@ -75,6 +75,7 @@ class DiaryViewModel: BaseViewModel(), DiaryView {
     override fun getDiaryDetailsSuccess(diaryDetails: DiaryDetailsData) {
         diaryContents.value = diaryDetails.contents
         _diaryImages.value = diaryDetails.diaryPictures.imgUrls
+        _dDay.value = diaryDetails.dayFromStart+1
         _height.value = diaryDetails.height
         _nickname.value = diaryDetails.nickname
         _weather.value = diaryDetails.weather
