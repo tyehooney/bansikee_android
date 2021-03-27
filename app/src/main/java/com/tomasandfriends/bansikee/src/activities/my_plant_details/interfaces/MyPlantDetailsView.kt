@@ -11,4 +11,7 @@ interface MyPlantDetailsView {
     fun getDiaryListSuccess(diaryList: List<SimpleDiaryData>)
     fun getDiaryListFailed(msg: String?)
 
+    fun deleteDiarySuccess(msg: String)
+    fun deleteDiaryFailed(msg: String?)
+
 }

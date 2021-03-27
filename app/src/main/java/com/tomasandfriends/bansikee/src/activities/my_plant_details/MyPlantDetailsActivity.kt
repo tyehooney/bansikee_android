@@ -1,5 +1,6 @@
 package com.tomasandfriends.bansikee.src.activities.my_plant_details
 
+import android.app.AlertDialog
 import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import com.tomasandfriends.bansikee.R
@@ -36,6 +37,15 @@ class MyPlantDetailsActivity: BaseActivity<ActivityMyPlantDetailsBinding, MyPlan
             val intent = Intent(this, DiaryActivity::class.java)
             intent.putExtra("bundle", it)
             startActivity(intent)
+        })
+
+        viewModel.deleteMtDiaryEvent.observe(this, {
+            AlertDialog.Builder(this)
+                    .setMessage(R.string.alert_delete_my_diary)
+                    .setPositiveButton(R.string.yes) { _, _ ->
+                        viewModel.deleteMyDiary(it)
+                    }.setNegativeButton(R.string.no, null)
+                    .create().show()
         })
     }
 

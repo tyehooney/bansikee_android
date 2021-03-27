@@ -19,7 +19,6 @@ class MyPlantDetailsViewModel: BaseViewModel(), MyPlantDetailsView, DiaryAdapter
 
     private var myPlantIdx = 0
     private var plantIdx = 0
-    private var latestHeight = 0
 
     private val _myPlantDetails = MutableLiveData<MyPlantDetailsData>()
     val myPlantDetails: LiveData<MyPlantDetailsData> = _myPlantDetails
@@ -41,6 +40,9 @@ class MyPlantDetailsViewModel: BaseViewModel(), MyPlantDetailsView, DiaryAdapter
 
     private val _goWriteDiaryEvent = SingleLiveEvent<Bundle>()
     val goWriteDiaryEvent: LiveData<Bundle> = _goWriteDiaryEvent
+
+    private val _deleteMyDiaryEvent = SingleLiveEvent<Int>()
+    val deleteMtDiaryEvent: LiveData<Int> = _deleteMyDiaryEvent
 
     private val _didWriteTodaysDiary = MutableLiveData(false)
     val didWriteTodaysDiary: LiveData<Boolean> = _didWriteTodaysDiary
@@ -119,6 +121,19 @@ class MyPlantDetailsViewModel: BaseViewModel(), MyPlantDetailsView, DiaryAdapter
     }
 
     override fun onDeleteClick(myDiaryIdx: Int) {
-        TODO("Not yet implemented")
+        _deleteMyDiaryEvent.value = myDiaryIdx
+    }
+
+    fun deleteMyDiary(myDiaryIdx: Int){
+        myPlantDetailsService.deleteDiary(myDiaryIdx)
+    }
+
+    override fun deleteDiarySuccess(msg: String) {
+        _toastMessage.value = msg
+        myPlantDetailsService.getDiaryList(myPlantIdx)
+    }
+
+    override fun deleteDiaryFailed(msg: String?) {
+        _snackbarMessage.value = msg ?: ApplicationClass.NETWORK_ERROR
     }
 }
