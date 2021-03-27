@@ -87,7 +87,26 @@
     <string name="raise_my_plant">반려식물 관리하기</string>
     <string name="my_plant_diaries">나의 반려식물 일지</string>
     <string name="write_my_plant_diary">반려식물 일지 작성하기</string>
+    <string name="format_plant_diaries">%s의 관리 일지</string>
     <string name="format_d_day">D+%d</string>
     <string name="format_start_date">%s 부터 함께했어요.</string>
     <string name="alert_delete_my_plant">반식이를 삭제하면 해당 반식이의 일지 등의 모든 정보가 삭제됩니다.\n삭제하시겠습니까?</string>
+    <string name="diary_of">의 관리일지</string>
+    <string name="weather_today">오늘의 날씨</string>
+    <string name="diary_plant_height">식물의 키</string>
+    <string name="hint_diary">오늘 내 반려식물에 대한 일기를 자유롭게 적어보세요.</string>
+    <string name="write_diary">일기 작성하기</string>
+    <string name="question_watered_to_plant">식물에게 물을 줬나요?</string>
+    <string name="format_diary_d_day">%d일차</string>
+    <string name="format_image_page">%d/%d</string>
+    <string name="click_to_add_photos">사진을 추가하려면 여기를 눌러주세요!</string>
+    <string name="click_to_add_photos_2">여러 장을 올리려면 앨범을 통해 올려주세요 (최대 5장)!</string>
+    <string name="choose_picker_app">앱을 선택해주세요.</string>
+
+    <string name="weather_good">GOOD</string>
+    <string name="weather_normal">NORMAL</string>
+    <string name="weather_bad">BAD</string>
+    <string name="edit_plant_height">내 반식이는 얼마나 컸나요?</string>
+    <string name="before_finish_diary">관리일지 작성을 완료하면 해당 기록을 수정할 수 없습니다.\n저장하시겠습니까?</string>
+    <string name="alert_delete_my_diary">일지를 삭제하면 그날의 관리 일지에 담긴 기록이 모두 사라집니다.\n삭제하시겠습니까?</string>
 </resources>

@@ -2,17 +2,12 @@ package com.tomasandfriends.bansikee.src.utils
 
 import android.Manifest.permission.CAMERA
 import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-import android.annotation.SuppressLint
 import android.content.Context
-import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
-import android.graphics.Matrix
-import android.media.ExifInterface
 import android.net.Uri
 import android.os.Build
 import android.os.Environment.DIRECTORY_PICTURES
-import android.provider.MediaStore
 import androidx.annotation.RequiresApi
 import androidx.core.content.FileProvider
 import com.gun0912.tedpermission.PermissionListener
@@ -43,14 +38,12 @@ object FileUtils {
             .check()
     }
 
-    @RequiresApi(Build.VERSION_CODES.R)
-    fun getPathOfImageFileResizing(context: Context, originalUri: Uri): String {
+@RequiresApi(Build.VERSION_CODES.P)
+fun getPathOfImageFileResizing(context: Context, originalUri: Uri): String {
         var bitmap: Bitmap?
-//        val degreeToRotate = getOrientationOfImage(getRealPath(context, originalUri)!!)
 
         val source = ImageDecoder.createSource(context.contentResolver, originalUri)
         bitmap = ImageDecoder.decodeBitmap(source)
-//        bitmap = getRotatedBitmap(bitmap, degreeToRotate)
 
         var mStrUri = ""
 
@@ -72,7 +65,7 @@ object FileUtils {
                     fout = FileOutputStream(file)
                     bitmap.compress(Bitmap.CompressFormat.JPEG, compressQuality, fout)
                     streamLength = file.length().toInt()
-                    compressQuality -= 10
+                    compressQuality -= 5
                 }
 
                 fout!!.flush()
@@ -84,41 +77,4 @@ object FileUtils {
 
         return mStrUri
     }
-
-//    @SuppressLint("Recycle")
-//    fun getRealPath(context: Context, uri: Uri): String? {
-//        var cursor: Cursor? = null
-//        var result: String?
-//
-//        if (uri.toString().contains(FILE_PROVIDER_AUTHORITY))
-//            result = context.externalCacheDir!!.absolutePath+"/"+uri.lastPathSegment
-//        else {
-//            try {
-//                val proj = arrayOf(MediaStore.Images.Media.DATA)
-//                cursor = context.contentResolver.query(uri, proj, null, null, null)
-//                val columnIdx = cursor!!.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
-//                cursor.moveToFirst()
-//                result = cursor.getString(columnIdx)
-//            } finally {
-//                cursor?.close()
-//            }
-//        }
-//
-//        return result
-//    }
-//
-//    private fun getOrientationOfImage(filePath: String): Int {
-//        val exif = ExifInterface(filePath)
-//        val orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, -1)
-//
-//        if (orientation != -1){
-//            when(orientation){
-//                ExifInterface.ORIENTATION_ROTATE_90 -> return 90
-//                ExifInterface.ORIENTATION_ROTATE_180 -> return 180
-//                ExifInterface.ORIENTATION_ROTATE_270 -> return 270
-//            }
-//        }
-//
-//        return 0
-//    }
 }

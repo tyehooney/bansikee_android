@@ -2,9 +2,7 @@ package com.tomasandfriends.bansikee.src.activities.add_my_plant
 
 import android.annotation.SuppressLint
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.storage.FirebaseStorage
@@ -61,7 +59,6 @@ class AddMyPlantViewModel : BaseViewModel(), AddMyPlantView {
         this._plantSpecies.value = plantSpecies
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     fun getMyPlantDataToEdit(bundle: Bundle){
         _myPlantIdx.value = bundle.getInt("myPlantIdx")
         plantIdx = bundle.getInt("plantIdx")
@@ -91,13 +88,11 @@ class AddMyPlantViewModel : BaseViewModel(), AddMyPlantView {
         _startDate.value = cal.time
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     fun editMyPlantClick(){
         if (_myPlantIdx.value == 0) addToMyPlants()
         else editMyPlant()
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun addToMyPlants(){
         when {
             myPlantName.value.isNullOrEmpty() -> _snackbarMessage.value = "이름을 입력해주세요!"
@@ -139,7 +134,6 @@ class AddMyPlantViewModel : BaseViewModel(), AddMyPlantView {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun editMyPlant(){
         when {
             myPlantName.value.isNullOrEmpty() -> _snackbarMessage.value = "이름을 입력해주세요!"

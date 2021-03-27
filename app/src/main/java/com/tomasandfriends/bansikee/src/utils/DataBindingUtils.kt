@@ -1,9 +1,9 @@
 package com.tomasandfriends.bansikee.src.utils
 
 import android.graphics.Typeface
-import android.graphics.drawable.Drawable
 import android.view.Gravity.CENTER
 import android.view.View
+import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.view.animation.AnimationUtils
@@ -16,21 +16,23 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.widget.MarginPageTransformer
+import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.target.Target
 import com.google.android.material.textfield.TextInputLayout
 import com.tomasandfriends.bansikee.R
 import com.tomasandfriends.bansikee.src.activities.main.fragment_encyclopedia.EncyclopediaViewModel
 import com.tomasandfriends.bansikee.src.activities.main.fragment_my_garden.MyGardenViewModel
+import com.tomasandfriends.bansikee.src.activities.my_plant_details.MyPlantDetailsViewModel
 import com.tomasandfriends.bansikee.src.activities.onboarding.OnboardingViewModel
 import com.tomasandfriends.bansikee.src.activities.onboarding.models.SurveyData
 import com.tomasandfriends.bansikee.src.activities.sign_up.SignUpViewModel
 import com.tomasandfriends.bansikee.src.common.adapters.*
+import com.tomasandfriends.bansikee.src.utils.SystemUtils.convertDpToPx
 import kotlin.math.roundToInt
 
 object DataBindingUtils {
@@ -201,7 +203,7 @@ object DataBindingUtils {
     fun setRoundImageUrl(view: ImageView, imgUrl: String?){
         Glide.with(view.context).load(imgUrl)
                 .circleCrop()
-                .placeholder(ContextCompat.getDrawable(view.context, R.drawable.image_background))
+                .placeholder(ContextCompat.getDrawable(view.context, R.drawable.image_camera))
                 .into(view)
     }
 
@@ -275,17 +277,54 @@ object DataBindingUtils {
     }
 
     //set DiaryAdapter
-    @BindingAdapter("diaryItems")
+    @BindingAdapter("diaryItems", "listeningViewModel")
     @JvmStatic
-    fun setDiaryAdapter(view: RecyclerView, itemViewModels: LiveData<List<DiaryItemViewModel>>){
+    fun setDiaryAdapter(view: RecyclerView, itemViewModels: LiveData<List<DiaryItemViewModel>>, viewModel: MyPlantDetailsViewModel){
         if (view.adapter == null){
             val diaryAdapter = DiaryAdapter(view.context,
                     (view.layoutManager as LinearLayoutManager).orientation == LinearLayout.HORIZONTAL)
+            diaryAdapter.deleteMyDiaryListener = viewModel
             view.adapter = diaryAdapter
         }
 
         if(itemViewModels.value != null)
             (view.adapter as DiaryAdapter).updateItems(itemViewModels.value!!)
+    }
+
+    //set ImagePagerAdapter
+    @BindingAdapter("imageItems", "currentPage")
+    @JvmStatic
+    fun setImagePagerAdapter(pager: ViewPager2, items: LiveData<List<String>>, currentPage: MutableLiveData<Int>){
+        if (pager.adapter == null){
+            val imagePagerAdapter = ImagePagerAdapter(pager.context)
+            pager.adapter = imagePagerAdapter
+        }
+
+        if (items.value != null)
+            (pager.adapter as ImagePagerAdapter).updateItems(items.value!!)
+
+        pager.setPageTransformer(MarginPageTransformer(convertDpToPx(pager.context, 10)))
+
+        pager.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                currentPage.value = position+1
+            }
+        })
+    }
+
+    //set enabled to all child views (except ViewPager)
+    @BindingAdapter("enabledToAllChild")
+    @JvmStatic
+    fun setEnabledToAllChildViews(view: View, enabled: Boolean){
+        view.isEnabled = enabled
+
+        if (view is ViewGroup){
+            for(i in 0 until view.childCount){
+                val child = view.getChildAt(i)
+                if (child !is ViewPager)
+                    setEnabledToAllChildViews(child, enabled)
+            }
+        }
     }
 
     //searching on Encyclopedia
@@ -312,12 +351,35 @@ object DataBindingUtils {
         if(showing) view.startAnimation(animation)
     }
 
+    //set animation for delete btn in DiaryItem
+    @BindingAdapter("showingHorizontal")
+    @JvmStatic
+    fun setShowingHorizontalAnimation(view: View, showing: Boolean){
+        val animation = AnimationUtils.loadAnimation(view.context, R.anim.down_fade_in)
+        view.visibility = if (showing) View.VISIBLE else View.GONE
+
+        if(showing) view.startAnimation(animation)
+    }
+
     @BindingAdapter("shaking")
     @JvmStatic
     fun setShakingAnimation(view: View, shaking: Boolean){
         val shakeAnim = AnimationUtils.loadAnimation(view.context, R.anim.shake)
         if (shaking){
             view.startAnimation(shakeAnim)
+        }
+    }
+
+    @BindingAdapter("weatherClick")
+    @JvmStatic
+    fun setWeatherClick(view: ImageView, strWeather: String){
+        val animBig = AnimationUtils.loadAnimation(view.context, R.anim.scale_big)
+        val animSmall = AnimationUtils.loadAnimation(view.context, R.anim.scale_small)
+
+        if (view.contentDescription.toString() == strWeather){
+            view.startAnimation(animBig)
+        } else if(view.animation != null && view.animation.fillAfter) {
+            view.startAnimation(animSmall)
         }
     }
 }

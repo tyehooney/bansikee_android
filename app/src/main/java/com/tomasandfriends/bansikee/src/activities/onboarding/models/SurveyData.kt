@@ -37,3 +37,6 @@ class OptionData {
     var content = ""
 
 }
+
+class AnswerBody(private val optionIdx: Int,
+                 private val questionIdx: Int)

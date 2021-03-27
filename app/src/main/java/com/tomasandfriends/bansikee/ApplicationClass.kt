@@ -1,12 +1,11 @@
 package com.tomasandfriends.bansikee
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
-import android.os.Build
 import android.util.Base64
-import androidx.annotation.RequiresApi
 import com.google.firebase.FirebaseApp
 import com.google.gson.GsonBuilder
 import com.kakao.sdk.common.KakaoSdk
@@ -17,6 +16,7 @@ import okhttp3.ResponseBody
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.security.MessageDigest
+import java.text.SimpleDateFormat
 import java.time.format.DateTimeFormatter
 import java.util.concurrent.TimeUnit
 
@@ -36,8 +36,9 @@ class ApplicationClass : Application() {
         const val USER_EMAIL = "USER_EMAIL"
         const val USER_NAME = "USER_NAME"
 
-        @RequiresApi(Build.VERSION_CODES.O)
         val localDateTimeFormat = DateTimeFormatter.ofPattern("yyyy/MM/dd")
+        @SuppressLint("SimpleDateFormat")
+        val mSimpleDateFormat = SimpleDateFormat("yyyy/MM/dd")
 
         // Retrofit 인스턴스
         var retrofit : Retrofit? = null
@@ -95,7 +96,6 @@ class ApplicationClass : Application() {
         FirebaseApp.initializeApp(this)
     }
 
-    @RequiresApi(Build.VERSION_CODES.P)
     fun getKeyHash(context : Context) : String? {
         var key : String? = null
         val packageInfo = packageManager
