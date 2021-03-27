@@ -34,12 +34,8 @@ class DiaryListFragment: Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_diary_list,
                 container, false)
         binding.viewModel = viewModel
+        binding.lifecycleOwner = requireActivity()
 
         return binding.root
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.getMyPlantDetails(requireArguments().getInt("myPlantId"))
     }
 }
