@@ -21,13 +21,287 @@
             app:viewModel="@{viewModel}"
             app:newNoti="@{true}"/>
 
-        <TextView
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:textSize="46sp"
-            android:fontFamily="@font/poppins_bold"
-            android:textColor="@color/main_green"
-            android:text="Home"/>
+            android:scrollbars="none"
+            android:overScrollMode="never">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                fadeVisibility="@{!viewModel.loading}">
+
+<!--                greetings-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="30dp"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center_vertical">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/text_black"
+                            android:fontFamily="@font/noto_sans_bold"
+                            android:textSize="18sp"
+                            android:text="@{String.format(@string/format_greeting, viewModel.userName)}"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:textSize="12sp"
+                            android:textColor="@color/text_gray"
+                            android:fontFamily="@font/noto_sans"
+                            android:text="@{viewModel.homeData.greeting}"/>
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        roundImgUrl="@{viewModel.homeData.userImg}"
+                        android:scaleType="centerCrop"/>
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="35dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="30dp"
+                        android:background="@color/background_splash_light"
+                        android:layout_marginTop="20dp"
+                        android:paddingBottom="40dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="50dp"
+                            android:gravity="center_vertical">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/todays_recommendation"
+                                android:fontFamily="@font/noto_sans_bold"
+                                android:textColor="@color/text_black"
+                                android:textSize="16sp"/>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:onClick="@{()->viewModel.goEncyclopediaClick()}">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/view_more"
+                                    android:fontFamily="@font/noto_sans"
+                                    android:textColor="#606060"
+                                    android:textSize="12sp"/>
+
+                                <ImageView
+                                    android:layout_width="15dp"
+                                    android:layout_height="20dp"
+                                    android:src="@drawable/ic_arrow_right_small"/>
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/item_round_white_green"
+                            android:layout_marginVertical="5dp"
+                            android:padding="20dp"
+                            android:onClick="@{()->viewModel.goPlantDetails()}">
+
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"
+                                app:cardElevation="0dp"
+                                app:cardCornerRadius="10dp">
+
+                                <ImageView
+                                    android:id="@+id/iv_plant"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:fitsSystemWindows="true"
+                                    android:scaleType="centerCrop"
+                                    imgUrl="@{viewModel.homeData.recommendedPlantImg}"
+                                    android:background="@color/light_gray"/>
+                            </androidx.cardview.widget.CardView>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:layout_marginStart="10dp">
+
+                                <TextView
+                                    android:id="@+id/tv_plant_name"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="14sp"
+                                    android:text="@{viewModel.homeData.recommendedPlantName}"
+                                    android:fontFamily="@font/noto_sans_bold"
+                                    android:textColor="@color/text_dark_gray"
+                                    android:ellipsize="end"
+                                    android:maxLines="1"/>
+
+                                <TextView
+                                    android:id="@+id/tv_species"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="12sp"
+                                    android:text="@{viewModel.homeData.recommendedPlantSpecies}"
+                                    android:fontFamily="@font/noto_sans"
+                                    android:textColor="@color/text_gray"
+                                    android:ellipsize="end"
+                                    android:maxLines="1"/>
+
+                                <TextView
+                                    android:id="@+id/tv_info"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginTop="5dp"
+                                    android:textSize="12sp"
+                                    android:text="@{viewModel.homeData.recommendedPlantInfo}"
+                                    android:fontFamily="@font/noto_sans"
+                                    android:textColor="@color/text_gray"
+                                    android:ellipsize="end"
+                                    android:maxLines="2"/>
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:background="@drawable/btn_round_green"
+                            android:gravity="center"
+                            android:text="@string/find_my_recommendations"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/noto_sans_bold"
+                            android:paddingVertical="15dp"
+                            android:textSize="14sp"
+                            android:onClick="@{()->viewModel.goOnboardingClick()}"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="30dp"
+                            android:gravity="center_vertical">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/menu_my_garden"
+                                android:fontFamily="@font/noto_sans_bold"
+                                android:textColor="@color/text_black"
+                                android:textSize="16sp"/>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:onClick="@{()->viewModel.goMyGardenClick()}">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/view_more"
+                                    android:fontFamily="@font/noto_sans"
+                                    android:textColor="#606060"
+                                    android:textSize="12sp"/>
+
+                                <ImageView
+                                    android:layout_width="15dp"
+                                    android:layout_height="20dp"
+                                    android:src="@drawable/ic_arrow_right_small"/>
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:textSize="18sp"
+                                android:fontFamily="@font/noto_sans"
+                                android:textColor="@color/text_gray"
+                                android:text="@string/none_in_my_garden"
+                                android:onClick="@{()->viewModel.goEncyclopediaClick()}"
+                                android:visibility="@{viewModel.homeMyPlantItems == null || viewModel.homeMyPlantItems.empty ? View.VISIBLE : View.GONE}"/>
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                homeMyPlantItems="@{viewModel.homeMyPlantItems}"
+                                android:visibility="@{viewModel.homeMyPlantItems == null || viewModel.homeMyPlantItems.empty ? View.GONE : View.VISIBLE}"
+                                android:overScrollMode="never"
+                                android:nestedScrollingEnabled="true"
+                                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+                        </FrameLayout>
+                    </LinearLayout>
+
+                    <!--                searchBox-->
+                    <LinearLayout
+                        android:id="@+id/ll_search_box"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginHorizontal="30dp"
+                        android:paddingVertical="10dp"
+                        android:paddingHorizontal="20dp"
+                        android:orientation="horizontal"
+                        android:background="@drawable/edittext_round_background"
+                        android:onClick="@{()->viewModel.goEncyclopediaClick()}">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_search" />
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="10dp"
+                            android:background="@android:color/transparent"
+                            android:hint="@string/search_hint"
+                            android:focusable="false"
+                            android:onClick="@{()->viewModel.goEncyclopediaClick()}"
+                            android:imeOptions="actionSearch"
+                            android:inputType="text"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/noto_sans" />
+                    </LinearLayout>
+                </RelativeLayout>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
     </LinearLayout>
 </layout>

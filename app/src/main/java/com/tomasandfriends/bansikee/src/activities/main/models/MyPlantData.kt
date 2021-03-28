@@ -19,4 +19,9 @@ class MyPlantData {
     @SerializedName("profileImgUrl")
     var imgUrl = ""
 
+    @SerializedName("waterDaysFrom")
+    var waterDaysFrom = 0
+
+    @SerializedName("waterDaysTo")
+    var waterDaysTo = 0
 }
