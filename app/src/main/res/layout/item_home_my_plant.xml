@@ -40,7 +40,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
                     android:textSize="16sp"
-                    android:text="@{viewModel.myPlantName}"
+                    android:text="@{viewModel.myPlantNickname}"
                     android:fontFamily="@font/noto_sans_bold"/>
 
                 <LinearLayout
@@ -55,7 +55,7 @@
                         android:textColor="@color/white"
                         android:fontFamily="@font/noto_sans"
                         android:textSize="12sp"
-                        android:text="@{viewModel.myPlantSpecies}"/>
+                        android:text="@{viewModel.myPlantName}"/>
 
                     <View
                         android:layout_width="1dp"

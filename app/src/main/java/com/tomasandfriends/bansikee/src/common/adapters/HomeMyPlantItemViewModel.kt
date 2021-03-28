@@ -8,10 +8,10 @@ import com.tomasandfriends.bansikee.src.activities.main.models.HomeMyPlantData
 class HomeMyPlantItemViewModel(homeMyPlant: HomeMyPlantData): ViewModel() {
 
     private val myPlantIdx = homeMyPlant.myPlantIdx
-    val myPlantName = homeMyPlant.nickname
+    val myPlantNickname = homeMyPlant.nickname
     val myPlantImg = homeMyPlant.imgUrl
     val myPlantAge = homeMyPlant.age
-    val myPlantSpecies = homeMyPlant.species
+    val myPlantName = homeMyPlant.plantName
     val myPlantWaterCycle = homeMyPlant.waterCycle
     val myPlantLastWateredDay = homeMyPlant.lastWateredDay
     val myPlantWateredDayFrom = homeMyPlant.wateredDayFrom

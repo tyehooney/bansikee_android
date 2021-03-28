@@ -58,8 +58,8 @@ class HomeMyPlantData {
     @SerializedName("myPlantAge")
     var age = ""
 
-    @SerializedName("myPlantSpecies")
-    var species = ""
+    @SerializedName("myPlantName")
+    var plantName = ""
 
     @SerializedName("myPlantWaterCycle")
     var waterCycle = 0
