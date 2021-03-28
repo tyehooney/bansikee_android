@@ -89,6 +89,7 @@
     <string name="write_my_plant_diary">반려식물 일지 작성하기</string>
     <string name="format_plant_diaries">%s의 관리 일지</string>
     <string name="format_d_day">D+%d</string>
+    <string name="format_percentage">%d%%</string>
     <string name="format_start_date">%s 부터 함께했어요.</string>
     <string name="alert_delete_my_plant">반식이를 삭제하면 해당 반식이의 일지 등의 모든 정보가 삭제됩니다.\n삭제하시겠습니까?</string>
     <string name="diary_of">의 관리일지</string>

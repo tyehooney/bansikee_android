@@ -6,74 +6,74 @@ import com.tomasandfriends.bansikee.src.common.models.DefaultResponse
 class HomeResponse: DefaultResponse(){
 
     @SerializedName("data")
-    val homeData = HomeData()
+    var homeData = HomeData()
 
 }
 
 class HomeData {
 
     @SerializedName("userId")
-    val userId = 0
+    var userId = 0
 
     @SerializedName("userName")
-    val userName = ""
+    var userName = ""
 
     @SerializedName("userProfile")
-    val userImg = ""
+    var userImg = ""
 
     @SerializedName("greeting")
-    val greeting = ""
+    var greeting = ""
 
     @SerializedName("recommendPlantId")
-    val recommendedPlantIdx = 0
+    var recommendedPlantIdx = 0
 
     @SerializedName("recommendPlantImg")
-    val recommendedPlantImg = ""
+    var recommendedPlantImg = ""
 
     @SerializedName("recommendPlantName")
-    val recommendedPlantName = ""
+    var recommendedPlantName = ""
 
     @SerializedName("recommendPlantSpices")
-    val recommendedPlantSpecies = ""
+    var recommendedPlantSpecies = ""
 
     @SerializedName("recommendPlantInfo")
-    val recommendedPlantInfo = ""
+    var recommendedPlantInfo = ""
 
     @SerializedName("myPlants")
-    val myPlants = ArrayList<HomeMyPlantData>()
+    var myPlants = ArrayList<HomeMyPlantData>()
 
 }
 
 class HomeMyPlantData {
 
     @SerializedName("myPlantId")
-    val myPlantIdx = 0
+    var myPlantIdx = 0
 
     @SerializedName("myPlantNickName")
-    val nickname = ""
+    var nickname = ""
 
     @SerializedName("myPlantImgUrl")
-    val imgUrl = ""
+    var imgUrl = ""
 
     @SerializedName("myPlantAge")
-    val age = ""
+    var age = ""
 
     @SerializedName("myPlantSpecies")
-    val species = ""
+    var species = ""
 
     @SerializedName("myPlantWaterCycle")
-    val waterCycle = 0
+    var waterCycle = 0
 
     @SerializedName("myPlantLastWaterDay")
-    val lastWateredDay = ""
+    var lastWateredDay = ""
 
     @SerializedName("waterDayFrom")
-    val wateredDayFrom = 0
+    var wateredDayFrom = 0
 
     @SerializedName("waterDayTo")
-    val wateredDayTo = 0
+    var wateredDayTo = 0
 
     @SerializedName("todayDiaryStatus")
-    val didWriteDiaryToday = false
+    var didWriteDiaryToday = false
 
 }

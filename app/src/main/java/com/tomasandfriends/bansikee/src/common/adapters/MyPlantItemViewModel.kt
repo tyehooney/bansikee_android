@@ -14,6 +14,10 @@ class MyPlantItemViewModel(plantData: MyPlantData): ViewModel() {
     val imgUrl = plantData.imgUrl
     val contents = plantData.contents
 
+    val waterPercentage =
+            if(plantData.waterDaysFrom < 0 || plantData.waterDaysTo < 0) 0
+            else ((plantData.waterDaysTo.toFloat() / (plantData.waterDaysTo+plantData.waterDaysFrom).toFloat()) * 100).toInt()
+
     private val _deleteShowing = MutableLiveData(false)
     val deleteShowing: LiveData<Boolean> = _deleteShowing
 
