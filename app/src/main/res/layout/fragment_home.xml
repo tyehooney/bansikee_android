@@ -253,6 +253,7 @@
                                 android:fontFamily="@font/noto_sans"
                                 android:textColor="@color/text_gray"
                                 android:text="@string/none_in_my_garden"
+                                android:onClick="@{()->viewModel.goEncyclopediaClick()}"
                                 android:visibility="@{viewModel.homeMyPlantItems == null || viewModel.homeMyPlantItems.empty ? View.VISIBLE : View.GONE}"/>
 
                             <androidx.recyclerview.widget.RecyclerView

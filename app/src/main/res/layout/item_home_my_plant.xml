@@ -107,6 +107,15 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="@{String.format(@string/format_watered_day_to, viewModel.myPlantWateredDayTo)}"
+                    android:textColor="@color/main_green_light"
+                    android:textSize="12sp"
+                    android:gravity="end"
+                    android:fontFamily="@font/noto_sans_bold"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:text="@{String.format(@string/format_last_watered_day, viewModel.myPlantLastWateredDay)}"
                     android:textColor="@color/text_gray"
                     android:textSize="12sp"
