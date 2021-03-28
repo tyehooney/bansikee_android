@@ -18,6 +18,10 @@ class MyGardenFragment: BaseFragment<FragmentMyGardenBinding, MyGardenViewModel>
                 .get(MyGardenViewModel::class.java)
         binding.viewModel = viewModel
 
+        viewModel.searchingWord.observe(viewLifecycleOwner, {
+            viewModel.search(it)
+        })
+
         viewModel.deleteMyPlantClickEvent.observe(viewLifecycleOwner, {
             AlertDialog.Builder(requireContext())
                     .setMessage(R.string.alert_delete_my_plant)

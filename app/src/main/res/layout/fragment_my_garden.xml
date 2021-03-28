@@ -80,11 +80,26 @@
                     android:fontFamily="@font/noto_sans_bold"
                     android:text="@string/not_have_my_plants"/>
 
+<!--                all my plants-->
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     myPlantItems="@{viewModel.myPlantItems}"
                     listeningViewModel="@{viewModel}"
+                    android:visibility="@{viewModel.searchOn ? View.GONE : View.VISIBLE}"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:paddingHorizontal="30dp"
+                    android:layout_marginTop="40dp"
+                    android:clipToPadding="false"
+                    android:overScrollMode="never"/>
+
+<!--                searched my plants-->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    myPlantItems="@{viewModel.searchedMyPlantItems}"
+                    listeningViewModel="@{viewModel}"
+                    android:visibility="@{viewModel.searchOn ? View.VISIBLE : View.GONE}"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     android:paddingHorizontal="30dp"
                     android:layout_marginTop="40dp"
@@ -123,6 +138,7 @@
                     android:background="@android:color/transparent"
                     android:hint="@string/search_my_garden_hint"
                     android:text="@={viewModel.searchingWord}"
+                    searchingViewModel="@{viewModel}"
                     android:imeOptions="actionSearch"
                     android:inputType="text"
                     android:textSize="14sp"

@@ -17,6 +17,12 @@ class MyGardenViewModel : BaseViewModel(), MyGardenView, MyPlantAdapter.DeleteMy
     private val _myPlantItems = MutableLiveData<List<MyPlantItemViewModel>>()
     val myPlantItems: LiveData<List<MyPlantItemViewModel>> = _myPlantItems
 
+    private val _searchedMyPlantItems = MutableLiveData<List<MyPlantItemViewModel>>()
+    val searchedMyPlantItems: LiveData<List<MyPlantItemViewModel>> = _searchedMyPlantItems
+
+    private val _searchOn = MutableLiveData(false)
+    val searchOn: LiveData<Boolean> = _searchOn
+
     private val _getMyPlantsLoading = MutableLiveData(true)
     val getMyPlantsLoading: LiveData<Boolean> = _getMyPlantsLoading
 
@@ -55,10 +61,41 @@ class MyGardenViewModel : BaseViewModel(), MyGardenView, MyPlantAdapter.DeleteMy
 
     override fun deleteMyPlantSuccess(msg: String) {
         _toastMessage.value = msg
+        searchingWord.value = ""
         myGardenService.getMyPlants()
     }
 
     override fun deleteMyPlantFailed(msg: String?) {
         _snackbarMessage.value = msg ?: ApplicationClass.NETWORK_ERROR
+    }
+
+    fun search(str: String?){
+        if(str.isNullOrEmpty()) _searchOn.value = false
+        else {
+            for(myPlantItem in myPlantItems.value!!) myPlantItem.setDeleteShowing(false)
+            _searchOn.value = true
+            getSearchedPlants(str)
+        }
+    }
+
+    private fun getSearchedPlants(searchingWord: String){
+        val parsedWord = searchingWord.split(" ")
+        val searchingResults = ArrayList<MyPlantItemViewModel>()
+        for(myPlantItem in myPlantItems.value!!){
+            var contains = true
+            for(word in parsedWord){
+                if (!myPlantItem.name.contains(word)
+                        && !myPlantItem.plantName.contains(word)
+                        && !myPlantItem.contents.contains(word)){
+                    contains = false
+                    break
+                }
+            }
+            if (contains){
+                searchingResults.add(myPlantItem)
+            }
+        }
+
+        _searchedMyPlantItems.value = searchingResults
     }
 }

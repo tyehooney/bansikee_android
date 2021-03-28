@@ -25,6 +25,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.google.android.material.textfield.TextInputLayout
 import com.tomasandfriends.bansikee.R
+import com.tomasandfriends.bansikee.src.activities.base.BaseViewModel
 import com.tomasandfriends.bansikee.src.activities.main.fragment_encyclopedia.EncyclopediaViewModel
 import com.tomasandfriends.bansikee.src.activities.main.fragment_my_garden.MyGardenViewModel
 import com.tomasandfriends.bansikee.src.activities.my_plant_details.MyPlantDetailsViewModel
@@ -343,10 +344,13 @@ object DataBindingUtils {
     //searching on Encyclopedia
     @BindingAdapter("searchingViewModel")
     @JvmStatic
-    fun setSearching(view: EditText, viewModel: EncyclopediaViewModel){
+    fun setSearching(view: EditText, viewModel: BaseViewModel){
         view.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH){
-                viewModel.searchPlantsClick()
+                if(viewModel is EncyclopediaViewModel)
+                    viewModel.searchPlantsClick()
+                else
+                    viewModel.clearInput()
                 return@setOnEditorActionListener true
             }
 
