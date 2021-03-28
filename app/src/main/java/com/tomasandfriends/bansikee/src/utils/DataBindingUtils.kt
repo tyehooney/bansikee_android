@@ -291,6 +291,19 @@ object DataBindingUtils {
             (view.adapter as DiaryAdapter).updateItems(itemViewModels.value!!)
     }
 
+    //set HomeMyPlantAdapter
+    @BindingAdapter("homeMyPlantItems")
+    @JvmStatic
+    fun setHomeMyPlantAdapter(view: RecyclerView, itemViewModels: LiveData<List<HomeMyPlantItemViewModel>>){
+        if (view.adapter == null){
+            val homeMyPlantAdapter = HomeMyPlantAdapter(view.context)
+            view.adapter = homeMyPlantAdapter
+        }
+
+        if (itemViewModels.value != null)
+            (view.adapter as HomeMyPlantAdapter).updateItems(itemViewModels.value!!)
+    }
+
     //set ImagePagerAdapter
     @BindingAdapter("imageItems", "currentPage")
     @JvmStatic

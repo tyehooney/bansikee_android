@@ -109,4 +109,12 @@
     <string name="edit_plant_height">내 반식이는 얼마나 컸나요?</string>
     <string name="before_finish_diary">관리일지 작성을 완료하면 해당 기록을 수정할 수 없습니다.\n저장하시겠습니까?</string>
     <string name="alert_delete_my_diary">일지를 삭제하면 그날의 관리 일지에 담긴 기록이 모두 사라집니다.\n삭제하시겠습니까?</string>
+    <string name="format_greeting">안녕하세요 태훈님,</string>
+    <string name="format_last_watered_day">마지막으로 물을 준 날 : %s</string>
+    <string name="format_watered_day_to">다음 물 주는 날까지 %d일 남았습니다</string>
+    <string name="write_diary_today">오늘의 식물 일지 작성하기</string>
+    <string name="todays_recommendation">오늘의 추천 식물</string>
+    <string name="view_more">더보기</string>
+    <string name="find_my_recommendations">나에게 맞는 식물 찾아보기</string>
+    <string name="none_in_my_garden">등록한 반식이가 없습니다!</string>
 </resources>
