@@ -117,4 +117,5 @@
     <string name="view_more">더보기</string>
     <string name="find_my_recommendations">나에게 맞는 식물 찾아보기</string>
     <string name="none_in_my_garden">등록한 반식이가 없습니다!</string>
+    <string name="water_to_my_plant">반식이에게 물을 주세요!</string>
 </resources>

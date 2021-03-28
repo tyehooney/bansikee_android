@@ -264,7 +264,6 @@
                                 android:overScrollMode="never"
                                 android:nestedScrollingEnabled="true"
                                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
-
                         </FrameLayout>
                     </LinearLayout>
 
