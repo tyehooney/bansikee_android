@@ -18,6 +18,12 @@ class PlantAdapter(context: Context, horizontal: Boolean): RecyclerView.Adapter<
     private val mDataViewModels = ArrayList<PlantItemViewModel>()
     private lateinit var inflater: LayoutInflater
 
+    lateinit var deleteSearchedPlantListener: DeleteSearchedPlantListener
+
+    interface DeleteSearchedPlantListener {
+        fun onDeleteClick(plantIdx: Int)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
         inflater = LayoutInflater.from(mContext)
@@ -44,16 +50,19 @@ class PlantAdapter(context: Context, horizontal: Boolean): RecyclerView.Adapter<
             holder.bind(itemViewModel)
         }
 
-        itemViewModel.goDetailsEvent.observe(mContext as LifecycleOwner, {
-            val intent = Intent(mContext, PlantDetailsActivity::class.java)
-            intent.putExtra("plantIdx", it)
-            intent.putExtra("status", "")
-            mContext.startActivity(intent)
-        })
+        if (itemViewModel.deletable){
+            holder.itemView.setOnLongClickListener {
+                for (item in mDataViewModels){
+                    if (item.deleteShowing.value!!) item.setDeleteShowing(false)
+                }
+                itemViewModel.setDeleteShowing(true)
+                true
+            }
 
-        itemViewModel.snackbarMessage.observe(mContext as LifecycleOwner, {
-            Snackbar.make(holder.itemView, it, Snackbar.LENGTH_SHORT).show()
-        })
+            itemViewModel.deleteEvent.observe(mContext as LifecycleOwner, {
+                deleteSearchedPlantListener.onDeleteClick(it)
+            })
+        }
     }
 
     override fun getItemCount(): Int {
@@ -85,6 +94,20 @@ class PlantAdapter(context: Context, horizontal: Boolean): RecyclerView.Adapter<
         fun bind(viewModel: PlantItemViewModel){
             mBinding.viewModel = viewModel
             mBinding.lifecycleOwner = mContext as LifecycleOwner
+
+            viewModel.goDetailsEvent.observe(mContext as LifecycleOwner, {
+                if(viewModel.deleteShowing.value!!) viewModel.setDeleteShowing(false)
+                else {
+                    val intent = Intent(mContext, PlantDetailsActivity::class.java)
+                    intent.putExtra("plantIdx", it)
+                    intent.putExtra("status", "")
+                    mContext.startActivity(intent)
+                }
+            })
+
+            viewModel.snackbarMessage.observe(mContext as LifecycleOwner, {
+                Snackbar.make(itemView, it, Snackbar.LENGTH_SHORT).show()
+            })
         }
     }
 }

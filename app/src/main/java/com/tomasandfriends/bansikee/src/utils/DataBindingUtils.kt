@@ -209,12 +209,15 @@ object DataBindingUtils {
     }
 
     //set PlantAdapter
-    @BindingAdapter("plantItems")
+    @BindingAdapter("plantItems", "listeningViewModel")
     @JvmStatic
-    fun setPlantAdapter(view: RecyclerView, itemViewModels: LiveData<List<PlantItemViewModel>>){
+    fun setPlantAdapter(view: RecyclerView,
+                        itemViewModels: LiveData<List<PlantItemViewModel>>,
+                        viewModel: EncyclopediaViewModel){
         if (view.adapter == null){
             val plantAdapter = PlantAdapter(view.context,
                     (view.layoutManager as LinearLayoutManager).orientation == LinearLayout.HORIZONTAL)
+            plantAdapter.deleteSearchedPlantListener = viewModel
             view.adapter = plantAdapter
         }
 
@@ -223,7 +226,7 @@ object DataBindingUtils {
     }
 
     //set PagingPlantAdapter
-    @BindingAdapter("pagingPlantItems", "viewModel", "refreshing")
+    @BindingAdapter("pagingPlantItems", "listeningViewModel", "refreshing")
     @JvmStatic
     fun setPagingPlantAdapter(view: RecyclerView,
                               itemViewModels: LiveData<List<PlantItemViewModel>>,

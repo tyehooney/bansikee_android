@@ -17,6 +17,22 @@ class PlantItemViewModel(plantData: PlantData): BaseViewModel(), PlantItemView {
     val imgUrl = plantData.plantImgUrl
     val info = plantData.info
 
+    var deletable = false
+
+    private val _deleteShowing = MutableLiveData(false)
+    val deleteShowing: LiveData<Boolean> = _deleteShowing
+
+    fun setDeleteShowing(b: Boolean){
+        _deleteShowing.value = b
+    }
+
+    private val _deleteEvent = SingleLiveEvent<Int>()
+    val deleteEvent: LiveData<Int> = _deleteEvent
+
+    fun deleteClick() {
+        _deleteEvent.value = plantIdx
+    }
+
     private val _like = MutableLiveData(plantData.like)
     val like: LiveData<Boolean> = _like
 

@@ -34,7 +34,7 @@
                 android:paddingTop="50dp"
                 android:clipToPadding="false"
                 pagingPlantItems="@{viewModel.searchedPlantItems}"
-                viewModel="@{viewModel}"
+                listeningViewModel="@{viewModel}"
                 refreshing="@{viewModel.forRefreshing}"
                 android:overScrollMode="never"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>

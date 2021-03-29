@@ -28,7 +28,7 @@ class HomeFragment: BaseFragment<FragmentHomeBinding, HomeViewModel>() {
         viewModel.goPlantDetailsEvent.observe(viewLifecycleOwner, {
             val intent = Intent(requireContext(), PlantDetailsActivity::class.java)
             intent.putExtra("plantIdx", it)
-            intent.putExtra("status","")
+            intent.putExtra("status","search")
             startActivity(intent)
         })
 
