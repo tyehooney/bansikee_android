@@ -45,6 +45,9 @@ class EncyclopediaViewModel : BaseViewModel(), RecommendationView, EncyclopediaV
     private val _goOnboardingEvent = SingleLiveEvent<Void?>()
     val goOnboardingEvent: LiveData<Void?> = _goOnboardingEvent
 
+    private val _deleteAllSearchedPlantsEvent = SingleLiveEvent<Void?>()
+    val deleteAllSearchedPlantsEvent: LiveData<Void?> = _deleteAllSearchedPlantsEvent
+
     private val recommendationService = RecommendationService(this)
     private val encyclopediaService = EncyclopediaService(this)
 
@@ -130,6 +133,24 @@ class EncyclopediaViewModel : BaseViewModel(), RecommendationView, EncyclopediaV
 
     override fun getSearchedPlantsFailed(msg: String?) {
         _searchingLoading.value = false
+        _snackbarMessage.value = msg ?: ApplicationClass.NETWORK_ERROR
+    }
+
+    fun deleteAllSearchedPlantsClick(){
+        if (!searchedPlantItems.value.isNullOrEmpty())
+            _deleteAllSearchedPlantsEvent.value = null
+    }
+
+    fun deleteAllSearchedPlants(){
+        encyclopediaService.deleteAllSearchedPlants()
+    }
+
+    override fun deleteAllSearchedPlantsSuccess(msg: String) {
+        _toastMessage.value = msg
+        getRecentlySearchedPlants()
+    }
+
+    override fun deleteAllSearchedPlantsFailed(msg: String?) {
         _snackbarMessage.value = msg ?: ApplicationClass.NETWORK_ERROR
     }
 }

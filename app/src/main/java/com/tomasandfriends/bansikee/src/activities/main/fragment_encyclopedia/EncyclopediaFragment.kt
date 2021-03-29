@@ -1,5 +1,6 @@
 package com.tomasandfriends.bansikee.src.activities.main.fragment_encyclopedia
 
+import android.app.AlertDialog
 import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
@@ -30,6 +31,15 @@ class EncyclopediaFragment: BaseFragment<FragmentEncyclopediaBinding, Encycloped
                     .replace(R.id.fl_fragment_container, searchResultFragment)
                     .addToBackStack(null)
                     .commit()
+        })
+
+        viewModel.deleteAllSearchedPlantsEvent.observe(viewLifecycleOwner, {
+            AlertDialog.Builder(requireContext())
+                    .setMessage(R.string.ask_deleting_searched_plants)
+                    .setPositiveButton(R.string.yes) {_, _ ->
+                        viewModel.deleteAllSearchedPlants()
+                    }.setNegativeButton(R.string.no, null)
+                    .create().show()
         })
     }
 
