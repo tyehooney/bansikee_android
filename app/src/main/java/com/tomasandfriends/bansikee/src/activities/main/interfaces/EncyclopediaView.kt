@@ -10,7 +10,7 @@ interface EncyclopediaView {
     fun getRecentlySearchedPlantsSuccess(recentlySearchedPlants: List<PlantData>)
     fun getRecentlySearchedPlantsFailed(msg: String?)
 
-    fun deleteAllSearchedPlantsSuccess(msg: String)
-    fun deleteAllSearchedPlantsFailed(msg: String?)
+    fun deleteSearchedPlantSuccess(msg: String)
+    fun deleteSearchedPlantFailed(msg: String?)
 
 }

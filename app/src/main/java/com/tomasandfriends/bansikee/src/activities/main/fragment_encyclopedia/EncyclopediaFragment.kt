@@ -41,6 +41,15 @@ class EncyclopediaFragment: BaseFragment<FragmentEncyclopediaBinding, Encycloped
                     }.setNegativeButton(R.string.no, null)
                     .create().show()
         })
+
+        viewModel.deleteSearchedPlantEvent.observe(viewLifecycleOwner, {
+            AlertDialog.Builder(requireContext())
+                    .setMessage(R.string.ask_deleting_searched_plant)
+                    .setPositiveButton(R.string.yes) {_, _ ->
+                        viewModel.deleteSearchedPlant(it)
+                    }.setNegativeButton(R.string.no, null)
+                    .create().show()
+        })
     }
 
     override fun onResume() {

@@ -8,12 +8,13 @@ import com.tomasandfriends.bansikee.ApplicationClass
 import com.tomasandfriends.bansikee.src.SingleLiveEvent
 import com.tomasandfriends.bansikee.src.activities.base.BaseViewModel
 import com.tomasandfriends.bansikee.src.activities.main.interfaces.EncyclopediaView
+import com.tomasandfriends.bansikee.src.common.adapters.PlantAdapter
 import com.tomasandfriends.bansikee.src.common.adapters.PlantItemViewModel
 import com.tomasandfriends.bansikee.src.common.interfaces.RecommendationView
 import com.tomasandfriends.bansikee.src.common.models.PlantData
 import com.tomasandfriends.bansikee.src.common.services.RecommendationService
 
-class EncyclopediaViewModel : BaseViewModel(), RecommendationView, EncyclopediaView {
+class EncyclopediaViewModel : BaseViewModel(), RecommendationView, EncyclopediaView, PlantAdapter.DeleteSearchedPlantListener {
 
     val searchingWord = MutableLiveData("")
     var lastSearchingWord = ""
@@ -47,6 +48,9 @@ class EncyclopediaViewModel : BaseViewModel(), RecommendationView, EncyclopediaV
 
     private val _deleteAllSearchedPlantsEvent = SingleLiveEvent<Void?>()
     val deleteAllSearchedPlantsEvent: LiveData<Void?> = _deleteAllSearchedPlantsEvent
+
+    private val _deleteSearchedPlantEvent = SingleLiveEvent<Int>()
+    val deleteSearchedPlantEvent: LiveData<Int> = _deleteSearchedPlantEvent
 
     private val recommendationService = RecommendationService(this)
     private val encyclopediaService = EncyclopediaService(this)
@@ -83,7 +87,9 @@ class EncyclopediaViewModel : BaseViewModel(), RecommendationView, EncyclopediaV
 
         val results = ArrayList<PlantItemViewModel>()
         for(plantData in recentlySearchedPlants){
-            results.add(PlantItemViewModel(plantData))
+            val itemViewModel = PlantItemViewModel(plantData)
+            itemViewModel.deletable = true
+            results.add(itemViewModel)
         }
 
         _recentSearchedPlantItems.value = results
@@ -137,7 +143,7 @@ class EncyclopediaViewModel : BaseViewModel(), RecommendationView, EncyclopediaV
     }
 
     fun deleteAllSearchedPlantsClick(){
-        if (!searchedPlantItems.value.isNullOrEmpty())
+        if (!recentSearchedPlantItems.value.isNullOrEmpty())
             _deleteAllSearchedPlantsEvent.value = null
     }
 
@@ -145,12 +151,20 @@ class EncyclopediaViewModel : BaseViewModel(), RecommendationView, EncyclopediaV
         encyclopediaService.deleteAllSearchedPlants()
     }
 
-    override fun deleteAllSearchedPlantsSuccess(msg: String) {
+    override fun deleteSearchedPlantSuccess(msg: String) {
         _toastMessage.value = msg
         getRecentlySearchedPlants()
     }
 
-    override fun deleteAllSearchedPlantsFailed(msg: String?) {
+    override fun deleteSearchedPlantFailed(msg: String?) {
         _snackbarMessage.value = msg ?: ApplicationClass.NETWORK_ERROR
+    }
+
+    override fun onDeleteClick(plantIdx: Int) {
+        _deleteSearchedPlantEvent.value = plantIdx
+    }
+
+    fun deleteSearchedPlant(plantIdx: Int){
+        encyclopediaService.deleteSearchedPlant(plantIdx)
     }
 }

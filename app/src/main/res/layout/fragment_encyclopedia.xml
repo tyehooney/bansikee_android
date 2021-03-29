@@ -81,6 +81,7 @@
                             android:paddingHorizontal="30dp"
                             android:clipToPadding="false"
                             plantItems="@{viewModel.recentSearchedPlantItems}"
+                            listeningViewModel="@{viewModel}"
                             android:overScrollMode="never"
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                             android:orientation="horizontal" />
@@ -122,6 +123,7 @@
                             android:paddingHorizontal="30dp"
                             android:clipToPadding="false"
                             plantItems="@{viewModel.recommendedPlantItems}"
+                            listeningViewModel="@{viewModel}"
                             android:overScrollMode="never"
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                             android:orientation="horizontal"/>

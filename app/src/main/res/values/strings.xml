@@ -120,4 +120,5 @@
     <string name="none_in_my_garden">등록한 반식이가 없습니다!\n반식이를 추가하려면 여기를 누르세요</string>
     <string name="water_to_my_plant">반식이에게 물을 주세요!</string>
     <string name="ask_deleting_searched_plants">검색기록을 모두 삭제하시겠습니까?</string>
+    <string name="ask_deleting_searched_plant">해당 검색기록을 삭제하시겠습니까?</string>
 </resources>

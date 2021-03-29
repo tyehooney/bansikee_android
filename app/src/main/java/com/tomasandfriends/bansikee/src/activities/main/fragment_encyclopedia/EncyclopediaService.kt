@@ -68,9 +68,9 @@ class EncyclopediaService(encyclopediaView: EncyclopediaView) {
             override fun onResponse(call: Call<DefaultResponse>, response: Response<DefaultResponse>) {
                 if(response.code() == ApplicationClass.CODE_SUCCESS){
                     val apiResponse = response.body()
-                    mEncyclopediaView.deleteAllSearchedPlantsSuccess(apiResponse!!.detail)
+                    mEncyclopediaView.deleteSearchedPlantSuccess(apiResponse!!.detail)
                 } else {
-                    mEncyclopediaView.deleteAllSearchedPlantsFailed(
+                    mEncyclopediaView.deleteSearchedPlantFailed(
                             if(response.body() == null)
                                 ApplicationClass.getErrorResponse(response.errorBody()!!)!!.detail
                             else
@@ -80,9 +80,32 @@ class EncyclopediaService(encyclopediaView: EncyclopediaView) {
             }
 
             override fun onFailure(call: Call<DefaultResponse>, t: Throwable) {
-                mEncyclopediaView.deleteAllSearchedPlantsFailed(null)
+                mEncyclopediaView.deleteSearchedPlantFailed(null)
             }
         })
     }
 
+    fun deleteSearchedPlant(plantIdx: Int){
+        val retrofitInterface = initRetrofit().create(EncyclopediaRetrofitInterface::class.java)
+
+        retrofitInterface.deleteSearchedPlant(plantIdx).enqueue(object: Callback<DefaultResponse> {
+            override fun onResponse(call: Call<DefaultResponse>, response: Response<DefaultResponse>) {
+                if(response.code() == ApplicationClass.CODE_SUCCESS){
+                    val apiResponse = response.body()
+                    mEncyclopediaView.deleteSearchedPlantSuccess(apiResponse!!.detail)
+                } else {
+                    mEncyclopediaView.deleteSearchedPlantFailed(
+                            if(response.body() == null)
+                                ApplicationClass.getErrorResponse(response.errorBody()!!)!!.detail
+                            else
+                                response.body()!!.detail
+                    )
+                }
+            }
+
+            override fun onFailure(call: Call<DefaultResponse>, t: Throwable) {
+                mEncyclopediaView.deleteSearchedPlantFailed(null)
+            }
+        })
+    }
 }

@@ -5,6 +5,7 @@ import com.tomasandfriends.bansikee.src.common.models.RecommendationResponse
 import retrofit2.Call
 import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface EncyclopediaRetrofitInterface {
@@ -22,5 +23,9 @@ interface EncyclopediaRetrofitInterface {
     //delete all searched plants
     @DELETE("/plant-histories")
     fun deleteAllSearchedPlants(): Call<DefaultResponse>
+
+    //delete searched plant
+    @DELETE("plant-history/{plantidx}")
+    fun deleteSearchedPlant(@Path("plantidx") plantIdx: Int): Call<DefaultResponse>
 
 }
