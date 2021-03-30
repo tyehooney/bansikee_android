@@ -2,6 +2,7 @@ package com.tomasandfriends.bansikee.src.utils
 
 import android.graphics.Typeface
 import android.view.Gravity.CENTER
+import android.view.KeyEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
@@ -33,6 +34,7 @@ import com.tomasandfriends.bansikee.src.activities.onboarding.OnboardingViewMode
 import com.tomasandfriends.bansikee.src.activities.onboarding.models.SurveyData
 import com.tomasandfriends.bansikee.src.activities.sign_up.SignUpViewModel
 import com.tomasandfriends.bansikee.src.common.adapters.*
+import com.tomasandfriends.bansikee.src.common.interfaces.CheckNicknameView
 import com.tomasandfriends.bansikee.src.utils.SystemUtils.convertDpToPx
 import kotlin.math.roundToInt
 
@@ -84,10 +86,10 @@ object DataBindingUtils {
         }
     }
 
-    @BindingAdapter("nicknameDuplicated", "resultMessage" ,"viewModel")
+    @BindingAdapter("nicknameDuplicated", "resultMessage" ,"checkNicknameListener")
     @JvmStatic
     fun setCheckNickname(textInputLayout: TextInputLayout, duplicated: Boolean,
-                         msg: Int?, viewModel: SignUpViewModel){
+                         msg: Int?, listener: CheckNicknameView){
         val editText = textInputLayout.editText
         val context = textInputLayout.context
 
@@ -104,7 +106,14 @@ object DataBindingUtils {
                     }
 
             if(!hasFocus)
-                viewModel.checkNickname()
+                listener.checkNickname(editText.text.toString())
+        }
+
+        editText.setOnKeyListener { v, keyCode, event ->
+            if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER){
+                listener.checkNickname(editText.text.toString())
+            }
+            false
         }
 
         if (msg != null && duplicated && editText.text.isNotEmpty()){

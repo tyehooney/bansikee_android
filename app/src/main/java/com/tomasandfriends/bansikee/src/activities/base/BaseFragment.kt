@@ -61,4 +61,9 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>: Fragment()
             }
         })
     }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.refreshUserInfo()
+    }
 }

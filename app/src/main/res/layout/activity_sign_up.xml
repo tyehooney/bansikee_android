@@ -52,7 +52,7 @@
                 android:textColorHint="@color/text_gray"
                 nicknameDuplicated="@{viewModel.nicknameDuplicated}"
                 resultMessage="@{viewModel.checkNickname}"
-                viewModel="@{viewModel}">
+                checkNicknameListener="@{viewModel}">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"

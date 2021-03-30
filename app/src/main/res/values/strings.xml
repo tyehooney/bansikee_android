@@ -126,4 +126,7 @@
     <string name="liked_plants">저장된 식물</string>
     <string name="notification">푸시알림</string>
     <string name="watering_notification">물주기 푸시알림</string>
+    <string name="edit_user_info_finish">회원정보 수정 완료</string>
+    <string name="ask_exit_while_editing">수정을 취소하고 나가시겠습니까?</string>
+    <string name="ask_finish_editing">이 회원정보로 수정하시겠습니까?</string>
 </resources>

@@ -7,8 +7,10 @@ import com.tomasandfriends.bansikee.R
 import com.tomasandfriends.bansikee.src.activities.base.BaseViewModel
 import com.tomasandfriends.bansikee.src.activities.sign_up.interfaces.SignUpView
 import com.tomasandfriends.bansikee.src.activities.sign_up.models.SignUpBody
+import com.tomasandfriends.bansikee.src.common.interfaces.CheckNicknameView
+import com.tomasandfriends.bansikee.src.common.services.CheckNicknameService
 
-class SignUpViewModel : BaseViewModel(), SignUpView {
+class SignUpViewModel : BaseViewModel(), SignUpView, CheckNicknameView {
 
     val nickname = MutableLiveData<String?>()
 
@@ -33,11 +35,11 @@ class SignUpViewModel : BaseViewModel(), SignUpView {
     val checkPassword : LiveData<Int> get() = _checkPassword
 
     private val signUpService = SignUpService(this)
+    private val checkNicknameService = CheckNicknameService(this)
 
     //check nickname duplicated
-    fun checkNickname(){
-        if (nickname.value != null)
-            signUpService.checkNickname(nickname.value!!)
+    override fun checkNickname(strNickname: String) {
+        checkNicknameService.checkNickname(strNickname)
     }
 
     override fun checkNicknameSuccess(duplicated: Boolean) {
