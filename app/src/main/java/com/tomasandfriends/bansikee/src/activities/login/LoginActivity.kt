@@ -78,7 +78,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
 
         val mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
         val signInIntent = mGoogleSignInClient.signInIntent
-//        startActivityForResult(signInIntent, REQUEST_GOOGLE_SIGN_IN)
         resultLauncher.launch(signInIntent)
     }
 
