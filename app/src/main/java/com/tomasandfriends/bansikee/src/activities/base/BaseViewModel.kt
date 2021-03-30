@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.tomasandfriends.bansikee.ApplicationClass.Companion.USER_EMAIL
+import com.tomasandfriends.bansikee.ApplicationClass.Companion.USER_IMG
 import com.tomasandfriends.bansikee.ApplicationClass.Companion.USER_NAME
 import com.tomasandfriends.bansikee.ApplicationClass.Companion.mSharedPreferences
 import com.tomasandfriends.bansikee.src.SingleLiveEvent
@@ -22,8 +23,12 @@ open class BaseViewModel : ViewModel() {
     protected val _clearInput = SingleLiveEvent<Void?>()
     val clearInput: LiveData<Void?> get() = _clearInput
 
-    val userEmail = mSharedPreferences!!.getString(USER_EMAIL, "")
-    val userName = mSharedPreferences!!.getString(USER_NAME, "");
+    protected val _userEmail = MutableLiveData(mSharedPreferences!!.getString(USER_EMAIL, ""))
+    val userEmail: LiveData<String?> = _userEmail
+    protected val _userName = MutableLiveData(mSharedPreferences!!.getString(USER_NAME, ""))
+    val userName: LiveData<String?> = _userName
+    protected val _userImg = MutableLiveData(mSharedPreferences!!.getString(USER_IMG, ""))
+    val userImg: LiveData<String?> = _userImg
 
     fun setLoading(b : Boolean){
         _loading.value = b
@@ -47,5 +52,11 @@ open class BaseViewModel : ViewModel() {
 
     fun finish(){
         _finishEvent.value = null
+    }
+
+    fun refreshUserInfo(){
+        _userEmail.value = mSharedPreferences!!.getString(USER_EMAIL, "")
+        _userName.value = mSharedPreferences!!.getString(USER_NAME, "")
+        _userImg.value = mSharedPreferences!!.getString(USER_IMG, "")
     }
 }

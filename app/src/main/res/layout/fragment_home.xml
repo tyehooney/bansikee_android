@@ -54,7 +54,7 @@
                             android:textColor="@color/text_black"
                             android:fontFamily="@font/noto_sans_bold"
                             android:textSize="18sp"
-                            android:text="@{String.format(@string/format_greeting, viewModel.userName)}"/>
+                            android:text="@{String.format(@string/format_greeting, viewModel.homeData.userName)}"/>
 
                         <TextView
                             android:layout_width="wrap_content"

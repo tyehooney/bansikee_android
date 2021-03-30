@@ -5,7 +5,9 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
+import android.os.Build
 import android.util.Base64
+import androidx.annotation.RequiresApi
 import com.google.firebase.FirebaseApp
 import com.google.gson.GsonBuilder
 import com.kakao.sdk.common.KakaoSdk
@@ -35,6 +37,7 @@ class ApplicationClass : Application() {
 
         const val USER_EMAIL = "USER_EMAIL"
         const val USER_NAME = "USER_NAME"
+        const val USER_IMG = "USER_IMG"
 
         val localDateTimeFormat = DateTimeFormatter.ofPattern("yyyy/MM/dd")
         @SuppressLint("SimpleDateFormat")
@@ -96,6 +99,7 @@ class ApplicationClass : Application() {
         FirebaseApp.initializeApp(this)
     }
 
+    @RequiresApi(Build.VERSION_CODES.P)
     fun getKeyHash(context : Context) : String? {
         var key : String? = null
         val packageInfo = packageManager

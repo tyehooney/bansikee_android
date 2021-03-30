@@ -58,4 +58,9 @@ abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel> : AppCompat
             }
         })
     }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.refreshUserInfo()
+    }
 }

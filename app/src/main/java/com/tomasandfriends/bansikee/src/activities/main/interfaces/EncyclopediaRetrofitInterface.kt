@@ -1,7 +1,7 @@
 package com.tomasandfriends.bansikee.src.activities.main.interfaces
 
 import com.tomasandfriends.bansikee.src.common.models.DefaultResponse
-import com.tomasandfriends.bansikee.src.common.models.RecommendationResponse
+import com.tomasandfriends.bansikee.src.common.models.PlantsResponse
 import retrofit2.Call
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -14,11 +14,11 @@ interface EncyclopediaRetrofitInterface {
     @GET("/plants")
     fun getSearchedPlants(@Query("keyWord") searchingWord: String,
                           @Query("pageNum") pageNum: Int,
-                          @Query("sortBy") sortBy: String): Call<RecommendationResponse>
+                          @Query("sortBy") sortBy: String): Call<PlantsResponse>
 
     //get recently searched plants
     @GET("/plants-search")
-    fun getRecentlySearchedPlants(): Call<RecommendationResponse>
+    fun getRecentlySearchedPlants(): Call<PlantsResponse>
 
     //delete all searched plants
     @DELETE("/plant-histories")

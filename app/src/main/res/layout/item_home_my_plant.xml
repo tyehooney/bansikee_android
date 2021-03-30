@@ -107,7 +107,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{String.format(@string/format_watered_day_to, viewModel.myPlantWateredDayTo)}"
+                    android:text="@{viewModel.myPlantWateredDayTo &lt;= 0 ? @string/water_to_my_plant : String.format(@string/format_watered_day_to, viewModel.myPlantWateredDayTo)}"
                     android:textColor="@color/main_green_light"
                     android:textSize="12sp"
                     android:gravity="end"

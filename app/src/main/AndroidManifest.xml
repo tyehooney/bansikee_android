@@ -57,6 +57,8 @@
         <activity android:name=".src.activities.add_my_plant.AddMyPlantActivity"/>
         <activity android:name=".src.activities.my_plant_details.MyPlantDetailsActivity"/>
         <activity android:name=".src.activities.diary.DiaryActivity"/>
+        <activity android:name=".src.activities.edit_user_info.EditUserInfoActivity"/>
+        <activity android:name=".src.activities.liking_plants.LikingPlantsActivity"/>
 
         <meta-data
             android:name="preloaded_fonts"

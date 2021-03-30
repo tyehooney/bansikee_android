@@ -3,6 +3,9 @@ package com.tomasandfriends.bansikee.src.activities.main.fragment_home
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.tomasandfriends.bansikee.ApplicationClass
+import com.tomasandfriends.bansikee.ApplicationClass.Companion.USER_IMG
+import com.tomasandfriends.bansikee.ApplicationClass.Companion.USER_NAME
+import com.tomasandfriends.bansikee.ApplicationClass.Companion.mSharedPreferences
 import com.tomasandfriends.bansikee.src.SingleLiveEvent
 import com.tomasandfriends.bansikee.src.activities.base.BaseViewModel
 import com.tomasandfriends.bansikee.src.activities.main.interfaces.HomeView
@@ -60,6 +63,10 @@ class HomeViewModel : BaseViewModel(), HomeView {
         for(i in 0 until myPlants.size){
             myPlantViewModels.add(HomeMyPlantItemViewModel(myPlants[i]))
         }
+
+        val editor = mSharedPreferences!!.edit()
+        editor.putString(USER_NAME, homeData.userName)
+        editor.putString(USER_IMG, homeData.userImg).apply()
 
         _homeMyPlantItems.value = myPlantViewModels
 

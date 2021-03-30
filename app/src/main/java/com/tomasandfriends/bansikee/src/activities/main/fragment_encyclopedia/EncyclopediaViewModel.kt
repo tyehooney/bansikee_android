@@ -10,11 +10,11 @@ import com.tomasandfriends.bansikee.src.activities.base.BaseViewModel
 import com.tomasandfriends.bansikee.src.activities.main.interfaces.EncyclopediaView
 import com.tomasandfriends.bansikee.src.common.adapters.PlantAdapter
 import com.tomasandfriends.bansikee.src.common.adapters.PlantItemViewModel
-import com.tomasandfriends.bansikee.src.common.interfaces.RecommendationView
+import com.tomasandfriends.bansikee.src.common.interfaces.PlantsView
 import com.tomasandfriends.bansikee.src.common.models.PlantData
-import com.tomasandfriends.bansikee.src.common.services.RecommendationService
+import com.tomasandfriends.bansikee.src.common.services.PlantsService
 
-class EncyclopediaViewModel : BaseViewModel(), RecommendationView, EncyclopediaView, PlantAdapter.DeleteSearchedPlantListener {
+class EncyclopediaViewModel : BaseViewModel(), PlantsView, EncyclopediaView, PlantAdapter.DeleteSearchedPlantListener {
 
     val searchingWord = MutableLiveData("")
     var lastSearchingWord = ""
@@ -52,7 +52,7 @@ class EncyclopediaViewModel : BaseViewModel(), RecommendationView, EncyclopediaV
     private val _deleteSearchedPlantEvent = SingleLiveEvent<Int>()
     val deleteSearchedPlantEvent: LiveData<Int> = _deleteSearchedPlantEvent
 
-    private val recommendationService = RecommendationService(this)
+    private val recommendationService = PlantsService(this)
     private val encyclopediaService = EncyclopediaService(this)
 
     fun goOnboardingClick(){
@@ -64,9 +64,9 @@ class EncyclopediaViewModel : BaseViewModel(), RecommendationView, EncyclopediaV
         recommendationService.getRecommendations()
     }
 
-    override fun getRecommendationsSuccess(recommendations: List<PlantData>) {
+    override fun getPlantsSuccess(plants: List<PlantData>) {
         val itemViewModels = ArrayList<PlantItemViewModel>()
-        for(plantData in recommendations){
+        for(plantData in plants){
             itemViewModels.add(PlantItemViewModel(plantData))
         }
 
@@ -74,7 +74,7 @@ class EncyclopediaViewModel : BaseViewModel(), RecommendationView, EncyclopediaV
         _recommendationLoading.value = false
     }
 
-    override fun getRecommendationsFailed(msg: String?) {
+    override fun getPlantsFailed(msg: String?) {
         _recommendationLoading.value = false
         _snackbarMessage.value = msg ?: ApplicationClass.NETWORK_ERROR
     }
