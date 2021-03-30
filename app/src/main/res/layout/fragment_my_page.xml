@@ -31,6 +31,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingBottom="40dp"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -44,6 +45,7 @@
                     <ImageView
                         android:layout_width="50dp"
                         android:layout_height="50dp"
+                        roundImgUrl="@{viewModel.userImg}"
                         android:scaleType="centerCrop"/>
 
                     <LinearLayout
@@ -62,7 +64,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="박태훈"
+                                android:text="@{viewModel.userName}"
                                 android:textColor="@color/text_black"
                                 android:fontFamily="@font/noto_sans_bold"
                                 android:textSize="18sp"/>
@@ -79,7 +81,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="xogns0520@daum.net"
+                            android:text="@{viewModel.userEmail}"
                             android:textColor="@color/text_gray"
                             android:textSize="14sp"
                             android:fontFamily="@font/noto_sans"/>
@@ -91,7 +93,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="36dp"
                     android:layout_marginHorizontal="30dp"
-                    android:text="회원정보"
+                    android:text="@string/user_info"
                     android:fontFamily="@font/noto_sans_bold"
                     android:textColor="@color/black"
                     android:textSize="15sp"/>
@@ -108,6 +110,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginHorizontal="30dp"
+                    android:background="?android:attr/selectableItemBackground"
                     android:gravity="center_vertical">
 
                      <ImageView
@@ -121,7 +124,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_marginHorizontal="12dp"
-                        android:text="회원정보 수정"
+                        android:text="@string/edit_user_info"
                         android:fontFamily="@font/noto_sans"
                         android:textColor="@color/text_black"
                         android:textSize="14sp"/>
@@ -143,6 +146,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginHorizontal="30dp"
+                    android:background="?android:attr/selectableItemBackground"
                     android:gravity="center_vertical">
 
                     <ImageView
@@ -156,7 +160,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_marginHorizontal="12dp"
-                        android:text="저장된 식물"
+                        android:text="@string/liked_plants"
                         android:fontFamily="@font/noto_sans"
                         android:textColor="@color/text_black"
                         android:textSize="14sp"/>
@@ -172,7 +176,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="56dp"
                     android:layout_marginHorizontal="30dp"
-                    android:text="푸시알림"
+                    android:text="@string/notification"
                     android:fontFamily="@font/noto_sans_bold"
                     android:textColor="@color/black"
                     android:textSize="15sp"/>
@@ -202,7 +206,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_marginHorizontal="12dp"
-                        android:text="물주기 푸시알림"
+                        android:text="@string/watering_notification"
                         android:fontFamily="@font/noto_sans"
                         android:textColor="@color/text_black"
                         android:textSize="14sp"/>
