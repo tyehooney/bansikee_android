@@ -3,6 +3,7 @@ package com.tomasandfriends.bansikee.src.activities.main.fragment_my_garden
 import android.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
+import androidx.navigation.fragment.findNavController
 import com.tomasandfriends.bansikee.R
 import com.tomasandfriends.bansikee.databinding.FragmentMyGardenBinding
 import com.tomasandfriends.bansikee.src.activities.base.BaseFragment
@@ -20,6 +21,10 @@ class MyGardenFragment: BaseFragment<FragmentMyGardenBinding, MyGardenViewModel>
 
         viewModel.searchingWord.observe(viewLifecycleOwner, {
             viewModel.search(it)
+        })
+
+        viewModel.goEncyclopediaEvent.observe(viewLifecycleOwner, {
+            findNavController().navigate(R.id.encyclopedia)
         })
 
         viewModel.deleteMyPlantClickEvent.observe(viewLifecycleOwner, {

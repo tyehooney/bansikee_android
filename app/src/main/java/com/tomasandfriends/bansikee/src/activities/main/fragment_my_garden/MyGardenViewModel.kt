@@ -26,6 +26,9 @@ class MyGardenViewModel : BaseViewModel(), MyGardenView, MyPlantAdapter.DeleteMy
     private val _getMyPlantsLoading = MutableLiveData(true)
     val getMyPlantsLoading: LiveData<Boolean> = _getMyPlantsLoading
 
+    private val _goEncyclopediaEvent = SingleLiveEvent<Void?>()
+    val goEncyclopediaEvent: LiveData<Void?> = _goEncyclopediaEvent
+
     private val _deleteMyPlantClickEvent = SingleLiveEvent<Int>()
     val deleteMyPlantClickEvent: LiveData<Int> = _deleteMyPlantClickEvent
 
@@ -49,6 +52,10 @@ class MyGardenViewModel : BaseViewModel(), MyGardenView, MyPlantAdapter.DeleteMy
     override fun getMyPlantsFailed(msg: String?) {
         _getMyPlantsLoading.value = false
         _snackbarMessage.value = msg ?: ApplicationClass.NETWORK_ERROR
+    }
+
+    fun goEncyclopediaClick(){
+        _goEncyclopediaEvent.value = null
     }
 
     override fun onDeleteClick(myPlantIdx: Int) {
