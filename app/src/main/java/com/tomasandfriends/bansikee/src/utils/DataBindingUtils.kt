@@ -222,11 +222,12 @@ object DataBindingUtils {
     @JvmStatic
     fun setPlantAdapter(view: RecyclerView,
                         itemViewModels: LiveData<List<PlantItemViewModel>>,
-                        viewModel: EncyclopediaViewModel){
+                        viewModel: EncyclopediaViewModel?){
         if (view.adapter == null){
             val plantAdapter = PlantAdapter(view.context,
                     (view.layoutManager as LinearLayoutManager).orientation == LinearLayout.HORIZONTAL)
-            plantAdapter.deleteSearchedPlantListener = viewModel
+            if (viewModel != null)
+                plantAdapter.deleteSearchedPlantListener = viewModel
             view.adapter = plantAdapter
         }
 

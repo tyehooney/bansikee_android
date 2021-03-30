@@ -50,6 +50,20 @@ class PlantAdapter(context: Context, horizontal: Boolean): RecyclerView.Adapter<
             holder.bind(itemViewModel)
         }
 
+        itemViewModel.goDetailsEvent.observe(mContext as LifecycleOwner, {
+            if(itemViewModel.deleteShowing.value!!) itemViewModel.setDeleteShowing(false)
+            else {
+                val intent = Intent(mContext, PlantDetailsActivity::class.java)
+                intent.putExtra("plantIdx", it)
+                intent.putExtra("status", "")
+                mContext.startActivity(intent)
+            }
+        })
+
+        itemViewModel.snackbarMessage.observe(mContext as LifecycleOwner, {
+            Snackbar.make(holder.itemView, it, Snackbar.LENGTH_SHORT).show()
+        })
+
         if (itemViewModel.deletable){
             holder.itemView.setOnLongClickListener {
                 for (item in mDataViewModels){
@@ -94,20 +108,6 @@ class PlantAdapter(context: Context, horizontal: Boolean): RecyclerView.Adapter<
         fun bind(viewModel: PlantItemViewModel){
             mBinding.viewModel = viewModel
             mBinding.lifecycleOwner = mContext as LifecycleOwner
-
-            viewModel.goDetailsEvent.observe(mContext as LifecycleOwner, {
-                if(viewModel.deleteShowing.value!!) viewModel.setDeleteShowing(false)
-                else {
-                    val intent = Intent(mContext, PlantDetailsActivity::class.java)
-                    intent.putExtra("plantIdx", it)
-                    intent.putExtra("status", "")
-                    mContext.startActivity(intent)
-                }
-            })
-
-            viewModel.snackbarMessage.observe(mContext as LifecycleOwner, {
-                Snackbar.make(itemView, it, Snackbar.LENGTH_SHORT).show()
-            })
         }
     }
 }

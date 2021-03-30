@@ -2,7 +2,7 @@ package com.tomasandfriends.bansikee.src.common.interfaces
 
 import com.tomasandfriends.bansikee.src.common.models.NicknameBody
 import com.tomasandfriends.bansikee.src.common.models.BooleanResponse
-import com.tomasandfriends.bansikee.src.common.models.RecommendationResponse
+import com.tomasandfriends.bansikee.src.common.models.PlantsResponse
 import com.tomasandfriends.bansikee.src.common.models.DefaultResponse
 import retrofit2.Call
 import retrofit2.http.Body
@@ -14,7 +14,11 @@ interface CommonRetrofitInterface {
 
     //get recommendations
     @GET("/recommendation")
-    fun getRecommendations(): Call<RecommendationResponse>
+    fun getRecommendations(): Call<PlantsResponse>
+
+    //get liking plants
+    @GET("/plants-like")
+    fun getLikingPlants(): Call<PlantsResponse>
 
     //change plant like status
     @POST("/plant/{plantIdx}/like")

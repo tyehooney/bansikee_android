@@ -7,6 +7,7 @@ import com.tomasandfriends.bansikee.R
 import com.tomasandfriends.bansikee.databinding.FragmentMyPageBinding
 import com.tomasandfriends.bansikee.src.activities.base.BaseFragment
 import com.tomasandfriends.bansikee.src.activities.edit_user_info.EditUserInfoActivity
+import com.tomasandfriends.bansikee.src.activities.liking_plants.LikingPlantsActivity
 
 class MyPageFragment: BaseFragment<FragmentMyPageBinding, MyPageViewModel>() {
 
@@ -24,7 +25,7 @@ class MyPageFragment: BaseFragment<FragmentMyPageBinding, MyPageViewModel>() {
         })
 
         viewModel.goMyLikingPlantsEvent.observe(viewLifecycleOwner, {
-
+            startActivity(Intent(requireContext(), LikingPlantsActivity::class.java))
         })
     }
 

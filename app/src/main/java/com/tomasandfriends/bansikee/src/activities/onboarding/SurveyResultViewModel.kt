@@ -8,11 +8,11 @@ import com.tomasandfriends.bansikee.src.SingleLiveEvent
 import com.tomasandfriends.bansikee.src.activities.base.BaseViewModel
 import com.tomasandfriends.bansikee.src.common.adapters.PlantAdapter
 import com.tomasandfriends.bansikee.src.common.models.PlantData
-import com.tomasandfriends.bansikee.src.common.interfaces.RecommendationView
+import com.tomasandfriends.bansikee.src.common.interfaces.PlantsView
 import com.tomasandfriends.bansikee.src.common.adapters.PlantItemViewModel
-import com.tomasandfriends.bansikee.src.common.services.RecommendationService
+import com.tomasandfriends.bansikee.src.common.services.PlantsService
 
-class SurveyResultViewModel: BaseViewModel(), RecommendationView, PlantAdapter.DeleteSearchedPlantListener {
+class SurveyResultViewModel: BaseViewModel(), PlantsView, PlantAdapter.DeleteSearchedPlantListener {
 
     private val _surveyResultItems = MutableLiveData<List<PlantItemViewModel>>()
     val surveyResultItems: LiveData<List<PlantItemViewModel>> = _surveyResultItems
@@ -23,7 +23,7 @@ class SurveyResultViewModel: BaseViewModel(), RecommendationView, PlantAdapter.D
     private val _onboardAgainEvent = SingleLiveEvent<Void?>()
     val onboardAgainEvent: LiveData<Void?> = _onboardAgainEvent
 
-    private val surveyResultService = RecommendationService(this)
+    private val surveyResultService = PlantsService(this)
 
     val onBoarded = mSharedPreferences!!.getBoolean("onboarded", false)
 
@@ -40,9 +40,9 @@ class SurveyResultViewModel: BaseViewModel(), RecommendationView, PlantAdapter.D
         _onboardAgainEvent.value = null
     }
 
-    override fun getRecommendationsSuccess(recommendations: List<PlantData>) {
+    override fun getPlantsSuccess(plants: List<PlantData>) {
         val itemViewModels = ArrayList<PlantItemViewModel>()
-        for(plantData in recommendations){
+        for(plantData in plants){
             itemViewModels.add(PlantItemViewModel(plantData))
         }
 
@@ -50,7 +50,7 @@ class SurveyResultViewModel: BaseViewModel(), RecommendationView, PlantAdapter.D
         _surveyResultLoading.value = false
     }
 
-    override fun getRecommendationsFailed(msg: String?) {
+    override fun getPlantsFailed(msg: String?) {
         _surveyResultLoading.value = false
         _snackbarMessage.value = msg ?: ApplicationClass.NETWORK_ERROR
     }
