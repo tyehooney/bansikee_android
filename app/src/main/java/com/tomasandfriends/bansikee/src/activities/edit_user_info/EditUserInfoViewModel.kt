@@ -19,10 +19,10 @@ import java.io.File
 
 class EditUserInfoViewModel: BaseViewModel(), CheckNicknameView, EditUserInfoView {
 
-    private val _editProfileImg = _userImg
+    private val _editProfileImg = MutableLiveData(userImg.value!!)
     val editProfileImg: LiveData<String?> = _editProfileImg
 
-    val editNickname = _userName
+    val editNickname = MutableLiveData(userName.value!!)
     private val originalNickname = userName.value!!
     private var lastCheckedNickname = userName.value!!
 
