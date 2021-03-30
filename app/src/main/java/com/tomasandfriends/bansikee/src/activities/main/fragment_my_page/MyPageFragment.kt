@@ -2,8 +2,16 @@ package com.tomasandfriends.bansikee.src.activities.main.fragment_my_page
 
 import android.app.AlertDialog
 import android.content.Intent
+import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+import com.kakao.sdk.user.UserApiClient
+import com.tomasandfriends.bansikee.ApplicationClass
 import com.tomasandfriends.bansikee.R
 import com.tomasandfriends.bansikee.databinding.FragmentMyPageBinding
 import com.tomasandfriends.bansikee.src.activities.base.BaseFragment
@@ -34,26 +42,49 @@ class MyPageFragment: BaseFragment<FragmentMyPageBinding, MyPageViewModel>() {
             AlertDialog.Builder(requireContext())
                 .setTitle(R.string.logout)
                 .setMessage(R.string.ask_before_logout)
-                .setPositiveButton(R.string.yes) {_,_ ->
-                    viewModel.logout()
+                .setPositiveButton(R.string.yes) { _, _ ->
+                    disconnectAll()
+                    Toast.makeText(requireContext(), R.string.logout_finished, Toast.LENGTH_SHORT).show()
+                    backToLogin()
                 }.setNegativeButton(R.string.no, null)
                 .create().show()
-        })
-
-        viewModel.logoutFinishEvent.observe(viewLifecycleOwner, {
-            val intent = Intent(requireContext(), LoginActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-            requireContext().startActivity(intent)
         })
 
         viewModel.withdrawalClickEvent.observe(viewLifecycleOwner, {
             AlertDialog.Builder(requireContext())
                 .setTitle(R.string.withdrawal)
                 .setMessage(R.string.notice_withdrawal)
-                .setPositiveButton(R.string.yes) {_,_ ->}
-                .setNegativeButton(R.string.no, null)
+                .setPositiveButton(R.string.yes) {_,_ ->
+                    viewModel.withdrawal()
+                }.setNegativeButton(R.string.no, null)
                 .create().show()
+        })
+
+        viewModel.withdrawalFinishEvent.observe(viewLifecycleOwner, {
+            disconnectAll()
+            backToLogin()
         })
     }
 
+    private fun disconnectAll(){
+        UserApiClient.instance.unlink { error ->
+            if (error != null)
+                Log.e("Kakao logout"," logout failed", error)
+            else
+                Log.i("Kakao logout", "logout success")
+        }
+
+        Firebase.auth.signOut()
+
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build()
+        GoogleSignIn.getClient(requireContext(), gso)?.revokeAccess()
+    }
+
+    private fun backToLogin(){
+        ApplicationClass.mSharedPreferences!!.edit().clear().apply()
+
+        val intent = Intent(requireContext(), LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+        requireContext().startActivity(intent)
+    }
 }

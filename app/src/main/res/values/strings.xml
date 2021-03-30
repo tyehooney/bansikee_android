@@ -136,4 +136,5 @@
     <string name="withdrawal">회원 탈퇴</string>
     <string name="ask_before_logout">로그아웃하시겠습니까?</string>
     <string name="notice_withdrawal">회원탈퇴를 하시면 기존 회원정보와 반식이에 대한 기록까지 삭제됩니다.\n\n탈퇴하시겠습니까?</string>
+    <string name="logout_finished">로그아웃 완료</string>
 </resources>
