@@ -43,7 +43,7 @@ class MyPageFragment: BaseFragment<FragmentMyPageBinding, MyPageViewModel>() {
                 .setTitle(R.string.logout)
                 .setMessage(R.string.ask_before_logout)
                 .setPositiveButton(R.string.yes) { _, _ ->
-                    disconnectAll()
+                    disconnectAll(false)
                     Toast.makeText(requireContext(), R.string.logout_finished, Toast.LENGTH_SHORT).show()
                     backToLogin()
                 }.setNegativeButton(R.string.no, null)
@@ -61,23 +61,22 @@ class MyPageFragment: BaseFragment<FragmentMyPageBinding, MyPageViewModel>() {
         })
 
         viewModel.withdrawalFinishEvent.observe(viewLifecycleOwner, {
-            disconnectAll()
+            disconnectAll(true)
             backToLogin()
         })
     }
 
-    private fun disconnectAll(){
-        UserApiClient.instance.unlink { error ->
-            if (error != null)
-                Log.e("Kakao logout"," logout failed", error)
-            else
-                Log.i("Kakao logout", "logout success")
-        }
+    private fun disconnectAll(withdrawal: Boolean){
+        val kakaoClient = UserApiClient.instance
+        if (withdrawal) kakaoClient.unlink {}
+        else kakaoClient.logout {}
 
         Firebase.auth.signOut()
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build()
-        GoogleSignIn.getClient(requireContext(), gso)?.revokeAccess()
+        val googleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
+        if (withdrawal) googleSignInClient?.revokeAccess()
+        else googleSignInClient?.signOut()
     }
 
     private fun backToLogin(){
