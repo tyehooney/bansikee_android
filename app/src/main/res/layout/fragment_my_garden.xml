@@ -90,7 +90,7 @@
                     android:visibility="@{viewModel.searchOn ? View.GONE : View.VISIBLE}"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     android:paddingHorizontal="30dp"
-                    android:layout_marginTop="40dp"
+                    android:paddingVertical="40dp"
                     android:clipToPadding="false"
                     android:overScrollMode="never"/>
 
@@ -103,7 +103,7 @@
                     android:visibility="@{viewModel.searchOn ? View.VISIBLE : View.GONE}"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     android:paddingHorizontal="30dp"
-                    android:layout_marginTop="40dp"
+                    android:paddingVertical="40dp"
                     android:clipToPadding="false"
                     android:overScrollMode="never"/>
 
