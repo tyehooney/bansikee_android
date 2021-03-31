@@ -17,21 +17,48 @@
         android:background="@color/background_splash_light"
         android:paddingHorizontal="30dp">
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:paddingVertical="5dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_filter_list"/>
+
+            <Spinner
+                android:id="@+id/spinner_filter"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="5dp"
+                searchingFilter="@{viewModel}"
+                android:spinnerMode="dropdown"/>
+        </LinearLayout>
+
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ProgressBar
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingVertical="40dp"
-                android:layout_marginTop="50dp"
-                android:visibility="@{viewModel.searchingLoading ? View.VISIBLE: View.GONE}"/>
+                android:layout_marginTop="10dp">
+
+                <ProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:visibility="@{viewModel.searchingLoading ? View.VISIBLE: View.GONE}"/>
+            </RelativeLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingTop="50dp"
+                android:paddingTop="10dp"
                 android:clipToPadding="false"
                 pagingPlantItems="@{viewModel.searchedPlantItems}"
                 listeningViewModel="@{viewModel}"

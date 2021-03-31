@@ -1,7 +1,5 @@
 package com.tomasandfriends.bansikee.src.activities.main.fragment_encyclopedia
 
-import android.os.Handler
-import android.os.Looper
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.tomasandfriends.bansikee.ApplicationClass
@@ -19,6 +17,8 @@ class EncyclopediaViewModel : BaseViewModel(), PlantsView, EncyclopediaView, Pla
     val searchingWord = MutableLiveData("")
     var lastSearchingWord = ""
     private var searchPage = 1
+    var filterIdx = 0
+    private val arrSortBy = arrayOf("popularity", "name")
     private val _forRefreshing = MutableLiveData(true)
     val forRefreshing: LiveData<Boolean> = _forRefreshing
 
@@ -103,7 +103,6 @@ class EncyclopediaViewModel : BaseViewModel(), PlantsView, EncyclopediaView, Pla
 
     fun searchPlantsClick(){
         lastSearchingWord = searchingWord.value!!
-        searchPage = 1
         _searchPlantsEvent.value = null
     }
 
@@ -111,14 +110,19 @@ class EncyclopediaViewModel : BaseViewModel(), PlantsView, EncyclopediaView, Pla
         _searchingLoading.value = true
         _forRefreshing.value = true
         for(i in 1..searchPage)
-            encyclopediaService.getSearchedPlants(lastSearchingWord, i, "popularity")
+            encyclopediaService.getSearchedPlants(lastSearchingWord, i, arrSortBy[filterIdx])
+    }
+
+    fun changeFilter(filterIdx: Int){
+        searchPage = 1
+        this.filterIdx = filterIdx
+        searchPlants()
     }
 
     fun onLoadMore(){
-        Handler(Looper.myLooper()!!).postDelayed({
-            _forRefreshing.value = false
-            encyclopediaService.getSearchedPlants(lastSearchingWord, ++searchPage, "popularity")
-        }, 500)
+        _forRefreshing.value = false
+        searchPage += 1
+        encyclopediaService.getSearchedPlants(lastSearchingWord, searchPage, arrSortBy[filterIdx])
     }
 
     override fun getSearchedPlantsSuccess(loadedPage: Int, searchedPlants: List<PlantData>) {

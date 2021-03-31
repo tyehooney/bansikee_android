@@ -37,7 +37,10 @@ class SearchResultFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
+    }
 
+    override fun onResume() {
+        super.onResume()
         viewModel.searchPlants()
     }
 }

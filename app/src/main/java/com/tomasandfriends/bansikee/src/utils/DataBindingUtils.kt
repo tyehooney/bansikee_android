@@ -1,6 +1,8 @@
 package com.tomasandfriends.bansikee.src.utils
 
 import android.graphics.Typeface
+import android.os.Handler
+import android.os.Looper
 import android.view.Gravity.CENTER
 import android.view.KeyEvent
 import android.view.View
@@ -9,10 +11,7 @@ import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.EditorInfo
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LifecycleOwner
@@ -263,11 +262,10 @@ object DataBindingUtils {
 
                 view.addOnScrollListener(object: RecyclerView.OnScrollListener() {
                     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                        super.onScrolled(recyclerView, dx, dy)
-
                         val lastVisiblePosition =
                                 (view.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
                         if (lastVisiblePosition == mAdapter.itemCount-1){
+                            Thread.sleep(300)
                             viewModel.onLoadMore()
                         }
                     }
@@ -411,5 +409,27 @@ object DataBindingUtils {
         } else if(view.animation != null && view.animation.fillAfter) {
             view.startAnimation(animSmall)
         }
+    }
+
+    @BindingAdapter("searchingFilter")
+    @JvmStatic
+    fun setFilterSpinner(spinner: Spinner, viewModel: EncyclopediaViewModel){
+
+        val mContext = spinner.context
+
+        val filterList = arrayOf(mContext.getString(R.string.filter_popularity), mContext.getString(R.string.filter_name))
+
+        spinner.adapter =
+                ArrayAdapter(mContext, android.R.layout.simple_spinner_dropdown_item, filterList)
+
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                viewModel.changeFilter(position)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+
+        spinner.setSelection(viewModel.filterIdx)
     }
 }
