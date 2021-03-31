@@ -2,6 +2,13 @@ package com.tomasandfriends.bansikee.src.common.models
 
 import com.google.gson.annotations.SerializedName
 
+class PlantsResponse: DefaultResponse(){
+
+    @SerializedName("data")
+    var plantDataList = ArrayList<PlantData>()
+
+}
+
 class PlantData{
 
     @SerializedName("count")

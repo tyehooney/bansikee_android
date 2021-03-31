@@ -12,7 +12,6 @@ import com.tomasandfriends.bansikee.src.activities.base.BaseViewModel
 import com.tomasandfriends.bansikee.src.activities.diary.interfaces.DiaryView
 import com.tomasandfriends.bansikee.src.activities.diary.models.AddDiaryBody
 import com.tomasandfriends.bansikee.src.activities.diary.models.DiaryDetailsData
-import com.tomasandfriends.bansikee.src.activities.diary.models.DiaryPicturesData
 import com.tomasandfriends.bansikee.src.utils.SystemUtils.getDayOfWeek
 import java.io.File
 import java.util.*
@@ -74,7 +73,7 @@ class DiaryViewModel: BaseViewModel(), DiaryView {
 
     override fun getDiaryDetailsSuccess(diaryDetails: DiaryDetailsData) {
         diaryContents.value = diaryDetails.contents
-        _diaryImages.value = diaryDetails.diaryPictures.imgUrls
+        _diaryImages.value = diaryDetails.diaryPictures
         _dDay.value = diaryDetails.dayFromStart+1
         _height.value = diaryDetails.height
         _nickname.value = diaryDetails.nickname
@@ -131,7 +130,7 @@ class DiaryViewModel: BaseViewModel(), DiaryView {
                         uploadedImgUrls.add(it.toString())
                         if (i == diaryImages.value!!.size-1){
                             val addDiaryBody = AddDiaryBody(myPlantIdx,
-                                    DiaryPicturesData(uploadedImgUrls),
+                                    uploadedImgUrls,
                                     weather.value!!,
                                     height.value!!,
                                     strWatered,
@@ -144,7 +143,7 @@ class DiaryViewModel: BaseViewModel(), DiaryView {
             }
         } else {
             val addDiaryBody = AddDiaryBody(myPlantIdx,
-                    DiaryPicturesData(ArrayList()),
+                    ArrayList(),
                     weather.value!!,
                     height.value!!,
                     strWatered,
