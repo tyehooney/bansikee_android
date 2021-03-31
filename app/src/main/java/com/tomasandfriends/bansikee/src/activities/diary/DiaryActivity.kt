@@ -94,6 +94,7 @@ class DiaryActivity: BaseActivity<ActivityDiaryBinding, DiaryViewModel>() {
                 .setTitle(R.string.get_photo_from)
                 .setItems(arrayOf(getString(R.string.choose_from_album),
                         getString(R.string.take_photo_from_cam),
+                        getString(R.string.set_default_image_all),
                         getString(R.string.cancel))) { _, which ->
                     when(which){
                         0 -> {
@@ -108,6 +109,10 @@ class DiaryActivity: BaseActivity<ActivityDiaryBinding, DiaryViewModel>() {
                             tmpUri = FileUtils.createCacheFile(this)
                             cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, tmpUri)
                             cameraResultLauncher.launch(cameraIntent)
+                        }
+
+                        2 -> {
+                            viewModel.setPhotos(ArrayList())
                         }
                     }
                 }.create().show()

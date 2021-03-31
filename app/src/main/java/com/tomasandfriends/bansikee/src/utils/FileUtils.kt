@@ -19,7 +19,7 @@ import java.lang.Exception
 
 object FileUtils {
 
-    private const val MAX_IMAGE_SIZE = 500 * 1024
+    private const val MAX_IMAGE_SIZE = 1200 * 1024
     const val FILE_PROVIDER_AUTHORITY = "com.tomasandfriends.bansikee.fileprovider"
 
     fun createCacheFile(context: Context): Uri{
