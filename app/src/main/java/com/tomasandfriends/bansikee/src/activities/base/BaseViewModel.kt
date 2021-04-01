@@ -37,6 +37,10 @@ open class BaseViewModel : ViewModel() {
         _loading.value = b
     }
 
+    fun setToast(str: String){
+        _toastMessage.value = str
+    }
+
     fun clearInput(){
         _clearInput.value = null
     }
