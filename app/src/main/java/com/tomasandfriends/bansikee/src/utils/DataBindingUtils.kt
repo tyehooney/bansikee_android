@@ -261,7 +261,7 @@ object DataBindingUtils {
                     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                         val lastVisiblePosition =
                                 (view.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
-                        if (lastVisiblePosition == mAdapter.itemCount-1){
+                        if (itemViewModels.value!!.size >= 10 && lastVisiblePosition == mAdapter.itemCount-1){
                             Thread.sleep(300)
                             viewModel.onLoadMore()
                         }
@@ -395,6 +395,7 @@ object DataBindingUtils {
         }
     }
 
+    //weather check button click listener
     @BindingAdapter("weatherClick")
     @JvmStatic
     fun setWeatherClick(view: ImageView, strWeather: String){
@@ -408,6 +409,7 @@ object DataBindingUtils {
         }
     }
 
+    //searching filter in Encyclopedia
     @BindingAdapter("searchingFilter")
     @JvmStatic
     fun setFilterSpinner(spinner: Spinner, viewModel: EncyclopediaViewModel){
@@ -428,5 +430,23 @@ object DataBindingUtils {
         }
 
         spinner.setSelection(viewModel.filterIdx)
+    }
+
+    //set clear text button
+    @BindingAdapter("clearTextButton")
+    @JvmStatic
+    fun setClearTextButton(view: View, text: MutableLiveData<String>){
+
+        view.visibility =
+                if(text.value.isNullOrEmpty())
+                    View.GONE
+                else
+                    View.VISIBLE
+
+        if (!view.hasOnClickListeners()){
+            view.setOnClickListener {
+                text.value = ""
+            }
+        }
     }
 }

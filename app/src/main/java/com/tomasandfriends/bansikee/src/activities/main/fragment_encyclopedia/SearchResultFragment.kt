@@ -38,9 +38,4 @@ class SearchResultFragment: Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
     }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        viewModel.searchingWord.value = ""
-    }
 }

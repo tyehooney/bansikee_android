@@ -106,7 +106,7 @@ class EncyclopediaViewModel : BaseViewModel(), PlantsView, EncyclopediaView, Pla
         _searchPlantsEvent.value = null
     }
 
-    fun searchPlants(){
+    private fun searchPlants(){
         _searchingLoading.value = true
         _forRefreshing.value = true
         for(i in 1..searchPage)

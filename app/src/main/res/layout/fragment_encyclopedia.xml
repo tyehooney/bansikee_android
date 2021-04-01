@@ -166,8 +166,9 @@
                     android:src="@drawable/ic_search"/>
 
                 <EditText
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:layout_marginStart="10dp"
                     android:background="@android:color/transparent"
                     android:hint="@string/search_hint"
@@ -177,6 +178,13 @@
                     searchingViewModel="@{viewModel}"
                     android:textSize="14sp"
                     android:fontFamily="@font/noto_sans" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
+                    android:src="@drawable/ic_cancel"
+                    clearTextButton="@{viewModel.searchingWord}"/>
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>
