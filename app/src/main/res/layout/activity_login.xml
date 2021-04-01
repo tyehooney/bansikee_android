@@ -141,21 +141,23 @@
                     android:orientation="horizontal"
                     android:gravity="center">
 
-                    <TextView
-                        android:id="@+id/tv_btn_find_pw"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="5dp"
-                        android:fontFamily="@font/noto_sans"
-                        android:text="@string/forgot_password"
-                        android:textColor="@color/text_gray"
-                        android:textSize="12sp"/>
+<!--                    to be developed later-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="/"
-                        android:textColor="@color/text_gray" />
+<!--                    <TextView-->
+<!--                        android:id="@+id/tv_btn_find_pw"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:padding="5dp"-->
+<!--                        android:fontFamily="@font/noto_sans"-->
+<!--                        android:text="@string/forgot_password"-->
+<!--                        android:textColor="@color/text_gray"-->
+<!--                        android:textSize="12sp"/>-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="/"-->
+<!--                        android:textColor="@color/text_gray" />-->
 
                     <TextView
                         android:id="@+id/tv_btn_sign_up"
@@ -251,7 +253,7 @@
                     android:layout_centerInParent="true">
 
                     <ImageView
-                        android:layout_width="wrap_content"
+                        android:layout_width="22dp"
                         android:layout_height="22dp"
                         android:layout_gravity="center_vertical"
                         android:src="@drawable/google_account_logo" />
