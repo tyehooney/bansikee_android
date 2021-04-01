@@ -30,7 +30,7 @@ class ApplicationClass : Application() {
         const val SP_TAG = "SP_BANSIKEE"
 
         //Base URL
-        const val BASE_URL = "http://3.34.126.187/"
+        const val BASE_URL = "https://www.bansikee.site/"
 
         // JWT Token Key
         const val X_ACCESS_TOKEN : String = "X-AUTH-TOKEN"
