@@ -18,8 +18,7 @@
 
         <include
             layout="@layout/layout_header"
-            app:viewModel="@{viewModel}"
-            app:newNoti="@{true}"/>
+            app:viewModel="@{viewModel}" />
 
         <LinearLayout
             android:layout_width="match_parent"

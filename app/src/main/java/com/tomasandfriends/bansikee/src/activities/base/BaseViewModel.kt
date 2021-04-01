@@ -3,6 +3,7 @@ package com.tomasandfriends.bansikee.src.activities.base
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.tomasandfriends.bansikee.ApplicationClass.Companion.NEW_NOTI
 import com.tomasandfriends.bansikee.ApplicationClass.Companion.USER_EMAIL
 import com.tomasandfriends.bansikee.ApplicationClass.Companion.USER_IMG
 import com.tomasandfriends.bansikee.ApplicationClass.Companion.USER_NAME
@@ -22,6 +23,8 @@ open class BaseViewModel : ViewModel() {
     val finishEvent: LiveData<Void?> get() = _finishEvent
     protected val _clearInput = SingleLiveEvent<Void?>()
     val clearInput: LiveData<Void?> get() = _clearInput
+    protected val _newNoti = MutableLiveData(mSharedPreferences!!.getBoolean(NEW_NOTI, false))
+    val newNoti: LiveData<Boolean> = _newNoti
 
     protected val _userEmail = MutableLiveData(mSharedPreferences!!.getString(USER_EMAIL, ""))
     val userEmail: LiveData<String?> = _userEmail
@@ -32,14 +35,6 @@ open class BaseViewModel : ViewModel() {
 
     fun setLoading(b : Boolean){
         _loading.value = b
-    }
-
-    fun setSnackbarMessage(str : String){
-        _snackbarMessage.value = str
-    }
-
-    fun setToastMessage(str : String){
-        _toastMessage.value = str
     }
 
     fun clearInput(){
@@ -58,5 +53,6 @@ open class BaseViewModel : ViewModel() {
         _userEmail.value = mSharedPreferences!!.getString(USER_EMAIL, "")
         _userName.value = mSharedPreferences!!.getString(USER_NAME, "")
         _userImg.value = mSharedPreferences!!.getString(USER_IMG, "")
+        _newNoti.value = mSharedPreferences!!.getBoolean(NEW_NOTI, false)
     }
 }

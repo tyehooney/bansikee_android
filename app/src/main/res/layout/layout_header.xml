@@ -6,10 +6,6 @@
         <variable
             name="viewModel"
             type="com.tomasandfriends.bansikee.src.activities.base.BaseViewModel" />
-
-        <variable
-            name="newNoti"
-            type="Boolean" />
     </data>
 
     <LinearLayout
@@ -32,16 +28,18 @@
             android:textColor="@color/title_text"
             android:textSize="18sp" />
 
+<!--        to be developed later-->
         <FrameLayout
             android:layout_width="20dp"
-            android:layout_height="20dp">
+            android:layout_height="20dp"
+            android:visibility="gone">
 
             <View
                 android:layout_width="4.4dp"
                 android:layout_height="4.4dp"
                 android:background="@drawable/badge_red"
                 android:layout_gravity="end"
-                android:visibility="@{newNoti ? View.VISIBLE : View.GONE}"/>
+                android:visibility="@{viewModel.newNoti ? View.VISIBLE : View.GONE}"/>
 
             <ImageView
                 android:layout_width="wrap_content"

@@ -38,6 +38,7 @@ class ApplicationClass : Application() {
         const val USER_EMAIL = "USER_EMAIL"
         const val USER_NAME = "USER_NAME"
         const val USER_IMG = "USER_IMG"
+        const val NEW_NOTI = "NEW_NOTI"
 
         val localDateTimeFormat = DateTimeFormatter.ofPattern("yyyy/MM/dd")
         @SuppressLint("SimpleDateFormat")
