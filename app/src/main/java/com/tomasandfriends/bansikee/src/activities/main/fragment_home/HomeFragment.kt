@@ -43,7 +43,7 @@ class HomeFragment: BaseFragment<FragmentHomeBinding, HomeViewModel>() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.getHomeData()
+        viewModel.callHomeData()
     }
 
     override fun onStop() {

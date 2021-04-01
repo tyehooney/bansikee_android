@@ -34,7 +34,7 @@ class HomeViewModel : BaseViewModel(), HomeView {
 
     private val homeService = HomeService(this)
 
-    fun getHomeData(){
+    fun callHomeData(){
         _loading.value = true
         homeService.getHomeData()
     }

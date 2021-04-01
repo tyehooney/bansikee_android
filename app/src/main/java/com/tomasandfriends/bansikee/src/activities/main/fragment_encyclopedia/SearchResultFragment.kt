@@ -39,8 +39,8 @@ class SearchResultFragment: Fragment() {
         binding.viewModel = viewModel
     }
 
-    override fun onResume() {
-        super.onResume()
-        viewModel.searchPlants()
+    override fun onDestroyView() {
+        super.onDestroyView()
+        viewModel.searchingWord.value = ""
     }
 }
