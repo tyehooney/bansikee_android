@@ -1,8 +1,6 @@
 package com.tomasandfriends.bansikee.src.utils
 
 import android.graphics.Typeface
-import android.os.Handler
-import android.os.Looper
 import android.view.Gravity.CENTER
 import android.view.KeyEvent
 import android.view.View
@@ -31,7 +29,6 @@ import com.tomasandfriends.bansikee.src.activities.main.fragment_my_garden.MyGar
 import com.tomasandfriends.bansikee.src.activities.my_plant_details.MyPlantDetailsViewModel
 import com.tomasandfriends.bansikee.src.activities.onboarding.OnboardingViewModel
 import com.tomasandfriends.bansikee.src.activities.onboarding.models.SurveyData
-import com.tomasandfriends.bansikee.src.activities.sign_up.SignUpViewModel
 import com.tomasandfriends.bansikee.src.common.adapters.*
 import com.tomasandfriends.bansikee.src.common.interfaces.CheckNicknameView
 import com.tomasandfriends.bansikee.src.utils.SystemUtils.convertDpToPx

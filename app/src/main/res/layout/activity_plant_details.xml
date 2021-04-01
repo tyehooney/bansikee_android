@@ -67,8 +67,8 @@
 
                     <ImageView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
+                        android:layout_height="match_parent"
+                        android:paddingHorizontal="10dp"
                         android:onClick="@{()->viewModel.likeClick()}"
                         android:src="@{viewModel.plantLike ? @drawable/ic_like : @drawable/ic_unlike}" />
                 </LinearLayout>

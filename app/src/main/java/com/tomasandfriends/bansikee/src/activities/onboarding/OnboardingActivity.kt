@@ -1,7 +1,5 @@
 package com.tomasandfriends.bansikee.src.activities.onboarding
 
-import android.os.Bundle
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import com.tomasandfriends.bansikee.R
 import com.tomasandfriends.bansikee.databinding.ActivityOnboardingBinding
@@ -37,10 +35,6 @@ class OnboardingActivity : BaseActivity<ActivityOnboardingBinding, OnboardingVie
                     .replace(R.id.onboarding_container, SurveyResultFragment())
                     .commit()
         })
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
     }
 
     override fun onBackPressed() {
