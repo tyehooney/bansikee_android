@@ -8,6 +8,14 @@ def localProperties = new Properties()
 localProperties.load(new FileInputStream(rootProject.file("local.properties")))
 
 android {
+    signingConfigs {
+        release {
+            storeFile file(localProperties['keyStoreFilePath'])
+            storePassword localProperties['keyStorePassword']
+            keyAlias localProperties['keyAlias']
+            keyPassword localProperties['keyStorePassword']
+        }
+    }
     compileSdkVersion 30
     buildToolsVersion "30.0.1"
 
@@ -33,7 +41,9 @@ android {
             resValue("string", "google_client_id", localProperties['googleClientId'])
 
             minifyEnabled false
+            debuggable true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
     compileOptions {

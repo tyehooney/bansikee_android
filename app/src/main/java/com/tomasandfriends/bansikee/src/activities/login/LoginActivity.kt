@@ -1,7 +1,6 @@
 package com.tomasandfriends.bansikee.src.activities.login
 
 import android.content.Intent
-import android.os.Bundle
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
@@ -18,10 +17,6 @@ import com.tomasandfriends.bansikee.src.activities.main.MainActivity
 import com.tomasandfriends.bansikee.src.activities.sign_up.SignUpActivity
 
 class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
-
-    companion object {
-        const val REQUEST_GOOGLE_SIGN_IN = 100
-    }
 
     private val TAG = javaClass.name
 
@@ -43,10 +38,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         })
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
     }
 
     // kakao login
