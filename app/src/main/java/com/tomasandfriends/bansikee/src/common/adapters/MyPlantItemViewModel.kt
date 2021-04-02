@@ -8,7 +8,7 @@ import com.tomasandfriends.bansikee.src.activities.main.models.MyPlantData
 
 class MyPlantItemViewModel(plantData: MyPlantData): ViewModel() {
 
-    private val myPlantIdx = plantData.plantIdx
+    val myPlantIdx = plantData.plantIdx
     val name = plantData.nickname
     val plantName = plantData.plantName
     val imgUrl = plantData.imgUrl

@@ -11,7 +11,7 @@ import com.tomasandfriends.bansikee.src.common.services.PlantItemService
 
 class PlantItemViewModel(plantData: PlantData): BaseViewModel(), PlantItemView {
 
-    private val plantIdx = plantData.plantIdx
+    val plantIdx = plantData.plantIdx
     val name = plantData.name
     val species = plantData.species
     val imgUrl = plantData.plantImgUrl

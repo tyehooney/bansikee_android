@@ -5,11 +5,13 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.tomasandfriends.bansikee.databinding.ItemPlantBinding
 import com.tomasandfriends.bansikee.databinding.ItemPlantHorizontalBinding
 import com.tomasandfriends.bansikee.src.activities.plant_details.PlantDetailsActivity
+import com.tomasandfriends.bansikee.src.utils.PlantDiffCallback
 
 class PlantAdapter(context: Context, horizontal: Boolean): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -84,9 +86,13 @@ class PlantAdapter(context: Context, horizontal: Boolean): RecyclerView.Adapter<
     }
 
     fun updateItems(items: List<PlantItemViewModel>){
+        val diffCallback = PlantDiffCallback(mDataViewModels, items)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+
         mDataViewModels.clear()
         mDataViewModels.addAll(items)
-        notifyDataSetChanged()
+
+        diffResult.dispatchUpdatesTo(this)
     }
 
     class PlantViewHolder(context: Context, binding: ItemPlantBinding)

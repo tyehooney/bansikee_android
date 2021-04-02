@@ -6,12 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.tomasandfriends.bansikee.databinding.ItemMoreBinding
 import com.tomasandfriends.bansikee.databinding.ItemPlantBinding
 import com.tomasandfriends.bansikee.databinding.ItemPlantHorizontalBinding
 import com.tomasandfriends.bansikee.src.activities.plant_details.PlantDetailsActivity
+import com.tomasandfriends.bansikee.src.utils.PlantDiffCallback
 
 class PagingPlantAdapter(context: Context): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -77,9 +79,13 @@ class PagingPlantAdapter(context: Context): RecyclerView.Adapter<RecyclerView.Vi
     }
 
     fun updateItems(items: List<PlantItemViewModel>){
+        val diffCallback = PlantDiffCallback(mDataViewModels, items)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+
         mDataViewModels.clear()
         mDataViewModels.addAll(items)
-        notifyDataSetChanged()
+
+        diffResult.dispatchUpdatesTo(this)
     }
 
     fun setLastPage(bool: Boolean){

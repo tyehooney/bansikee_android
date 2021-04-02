@@ -8,7 +8,7 @@ import com.tomasandfriends.bansikee.src.activities.my_plant_details.models.Simpl
 
 class DiaryItemViewModel(diaryData: SimpleDiaryData): ViewModel() {
 
-    private val diaryIdx = diaryData.diaryId
+    val diaryIdx = diaryData.diaryId
 
     val imageUrl = diaryData.dairyImgUrl
     val writeDate = diaryData.writeDate
