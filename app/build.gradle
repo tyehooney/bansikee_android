@@ -1,26 +1,49 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
+def localProperties = new Properties()
+localProperties.load(new FileInputStream(rootProject.file("local.properties")))
+
 android {
+    signingConfigs {
+        release {
+            storeFile file(localProperties['keyStoreFilePath'])
+            storePassword localProperties['keyStorePassword']
+            keyAlias localProperties['keyAlias']
+            keyPassword localProperties['keyStorePassword']
+        }
+    }
     compileSdkVersion 30
     buildToolsVersion "30.0.1"
 
     defaultConfig {
-        applicationId "com.softsquared.bansikee"
-        minSdkVersion 23
+        applicationId "com.tomasandfriends.bansikee"
+        minSdkVersion 26
         targetSdkVersion 30
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
+        debug {
+            resValue("string", "kakao_app_key", localProperties['kakaoAppKey'])
+            resValue("string", "kakao_redirect_uri", "kakao"+localProperties['kakaoAppKey'])
+            resValue("string", "google_client_id", localProperties['googleClientId'])
+        }
         release {
+            resValue("string", "kakao_app_key", localProperties['kakaoAppKey'])
+            resValue("string", "kakao_redirect_uri", "kakao"+localProperties['kakaoAppKey'])
+            resValue("string", "google_client_id", localProperties['googleClientId'])
+
             minifyEnabled false
+            debuggable false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
     compileOptions {
@@ -30,6 +53,12 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    buildFeatures{
+        dataBinding = true
+        viewBinding = true
+    }
+
 }
 
 dependencies {
@@ -37,9 +66,54 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.3.2'
     implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'com.google.android.material:material:1.3.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    testImplementation 'junit:junit:4.+'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.4'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.4'
+    testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    //databinding
+    kapt "com.android.databinding:compiler:3.2.0-alpha10"
+
+    // https://github.com/square/retrofit
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+
+    // https://github.com/square/okhttp
+    implementation("com.squareup.okhttp3:okhttp:4.9.0")
+
+    // https://github.com/square/retrofit/tree/master/retrofit-converters/gson
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
+    // Lifecycle components
+    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
+
+    implementation 'androidx.fragment:fragment-ktx:1.3.2'
+    implementation 'androidx.activity:activity-ktx:1.2.2'
+
+    //noinspection LifecycleAnnotationProcessorWithJava8
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.3.1"
+
+    implementation "com.kakao.sdk:v2-user:2.3.0"    //kakao login
+    implementation 'com.google.android.gms:play-services-auth:19.0.0'   //google login
+
+    //firebase
+    implementation platform('com.google.firebase:firebase-bom:26.5.0')
+    implementation 'com.google.firebase:firebase-auth-ktx'
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-storage'
+
+    //material design
+    implementation 'com.google.android.material:material:1.3.0'
+
+    //Glide
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+
+    //ted permission
+    implementation "gun0912.ted:tedpermission:2.1.0"
 }
+
+apply plugin: 'com.google.gms.google-services'

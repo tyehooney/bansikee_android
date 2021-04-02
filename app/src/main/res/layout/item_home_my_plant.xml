@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="viewModel"
+            type="com.tomasandfriends.bansikee.src.common.adapters.HomeMyPlantItemViewModel" />
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="8dp"
+        android:onClick="@{()->viewModel.itemClick()}"
+        android:background="@drawable/item_round_white_green">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/item_bg_round_home_my_plant"
+            android:padding="14dp">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                roundImgUrl="@{viewModel.myPlantImg}"
+                android:scaleType="centerCrop"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:text="@{viewModel.myPlantNickname}"
+                    android:fontFamily="@font/noto_sans_bold"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/noto_sans"
+                        android:textSize="12sp"
+                        android:text="@{viewModel.myPlantName}"/>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/white"
+                        android:layout_marginVertical="3dp"
+                        android:layout_marginHorizontal="6dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/noto_sans"
+                        android:textSize="12sp"
+                        android:text="@{viewModel.myPlantAge}"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="10dp"
+            android:gravity="top">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_plant_water"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="@{viewModel.myPlantLastWateredDay != null ? View.VISIBLE : View.GONE}"
+                android:orientation="vertical"
+                android:layout_marginStart="10dp">
+
+                <ProgressBar
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_marginVertical="5dp"
+                    android:max="@{viewModel.myPlantWaterCycle}"
+                    android:progress="@{viewModel.myPlantWateredDayTo}"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:progressDrawable="@drawable/progressbar_water"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.myPlantWateredDayTo &lt;= 0 ? @string/water_to_my_plant : String.format(@string/format_watered_day_to, viewModel.myPlantWateredDayTo)}"
+                    android:textColor="@color/main_green_light"
+                    android:textSize="12sp"
+                    android:gravity="end"
+                    android:fontFamily="@font/noto_sans_bold"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{String.format(@string/format_last_watered_day, viewModel.myPlantLastWateredDay)}"
+                    android:textColor="@color/text_gray"
+                    android:textSize="12sp"
+                    android:gravity="end"
+                    android:fontFamily="@font/noto_sans"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:gravity="center_vertical"
+                android:visibility="@{viewModel.myPlantLastWateredDay != null ? View.GONE : View.VISIBLE}"
+                android:textSize="12sp"
+                android:textColor="@color/text_black"
+                android:fontFamily="@font/noto_sans"
+                android:text="@string/water_to_my_plant"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="10dp"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_diary"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="10dp"
+                android:textSize="12sp"
+                android:textColor="@color/text_black"
+                android:fontFamily="@font/noto_sans"
+                android:text="@string/write_diary_today"/>
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="-20dp"
+                android:clickable="false"
+                android:checked="@{viewModel.didWriteDiaryToday}"/>
+        </LinearLayout>
+    </LinearLayout>
+</layout>

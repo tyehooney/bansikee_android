@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View"/>
+
+        <variable
+            name="viewModel"
+            type="com.tomasandfriends.bansikee.src.activities.main.fragment_encyclopedia.EncyclopediaViewModel" />
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_splash_light"
+        android:paddingHorizontal="30dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:paddingVertical="5dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_filter_list"/>
+
+            <Spinner
+                android:id="@+id/spinner_filter"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="5dp"
+                searchingFilter="@{viewModel}"
+                android:spinnerMode="dropdown"/>
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="40dp"
+                android:layout_marginTop="10dp">
+
+                <ProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:visibility="@{viewModel.searchingLoading ? View.VISIBLE: View.GONE}"/>
+            </RelativeLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="10dp"
+                android:clipToPadding="false"
+                pagingPlantItems="@{viewModel.searchedPlantItems}"
+                listeningViewModel="@{viewModel}"
+                refreshing="@{viewModel.forRefreshing}"
+                android:overScrollMode="never"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="40dp"
+                android:visibility="@{!viewModel.searchingLoading &amp;&amp; (viewModel.searchedPlantItems.empty || viewModel.searchedPlantItems == null) ? View.VISIBLE : View.GONE}"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:fontFamily="@font/noto_sans_bold"
+                android:text="@{String.format(@string/format_none_searching_results, viewModel.lastSearchingWord)}"/>
+        </FrameLayout>
+    </LinearLayout>
+</layout>

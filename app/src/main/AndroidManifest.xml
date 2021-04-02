@@ -1,21 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.softsquared.bansikee">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.tomasandfriends.bansikee">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
 
     <application
+        android:name=".ApplicationClass"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Bansikee">
-        <activity android:name=".MainActivity">
+        android:theme="@style/Theme.Bansikee"
+        android:usesCleartextTraffic="true">
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.tomasandfriends.bansikee.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <!-- Redirect URI: "kakao{NATIVE_APP_KEY}://oauth“ -->
+                <data
+                    android:host="oauth"
+                    android:scheme="@string/kakao_redirect_uri" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".src.activities.main.MainActivity"/>
+        <activity android:name=".src.activities.login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".src.activities.sign_up.SignUpActivity" />
+        <activity android:name=".src.activities.onboarding.OnboardingActivity" />
+        <activity android:name=".src.activities.plant_details.PlantDetailsActivity"/>
+        <activity android:name=".src.activities.add_my_plant.AddMyPlantActivity"/>
+        <activity android:name=".src.activities.my_plant_details.MyPlantDetailsActivity"/>
+        <activity android:name=".src.activities.diary.DiaryActivity"/>
+        <activity android:name=".src.activities.edit_user_info.EditUserInfoActivity"/>
+        <activity android:name=".src.activities.liking_plants.LikingPlantsActivity"/>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

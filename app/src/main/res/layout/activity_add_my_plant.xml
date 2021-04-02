@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View"/>
+
+        <variable
+            name="viewModel"
+            type="com.tomasandfriends.bansikee.src.activities.add_my_plant.AddMyPlantViewModel" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <include
+                layout="@layout/layout_header_contains_back"
+                viewModel="@{viewModel}"/>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/background_splash_light"
+                android:overScrollMode="never"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="30dp"
+                    android:paddingBottom="20dp"
+                    android:paddingHorizontal="30dp"
+                    android:orientation="vertical">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:onClick="@{()->viewModel.getPhoto()}"
+                        app:cardElevation="0dp"
+                        app:cardCornerRadius="10dp">
+
+                        <ImageView
+                            android:id="@+id/iv_my_plant"
+                            android:layout_width="match_parent"
+                            android:layout_height="270dp"
+                            android:maxHeight="270dp"
+                            android:background="@drawable/image_background"
+                            imgUrl="@{viewModel.plantImage}"
+                            android:scaleType="centerCrop"
+                            android:fitsSystemWindows="true" />
+                    </androidx.cardview.widget.CardView>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="17sp"
+                            android:text="@{viewModel.plantName}"
+                            android:fontFamily="@font/noto_sans_bold"
+                            android:textStyle="bold"
+                            android:textColor="@color/text_black"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:textSize="12sp"
+                            android:text="@{viewModel.plantSpecies}"
+                            android:fontFamily="@font/noto_sans"
+                            android:textColor="@color/text_gray"/>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="23dp"
+                        android:textSize="14sp"
+                        android:text="@string/name"
+                        android:fontFamily="@font/noto_sans_bold"
+                        android:textStyle="bold"
+                        android:textColor="@color/text_black"/>
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/hint_my_plant_name"
+                        android:singleLine="true"
+                        android:text="@={viewModel.myPlantName}"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/noto_sans_bold"
+                        android:inputType="text"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:textSize="14sp"
+                        android:text="@string/starting_date"
+                        android:fontFamily="@font/noto_sans_bold"
+                        android:textStyle="bold"
+                        android:textColor="@color/text_black"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:onClick="@{()->viewModel.setDateClick()}"
+                        android:layout_marginTop="5dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@{viewModel.dateFormat.format(viewModel.startDate)}"
+                            android:textColor="@color/text_black"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/noto_sans" />
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_edit"/>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginTop="3dp"
+                        android:background="@color/light_gray"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:textSize="14sp"
+                        android:text="@string/simple_plant_introduction"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/noto_sans_bold"
+                        android:textColor="@color/text_black"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="vertical"
+                        android:background="@drawable/item_round_white_green">
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@android:color/transparent"
+                            android:fontFamily="@font/noto_sans"
+                            android:gravity="top"
+                            android:hint="@string/hint_my_plant_introduction"
+                            android:minHeight="100dp"
+                            android:padding="15dp"
+                            android:text="@={viewModel.myPlantIntro}"
+                            android:textSize="14sp"
+                            android:textColor="@color/text_black" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:textSize="14sp"
+                        android:text="@string/watering_terms"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/noto_sans_bold"
+                        android:textColor="@color/text_black"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="bottom"
+                        android:layout_marginTop="5dp">
+
+                        <EditText
+                            android:layout_width="75dp"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberDecimal"
+                            android:fontFamily="@font/noto_sans"
+                            android:textSize="14sp"
+                            android:textColor="@color/text_black"
+                            android:singleLine="true"
+                            android:text="@={viewModel.wateringTerms}"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="일"
+                            android:fontFamily="@font/noto_sans"
+                            android:textColor="@color/text_black"
+                            android:textSize="14sp"/>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginTop="3dp"
+                        android:background="@color/light_gray"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="30dp"
+                        android:background="@drawable/btn_round_green"
+                        android:gravity="center"
+                        android:textColor="@color/white"
+                        android:onClick="@{()->viewModel.editMyPlantClick()}"
+                        android:fontFamily="@font/noto_sans_bold"
+                        android:paddingVertical="15dp"
+                        android:textSize="16sp"
+                        android:text="@{viewModel.myPlantIdx == 0 ? @string/add_my_plant : @string/edit_my_plant}"/>
+                </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
+
+        <include
+            layout="@layout/layout_loading"
+            viewModel="@{viewModel}"/>
+    </FrameLayout>
+</layout>
