@@ -83,7 +83,7 @@
 <!--                all my plants-->
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     myPlantItems="@{viewModel.myPlantItems}"
                     listeningViewModel="@{viewModel}"
                     android:visibility="@{viewModel.searchOn ? View.GONE : View.VISIBLE}"
@@ -96,7 +96,7 @@
 <!--                searched my plants-->
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     myPlantItems="@{viewModel.searchedMyPlantItems}"
                     listeningViewModel="@{viewModel}"
                     android:visibility="@{viewModel.searchOn ? View.VISIBLE : View.GONE}"
